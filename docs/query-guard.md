@@ -53,7 +53,7 @@ dạng không dấu, kể cả với từ `strict`.
 | Tên 11.735 thực thể + alias trong catalog | **0 bị chặn nhầm** |
 | 244 truy vấn benchmark | **0 bị chặn nhầm** |
 | 3 ví dụ của đề bài | Không bị chặn |
-| Mô tả ảnh (100.806 mô tả) | Quét lần đầu phát hiện 2 lỗi thật: `óc chó` (quả óc chó) và `cm` (centimet, do nén chữ lặp); đã sửa và thêm vào test |
+| Mô tả ảnh (100.806) và `metadata_text` (106.093) | **0 bị chặn nhầm** sau khi sửa. Lần quét đầu phát hiện 2 lỗi thật: `óc chó` (quả óc chó) và `cm` (centimet, do nén chữ lặp); đã sửa và thêm vào test |
 | Test | 55 ca trong `tests/test_query_guard.py` (chặn, lách luật, không chặn nhầm, hợp đồng API) |
 | Chi phí | ~1 ms / truy vấn |
 
