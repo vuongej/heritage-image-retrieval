@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1.7
-# Image backend production (VM Oracle ARM, chạy qua deploy/oracle/compose.yml). ~400 MB.
+# Image backend production (VM Azure, chạy qua deploy/vm/compose.yml). ~400 MB.
 #
 # Không có torch / BGE: server không có GPU; BGE-v2-m3 local mất ~26 s cho 24 ứng viên trên
 # 2 vCPU (đo bằng container --cpus 2), còn jina-reranker-v2 qua endpoint ~150–300 ms.

@@ -1,10 +1,10 @@
-# Production trên VM Oracle Always Free (Ubuntu 24.04 aarch64). CI chép file này vào ~/heritage
+# Production trên VM Ubuntu 24.04 (Azure for Students). CI chép file này vào ~/heritage
 # rồi chạy: TAG=<git sha> docker compose pull && docker compose up -d
 name: heritage
 
 services:
   api:
-    image: ${API_IMAGE:-ghcr.io/vuongej/heritage-image-retrieval/api}:${TAG:-latest}
+    image: ${API_IMAGE:-ghcr.io/vsf-ar-es-v-lookup/phamvanvuong_search_image/api}:${TAG:-latest}
     env_file: [.env]
     volumes:
       - ./data:/home/user/data # index tải từ HF dataset ở lần khởi động đầu, giữ lại giữa các lần deploy

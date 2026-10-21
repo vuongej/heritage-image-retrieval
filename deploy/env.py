@@ -38,7 +38,7 @@ def read_env(path: Path) -> dict[str, str]:
 def main() -> None:
     ap = argparse.ArgumentParser(prog="python -m deploy.env")
     ap.add_argument("--out", required=True, type=Path)
-    ap.add_argument("--domain", required=True, help="tên miền của API, ví dụ 1-2-3-4.sslip.io")
+    ap.add_argument("--domain", required=True, help="tên miền của API, ví dụ heritage-api.southeastasia.cloudapp.azure.com")
     ap.add_argument("--dataset", default="", help="HF dataset chứa index (mặc định <user>/heritage-data)")
     args = ap.parse_args()
 

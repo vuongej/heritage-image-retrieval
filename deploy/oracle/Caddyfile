@@ -1,5 +1,0 @@
-# HTTPS tự động (Let's Encrypt, dự phòng ZeroSSL) cho API_DOMAIN, ví dụ 1-2-3-4.sslip.io.
-{$API_DOMAIN} {
-	encode zstd gzip
-	reverse_proxy api:8000
-}
