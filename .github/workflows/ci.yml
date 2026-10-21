@@ -35,6 +35,8 @@ jobs:
           cache-dependency-path: requirements-local.lock.txt
       - run: pip install --extra-index-url https://download.pytorch.org/whl/cpu -r requirements-local.lock.txt
       - run: ruff check .
+      - name: Compile mọi module (bắt lỗi ruff không thấy, vd. byte NUL)
+        run: python -m compileall -q api retrieval storage pipeline deploy scripts evals loadtest
       - run: pytest -q --junitxml=test-results/junit.xml
       - if: always()
         uses: actions/upload-artifact@v4
