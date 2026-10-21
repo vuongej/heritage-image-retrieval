@@ -1,0 +1,100 @@
+@import 'tailwindcss';
+
+/* Design tokens — docs/UI_Capstone_v2/SKILL.md §2 */
+@theme {
+  --font-sans: 'Be Vietnam Pro', 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  --color-bg: #f8fafc;
+  --color-surface: #ffffff;
+  --color-text: #0f172a;
+  --color-muted: #64748b;
+  --color-border: #e2e8f0;
+  --color-brand-600: #4f46e5;
+  --color-brand-700: #4338ca;
+  --color-brand-50: #eef2ff;
+
+  --color-q-single: #2563eb;
+  --color-q-multi: #7c3aed;
+  --color-q-hop: #0e7490;
+
+  --color-mod-approved: #16a34a;
+  --color-mod-review: #f59e0b;
+  --color-mod-rejected: #dc2626;
+  --color-mod-nsfw: #db2777;
+  --color-mod-quarantined: #64748b;
+
+  --color-sla-ok: #15803d;
+  --color-sla-warn: #b45309;
+  --color-sla-bad: #b91c1c;
+
+  --text-caption: 12px;
+  --text-table: 13px;
+  --text-body: 14px;
+  --text-lead: 16px;
+  --text-h3: 18px;
+  --text-h2: 20px;
+  --text-h1: 24px;
+  --text-hero: 30px;
+
+  --radius-card: 8px;
+  --radius-input: 6px;
+
+  --ease-ui: cubic-bezier(0.2, 0, 0, 1);
+}
+
+@layer base {
+  html {
+    background: var(--color-bg);
+    color: var(--color-text);
+    font-family: var(--font-sans);
+    font-size: 14px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  body {
+    min-height: 100vh;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-brand-600);
+    outline-offset: 2px;
+  }
+  [id] {
+    scroll-margin-top: 72px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -400px 0;
+  }
+  100% {
+    background-position: 400px 0;
+  }
+}
+.skeleton {
+  background: linear-gradient(90deg, #eef2f7 25%, #e2e8f0 37%, #eef2f7 63%);
+  background-size: 800px 100%;
+  animation: shimmer 1.4s infinite linear;
+}
+
+/* Mermaid SVGs scale to their container. */
+.mermaid-host svg {
+  max-width: 100%;
+  height: auto;
+}

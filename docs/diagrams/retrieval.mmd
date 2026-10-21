@@ -1,0 +1,20 @@
+sequenceDiagram
+  participant U as User
+  participant A as API
+  participant R as Rule Parser
+  participant L as LLM (tuỳ chọn)
+  participant V as ANN + Rerank
+  U->>A: query
+  A->>R: parse (3 ms)
+  par
+    A->>V: retrieve (403 ms)
+  and
+    A->>L: parse đầy đủ (150-300 ms)
+  end
+  L-->>A: intent + sub_queries + hop_chain
+  alt khớp rule-parse
+    A-->>U: kết quả (~410 ms)
+  else khác
+    A->>V: re-rank lại (+200 ms)
+    A-->>U: kết quả (~610 ms)
+  end

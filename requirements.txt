@@ -1,0 +1,18 @@
+# TODO(impl): pin version khi lock (pip-compile / uv lock)
+fastapi
+uvicorn[standard]
+pydantic
+httpx
+numpy
+boto3
+psycopg[binary]
+redis
+qdrant-client
+Pillow
+ImageHash
+PyYAML
+pandas
+pyarrow
+python-multipart
+pytest
+ruff

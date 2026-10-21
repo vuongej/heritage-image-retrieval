@@ -1,0 +1,44 @@
+# =====================================================================
+#  Ngân sách latency — SLO đã chốt: p95 < 1500 ms trên 80.000 ảnh
+# =====================================================================
+slo:
+  p50_ms: 400
+  p95_ms: 1500
+  p99_ms: 2200
+  measured_on_n_images: 80000
+
+# p95 của đường TẤT ĐỊNH (không tính LLM parse)
+budget_ms:
+  auth: 15
+  rule_parse: 8
+  graph_traversal: 40
+  embed_query: 40
+  ann_search: 25
+  metadata_filter: 15
+  rerank: 180
+  presign: 30
+  serialize_network: 50
+  total_deterministic: 403
+  headroom_factor: 3.7   # 1500 / 403
+
+llm_parse:
+  # KHÔNG được gọi đồng bộ trên critical path khi SLO = 1500 ms
+  mode: speculative          # speculative | local | gemini_sync
+  local_ms: [150, 300]
+  gemini_cached_ms: 350
+  gemini_uncached_ms: 1200
+  cache_hit_rate_required: 0.90
+  timeout_ms: 600            # sau ngưỡng này dùng kết quả rule-parse
+  rerank_again_cost_ms: 200
+
+graph_build:
+  budget_s: 5.0
+  measured_500_entities_s: 0.8
+  measured_80k_images_s: 4.5
+  incremental_s: 0.5
+
+per_query_type_budget_ms:
+  single_intent:  { p50: 120, p95: 350 }
+  multi_intent:   { p50: 180, p95: 480 }
+  multi_hop:      { p50: 210, p95: 620 }
+  set_query:      { p50: 200, p95: 560 }

@@ -1,0 +1,9 @@
+flowchart LR
+  P[push / PR] --> L[lint: ruff + eslint + tsc]
+  L --> T[test: pytest + coverage >= 70%]
+  T --> EV["eval: Recall@10 >= 0.70, Hit@10 >= 0.95"]
+  EV --> B[docker buildx multi-stage]
+  B --> S[trivy scan + push GHCR]
+  S --> D[deploy staging -> smoke -> prod]
+  D --> K["k6 smoke: fail nếu p95 >= 1500ms"]
+  K --> R[publish report.html + badge]

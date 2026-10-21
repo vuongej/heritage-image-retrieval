@@ -1,0 +1,24 @@
+{
+  "csv_rows": 130429,
+  "csv_valid_rows": 130428,
+  "quarantine": [
+    {
+      "csv_line": 113894,
+      "entity_id": "85ff65ee-8f84-421b-a02f-3827ce352ab9",
+      "canonical_name": "Nhà cổ 38 Hàng Đào",
+      "image_url_prefix": "x-raw-image:///9d80fc325c74d117cbd066781",
+      "reason": "non_http_scheme",
+      "resolution": "excluded; no replacement image supplied"
+    }
+  ],
+  "sqlite_images": 130428,
+  "vectors_npy_rows": 130428,
+  "index_complete": true,
+  "qdrant_img_text": 130428,
+  "orphan_vectors": 0,
+  "missing_vectors": 0,
+  "indexed_images": 130428,
+  "require": 80000,
+  "ok": true,
+  "problems": []
+}

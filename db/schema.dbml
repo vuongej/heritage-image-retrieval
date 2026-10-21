@@ -1,0 +1,148 @@
+// =====================================================================
+//  Heritage Image Retrieval — schema
+//  Nguồn: file bo_sung_anh_cho_entities_nhom_1_Vuong_ent1-500.csv (25 cột)
+// =====================================================================
+
+Table entities {
+  entity_id       uuid      [pk]
+  entity_stt      int
+  entity_name     text
+  entity_slug     text      [unique]
+  branch          varchar   [note: 'A | D | F']
+  priority        varchar   [note: 'P0 | P1']
+  score           numeric
+  leaf_label      text
+  description     text
+  parent_class    text      [note: 'dùng cho set query: "động vật rừng"']
+  province        text
+  so_anh_pass     int       [note: 'so_anh_pass_master trong CSV']
+  duoi_5          boolean   [note: 'entity_duoi_5_master']
+  assigned_member text
+  created_at      timestamp [default: `now()`]
+
+  indexes {
+    branch
+    priority
+    parent_class
+  }
+}
+
+Table images {
+  image_id     uuid      [pk]
+  image_url    text
+  sha256       varchar   [unique]
+  phash64      bigint    [note: 'dedup Hamming <= 6']
+  width        int
+  height       int
+  s3_key       text
+  page_url     text
+  page_title   text
+  image_source text      [note: 'domain nguồn, vd laodong.vn']
+  query_type   varchar
+  nguon        varchar
+  crawled_at   timestamp
+  created_at   timestamp [default: `now()`]
+
+  indexes {
+    width
+    query_type
+    image_source
+  }
+}
+
+Table image_entity {
+  image_id    uuid
+  entity_id   uuid
+  image_order int
+  score       numeric
+
+  indexes {
+    (image_id, entity_id) [pk]
+    entity_id
+  }
+}
+
+Table verdicts {
+  image_id    uuid
+  stage       smallint  [note: '1 | 2 | 3']
+  relevance   numeric
+  watermark   numeric
+  nsfw        numeric
+  violence    numeric
+  politics    numeric
+  decision    varchar   [note: 'accept | reject | uncertain']
+  vlm_reason  text
+  model_version text
+  decided_at  timestamp
+
+  indexes {
+    (image_id, stage) [pk]
+    decision
+  }
+}
+
+Table embeddings {
+  image_id uuid
+  model    text    [note: 'siglip2-base-patch16-384']
+  dim      int
+  vector   vector(1152)
+
+  indexes {
+    image_id [pk]
+  }
+}
+
+Table graph_edges {
+  src_id   text
+  relation text    [note: 'HAS_TYPE | IN_CLASS | IN_REGION | NEAR | CHAIRMAN_OF | PARENT_OF']
+  dst_id   text
+  weight   numeric
+
+  indexes {
+    (src_id, relation, dst_id) [pk]
+    dst_id
+  }
+}
+
+Table api_keys {
+  key_hash       varchar [pk]
+  label          text
+  scope          varchar [note: 'test | prod | admin']
+  rate_limit_rpm int
+  active         boolean [default: true]
+  created_at     timestamp [default: `now()`]
+}
+
+Table query_logs {
+  request_id   uuid   [pk]
+  api_key_hash varchar
+  raw_query    text
+  intent_type  varchar
+  sub_queries  jsonb
+  hop_chain    jsonb
+  llm_provider varchar
+  cache_hit    boolean
+  latency_ms   int
+  n_candidates int
+  result_ids   uuid[]
+  created_at   timestamp [default: `now()`]
+
+  indexes {
+    intent_type
+    created_at
+  }
+}
+
+Table backfill_queue {
+  entity_id  uuid   [pk]
+  reason     varchar [note: 'zero_images | under_5_images']
+  n_current  int
+  priority   varchar
+  queued_at  timestamp [default: `now()`]
+}
+
+Ref: image_entity.image_id > images.image_id
+Ref: image_entity.entity_id > entities.entity_id
+Ref: verdicts.image_id > images.image_id
+Ref: embeddings.image_id > images.image_id
+Ref: backfill_queue.entity_id > entities.entity_id

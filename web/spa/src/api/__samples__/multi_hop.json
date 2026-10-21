@@ -1,0 +1,36 @@
+{
+  "request_id": "fe545b01-4310-4591-a55f-870fe419d08b",
+  "intent_type": "multi_hop",
+  "parser": "rule+llm",
+  "hits": [],
+  "facets": {
+    "entities": {},
+    "classes": {},
+    "query_types": {}
+  },
+  "timings_ms": {
+    "catalog": 0.0036000055843032897,
+    "parse": 0.8822000017971732,
+    "llm_wait": 0.5143999951542355,
+    "hop_resolve": 1.150600000983104
+  },
+  "total_ms": 8,
+  "warnings": [
+    "multi_hop seed_not_linked: no verified relation chain to an entity with images in the catalog"
+  ],
+  "sub_queries": [],
+  "parse_confidence": "low",
+  "pipeline_version": "b4-verified-kg-multihop",
+  "resolution": {
+    "status": "seed_not_linked",
+    "seed": {
+      "text": "phạm nhật vượng",
+      "nodes": []
+    },
+    "steps": [],
+    "target_nodes": [],
+    "mapped_target_entity_ids": [],
+    "evidence_checked": true,
+    "online": {}
+  }
+}

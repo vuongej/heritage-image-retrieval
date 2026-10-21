@@ -1,0 +1,25 @@
+name: nightly-eval
+
+on:
+  schedule: [{ cron: "0 18 * * *" }]
+  workflow_dispatch:
+
+jobs:
+  eval-all-providers:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        provider: [none, local]
+    env:
+      LLM_PROVIDER: ${{ matrix.provider }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: pip install -r requirements.txt
+      - name: Eval — provider ${{ matrix.provider }}
+        run: python -m evals.harness --out evals/runs/nightly-${{ matrix.provider }}/report.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: eval-${{ matrix.provider }}
+          path: evals/runs/nightly-${{ matrix.provider }}/report.json

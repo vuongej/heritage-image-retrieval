@@ -1,0 +1,1009 @@
+{
+  "request_id": "a0712f14-284f-4195-8538-a99f72c7d057",
+  "intent_type": "multi_hop",
+  "parser": "rule+llm",
+  "hits": [
+    {
+      "image_id": "341a44ec-78c4-5c48-9d39-f4d2a9b37134",
+      "image_url": "https://image.vietgoing.com/editor/image_uyw1622865439.jpg",
+      "score": 1.0,
+      "entity_id": "7ba3071f-3d8b-478a-923c-40fdd972274b",
+      "entity_slug": "bia-lang-minh-mang-hieu-lang-hue",
+      "leaf_label": "Bia lăng Minh Mạng (Hiếu Lăng, Huế)",
+      "query_type": "approved_metadata",
+      "parent_class": "Bia ghi công & bia ghi danh phi-địa-phương: bia tại trường học, cơ quan, dòng họ–văn miếu, bia tiến sĩ (Văn Miếu) có danh & nguồn độc lập",
+      "description": "Toàn cảnh khu vườn xanh mát với những hàng cây cảnh và lối đi lát gạch dẫn đến cổng tam quan của Bia lăng Minh Mạng (Hiếu Lăng, Huế).",
+      "matched_subqueries": [
+        "q0"
+      ],
+      "quality": {
+        "width": 3040,
+        "height": 1710,
+        "verify": "yes",
+        "verify_source": "human",
+        "watermark": "unknown",
+        "pixel_checked": false
+      }
+    },
+    {
+      "image_id": "fb806a3a-702d-556b-8948-41cbb775c043",
+      "image_url": "https://chonthieng.com/data/uploads/2026/01/Lang_Minh_Mang-022.webp",
+      "score": 0.9583333333333334,
+      "entity_id": "d3e18c31-56f8-4005-81e7-87c4bb66f98a",
+      "entity_slug": "lang-minh-mang-hieu-lang",
+      "leaf_label": "Lăng Minh Mạng Hiếu Lăng",
+      "query_type": "approved_metadata",
+      "parent_class": "Lăng tẩm hoàng triều phong kiến",
+      "description": "Bên trong Lăng Minh Mạng Hiếu Lăng, kiến trúc cung điện với các họa tiết rồng phượng, đồ thờ cúng bằng sứ và đồng tạo nên vẻ uy nghiêm, cổ kính.",
+      "matched_subqueries": [
+        "q0"
+      ],
+      "quality": {
+        "width": null,
+        "height": null,
+        "verify": "yes",
+        "verify_source": "human",
+        "watermark": "unknown",
+        "pixel_checked": false
+      }
+    },
+    {
+      "image_id": "3dfcde72-64b6-5c74-af21-0703671f4fec",
+      "image_url": "https://cms.junglebosstours.com/assets/c4baeb2f-caea-4287-8fdd-a92c6f55eb1d?format=webp",
+      "score": 0.9166666666666666,
+      "entity_id": "fb7b5e9d-156f-45e3-9fe9-def8817a45e3",
+      "entity_slug": "lang-minh-mang-hue",
+      "leaf_label": "Lăng Minh Mạng - Huế",
+      "query_type": "approved_metadata",
+      "parent_class": "Lăng tẩm hoàng triều phong kiến",
+      "description": "Toàn cảnh Lăng Minh Mạng - Huế hiện lên uy nghiêm giữa hồ nước xanh mát, với kiến trúc cổ kính và cảnh quan thiên nhiên thơ mộng, tạo nên một bức tranh hài hòa.",
+      "matched_subqueries": [
+        "q0"
+      ],
+      "quality": {
+        "width": null,
+        "height": null,
+        "verify": "yes",
+        "verify_source": "human",
+        "watermark": "unknown",
+        "pixel_checked": false
+      }
+    },
+    {
+      "image_id": "1c335159-f3f4-5c5c-91d5-63ccd1556db1",
+      "image_url": "https://res.klook.com/image/upload/w_750,h_469,c_fill,q_85/w_80,x_15,y_15,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/s3xrj9pfoglwsbgzjysy.jpg",
+      "score": 0.875,
+      "entity_id": "fb83abe2-8fc3-41b0-95b0-2b8caf649ba5",
+      "entity_slug": "scope-9-lang-minh-mang",
+      "leaf_label": "Lăng Minh Mạng",
+      "query_type": "approved_metadata",
+      "parent_class": "Lăng tẩm hoàng triều phong kiến",
+      "description": "Lăng Minh Mạng hiện lên với kiến trúc cổng chào uy nghiêm, rực rỡ sắc màu, dẫn lối qua cây cầu đá phủ đầy hoa sen, bao quanh bởi cảnh quan xanh mát.",
+      "matched_subqueries": [
+        "q0"
+      ],
+      "quality": {
+        "width": 750,
+        "height": 469,
+        "verify": "yes",
+        "verify_source": "human",
+        "watermark": "unknown",
+        "pixel_checked": false
+      }
+    },
+    {
+      "image_id": "419eae1e-0909-5559-afca-82fe8d3e7ad4",
+      "image_url": "https://i2.ex-cdn.com/crystalbay.com/files/content/2024/08/05/lang-minh-mang-1429.jpg",
+      "score": 0.8333333333333334,
+      "entity_id": "e2caef83-5503-4aae-bee4-b658938a1770",
+      "entity_slug": "scope-9-lang-minh-mang-2",
+      "leaf_label": "Lăng Minh Mạng",
+      "query_type": "approved_metadata",
+      "parent_class": "Lăng tẩm hoàng triều phong kiến",
+      "description": "Toàn cảnh Lăng Minh Mạng hiện lên uy nghiêm giữa hồ nước xanh biếc, bao quanh bởi cây cối và làn sương mờ ảo, tạo nên một bức tranh kiến trúc cổ kính hài hòa với thiên nhiên.",
+      "matched_subqueries": [
+        "q0"
+      ],
+      "quality": {
+        "width": 1200,
+        "height": 817,
+        "verify": "yes",
+        "verify_source": "human",
+        "watermark": "unknown",
+        "pixel_checked": false
+      }
+    },
+    {
+      "image_id": "a51248b6-3a47-5966-982a-e18fd7c607ef",
+      "image_url": "https://www.vietourist.com.vn/public/frontend/uploads/kceditor/images/336767926_2522416677905703_6515886882746969362_n-11-1-1.jpg",
+      "score": 0.7916666666666666,
+      "entity_id": "c80c2975-392f-498f-878f-e9fb48407fca",
+      "entity_slug": "cua-dong-buu-thanh-lang-minh-mang",
+      "leaf_label": "Cửa đồng bửu thành lăng Minh Mạng",
+      "query_type": "approved_metadata",
+      "parent_class": "Lăng tẩm hoàng triều phong kiến",
+      "description": "Cận cảnh cửa đồng bửu thành lăng Minh Mạng với kiến trúc cổ kính, mái ngói âm dương và các họa tiết trang trí tinh xảo, thể hiện nét đẹp văn hóa triều Nguyễn.",
+      "matched_subqueries": [
+        "q0"
+      ],
+      "quality": {
+        "width": 964,
+        "height": 1280,
+        "verify": "yes",
+        "verify_source": "human",
+        "watermark": "unknown",
+        "pixel_checked": false
+      }
+    },
+    {
+      "image_id": "cdfdc71b-b532-5d38-9625-d70dd81fdb49",
+      "image_url": "https://t2.ex-cdn.com/crystalbay.com/resize/560x315/files/news/2024/08/05/lang-minh-mang-kiet-tac-nghe-thuat-dieu-khac-giua-long-co-do-143128.jpg",
+      "score": 0.75,
+      "entity_id": "0b612af0-e83c-419e-9b58-b4e6b0b7c9a4",
+      "entity_slug": "buu-thanh-lang-minh-mang",
+      "leaf_label": "Bửu thành lăng Minh Mạng",
+      "query_type": "approved_metadata",
+      "parent_class": "Lăng tẩm hoàng triều phong kiến",
+      "description": "Toàn cảnh Bửu thành lăng Minh Mạng với kiến trúc cổ kính nép mình bên hồ nước xanh mát, bao quanh bởi cây cối và làn sương mờ ảo.",
+      "matched_subqueries": [
+        "q0"
+      ],
+      "quality": {
+        "width": null,
+        "height": null,
+        "verify": "yes",
+        "verify_source": "human",
+        "watermark": "unknown",
+        "pixel_checked": false
+      }
+    },
+    {
+      "image_id": "aecbabc7-9d38-5872-8a8d-f6399b66c89e",
+      "image_url": "https://cdn.vntrip.vn/cam-nang/wp-content/uploads/2017/08/dien-sung-an-e1503902447648.jpg",
+      "score": 0.7083333333333333,
+      "entity_id": "f9d01111-9230-4305-b861-bb3f5afd24eb",
+      "entity_slug": "dien-sung-an-lang-minh-mang-hue",
+      "leaf_label": "Điện Sùng Ân (lăng Minh Mạng, Huế)",
+      "query_type": "approved_metadata",
+      "parent_class": "Cung điện & dinh thự kiến trúc (cung điện Huế, Hoàng thành, dinh Độc Lập, dinh Norodom… — công trình)",
+      "description": "Điện Sùng Ân (lăng Minh Mạng, Huế) hiện lên với kiến trúc cổ kính, mái ngói đỏ rực rỡ, bao quanh là cảnh quan xanh mát, tạo nên vẻ uy nghiêm và thanh bình.",
+      "matched_subqueries": [
+        "q0"
+      ],
+      "quality": {
+        "width": null,
+        "height": null,
+        "verify": "yes",
+        "verify_source": "human",
+        "watermark": "unknown",
+        "pixel_checked": false
+      }
+    },
+    {
+      "image_id": "a42ccda7-e421-564e-bc47-6d05f6c930fc",
+      "image_url": "https://i2.ex-cdn.com/crystalbay.com/files/content/2024/08/05/dai-hong-mon-lang-minh-mang-1-1418.jpg",
+      "score": 0.6666666666666667,
+      "entity_id": "2ee5b6a5-d383-4c1e-b60f-4a5c336e3b87",
+      "entity_slug": "dai-hong-mon-lang-minh-mang-hue",
+      "leaf_label": "Đại Hồng Môn (Lăng Minh Mạng, Huế)",
+      "query_type": "approved_metadata",
+      "parent_class": "Khải hoàn môn & cổng tưởng niệm (cổng chiến thắng, cổng tưởng niệm có danh & nguồn độc lập)",
+      "description": "Đại Hồng Môn (Lăng Minh Mạng, Huế) nổi bật với kiến trúc cổ kính, mái ngói âm dương màu cam rực rỡ, các chi tiết trang trí tinh xảo và hai bên là hai cổng phụ uy nghiêm.",
+      "matched_subqueries": [
+        "q0"
+      ],
+      "quality": {
+        "width": 1200,
+        "height": 746,
+        "verify": "yes",
+        "verify_source": "human",
+        "watermark": "unknown",
+        "pixel_checked": false
+      }
+    },
+    {
+      "image_id": "9bbd859e-288b-5afa-8af3-e9e45421c726",
+      "image_url": "https://mia.vn/media/uploads/blog-du-lich/lang-minh-mang-voi-net-dep-truyen-thong-dam-da-mau-sac-nho-giao-4-1638512271.jpg",
+      "score": 0.625,
+      "entity_id": "f7032b88-6adb-4dcc-907e-fd31c1ece7d0",
+      "entity_slug": "dien-sung-an-lang-minh-mang",
+      "leaf_label": "Điện Sùng Ân lăng Minh Mạng",
+      "query_type": "approved_metadata",
+      "parent_class": "Lăng tẩm hoàng triều phong kiến",
+      "description": "Điện Sùng Ân lăng Minh Mạng hiện lên uy nghiêm với kiến trúc cổ kính, mái ngói vàng rực rỡ dưới bầu trời xanh thẳm, nổi bật trên nền cảnh quan xanh mát.",
+      "matched_subqueries": [
+        "q0"
+      ],
+      "quality": {
+        "width": null,
+        "height": null,
+        "verify": "yes",
+        "verify_source": "human",
+        "watermark": "unknown",
+        "pixel_checked": false
+      }
+    },
+    {
+      "image_id": "131b923a-5b2e-59a3-8412-84346e685892",
+      "image_url": "https://bizweb.dktcdn.net/100/366/377/files/toan-canh-khuon-vien-lang-vua-minh-mang.jpg?v=1676889889590",
+      "score": 0.5833333333333333,
+      "entity_id": "d205ffca-8914-4d6d-9e0a-2a8daa9aff79",
+      "entity_slug": "scope-2-lang-minh-mang",
+      "leaf_label": "Lăng Minh Mạng",
+      "query_type": "approved_metadata",
+      "parent_class": "Lăng tẩm hoàng triều phong kiến",
+      "description": "Toàn cảnh Lăng Minh Mạng hiện lên uy nghiêm giữa không gian xanh mát, với kiến trúc cổ kính và hồ nước thơ mộng bao quanh.",
+      "matched_subqueries": [
+        "q0"
+      ],
+      "quality": {
+        "width": null,
+        "height": null,
+        "verify": "yes",
+        "verify_source": "human",
+        "watermark": "unknown",
+        "pixel_checked": false
+      }
+    },
+    {
+      "image_id": "8436fc6e-b72a-546c-894c-9d9241fc5093",
+      "image_url": "https://cdn.eva.vn/upload/2-2024/images/2024-04-11/1-1712845258-35-width800height600.jpg",
+      "score": 0.5416666666666667,
+      "entity_id": "d08ecc40-a7e3-4e0d-880f-a6b66e8b1b12",
+      "entity_slug": "bia-hieu-lang-lang-minh-mang",
+      "leaf_label": "Bia Hiếu Lăng (lăng Minh Mạng)",
+      "query_type": "approved_metadata",
+      "parent_class": "Bia lăng mộ · bia thần đạo (Lam Kinh, lăng vua chúa)",
+      "description": "Bia Hiếu Lăng uy nghiêm với kiến trúc cổ kính, một người phụ nữ duyên dáng đứng trên bậc thang phía trước.",
+      "matched_subqueries": [
+        "q0"
+      ],
+      "quality": {
+        "width": null,
+        "height": null,
+        "verify": "yes",
+        "verify_source": "human",
+        "watermark": "unknown",
+        "pixel_checked": false
+      }
+    },
+    {
+      "image_id": "ed9944f7-34cf-5032-b471-0e0349898642",
+      "image_url": "https://queenbus.com.vn/wp-content/uploads/2025/07/Bai-Dinh-lang-Minh-Mang-voi-hai-hinh-tuong-quan-van-quan-vo.-Anh_-suu-tam-1.png",
+      "score": 0.5,
+      "entity_id": "b75f907a-fd80-445e-b981-cc25f790a53c",
+      "entity_slug": "tuong-quan-vo-da-lang-minh-mang",
+      "leaf_label": "Tượng quan võ đá lăng Minh Mạng",
+      "query_type": "approved_metadata",
+      "parent_class": "Đá mỹ nghệ & điêu khắc đá — Tượng đá",
+      "description": null,
+      "matched_subqueries": [
+        "q0"
+      ],
+      "quality": {
+        "width": null,
+        "height": null,
+        "verify": "yes",
+        "verify_source": "human",
+        "watermark": "unknown",
+        "pixel_checked": false
+      }
+    },
+    {
+      "image_id": "a6c867dd-a5b4-5747-b57f-f714173d6624",
+      "image_url": "https://huesmiletravel.com.vn/images/lang-minh-mang-02.jpg",
+      "score": 0.45833333333333337,
+      "entity_id": "7ba3071f-3d8b-478a-923c-40fdd972274b",
+      "entity_slug": "bia-lang-minh-mang-hieu-lang-hue",
+      "leaf_label": "Bia lăng Minh Mạng (Hiếu Lăng, Huế)",
+      "query_type": "approved_metadata",
+      "parent_class": "Bia ghi công & bia ghi danh phi-địa-phương: bia tại trường học, cơ quan, dòng họ–văn miếu, bia tiến sĩ (Văn Miếu) có danh & nguồn độc lập",
+      "description": "Bia lăng Minh Mạng (Hiếu Lăng, Huế) hiện lên với kiến trúc cổ kính, mái ngói đỏ rực rỡ, bao quanh bởi cây xanh và một người đang bước lên bậc thềm.",
+      "matched_subqueries": [
+        "q0"
+      ],
+      "quality": {
+        "width": 1024,
+        "height": 683,
+        "verify": "yes",
+        "verify_source": "human",
+        "watermark": "unknown",
+        "pixel_checked": false
+      }
+    },
+    {
+      "image_id": "beb701f2-a9f5-5710-9109-b6d7e9e4e789",
+      "image_url": "https://daivietourist.vn/wp-content/uploads/2025/03/lang-minh-mang-hue-3.jpg",
+      "score": 0.41666666666666663,
+      "entity_id": "d3e18c31-56f8-4005-81e7-87c4bb66f98a",
+      "entity_slug": "lang-minh-mang-hieu-lang",
+      "leaf_label": "Lăng Minh Mạng Hiếu Lăng",
+      "query_type": "approved_metadata",
+      "parent_class": "Lăng tẩm hoàng triều phong kiến",
+      "description": "Toàn cảnh Lăng Minh Mạng Hiếu Lăng với kiến trúc uy nghiêm, hài hòa cùng cảnh quan sông nước, cây xanh bao quanh, tạo nên vẻ đẹp trầm mặc, cổ kính.",
+      "matched_subqueries": [
+        "q0"
+      ],
+      "quality": {
+        "width": null,
+        "height": null,
+        "verify": "yes",
+        "verify_source": "human",
+        "watermark": "unknown",
+        "pixel_checked": false
+      }
+    },
+    {
+      "image_id": "56e5b6ce-fe32-5e37-915b-434a90223cb8",
+      "image_url": "https://khamphahue.com.vn/Portals/0/Medias/Nam2022/T10/Khamphahue_lang-minh-mang.jpg",
+      "score": 0.375,
+      "entity_id": "fb7b5e9d-156f-45e3-9fe9-def8817a45e3",
+      "entity_slug": "lang-minh-mang-hue",
+      "leaf_label": "Lăng Minh Mạng - Huế",
+      "query_type": "approved_metadata",
+      "parent_class": "Lăng tẩm hoàng triều phong kiến",
+      "description": "Bên trong Lăng Minh Mạng - Huế, kiến trúc gỗ đỏ với các bức tranh thêu và đồ cổ trang trí tạo nên không gian uy nghiêm, cổ kính.",
+      "matched_subqueries": [
+        "q0"
+      ],
+      "quality": {
+        "width": null,
+        "height": null,
+        "verify": "yes",
+        "verify_source": "human",
+        "watermark": "unknown",
+        "pixel_checked": false
+      }
+    },
+    {
+      "image_id": "e8573d0f-a924-52e1-b6ae-18f61cd9d3a8",
+      "image_url": "https://image.vietgoing.com/editor/image_tgp1622865359.jpg",
+      "score": 0.33333333333333337,
+      "entity_id": "e2caef83-5503-4aae-bee4-b658938a1770",
+      "entity_slug": "scope-9-lang-minh-mang-2",
+      "leaf_label": "Lăng Minh Mạng",
+      "query_type": "approved_metadata",
+      "parent_class": "Lăng tẩm hoàng triều phong kiến",
+      "description": "Toàn cảnh Lăng Minh Mạng với kiến trúc uy nghiêm, hài hòa giữa hồ nước xanh mát và cảnh quan cây cối tươi tốt, tạo nên một không gian trầm mặc, cổ kính.",
+      "matched_subqueries": [
+        "q0"
+      ],
+      "quality": {
+        "width": null,
+        "height": null,
+        "verify": "yes",
+        "verify_source": "human",
+        "watermark": "unknown",
+        "pixel_checked": false
+      }
+    },
+    {
+      "image_id": "b5dbc641-2f37-5aad-af47-7bfe2e0f36bd",
+      "image_url": "https://queenbus.com.vn/wp-content/uploads/2025/07/Dai-Hong-Mon-khu-vuc-lang-Minh-Mang-Anh_-suu-tam_-1.png",
+      "score": 0.29166666666666663,
+      "entity_id": "c80c2975-392f-498f-878f-e9fb48407fca",
+      "entity_slug": "cua-dong-buu-thanh-lang-minh-mang",
+      "leaf_label": "Cửa đồng bửu thành lăng Minh Mạng",
+      "query_type": "approved_metadata",
+      "parent_class": "Lăng tẩm hoàng triều phong kiến",
+      "description": "Cận cảnh Cửa đồng bửu thành lăng Minh Mạng với ba cánh cửa đỏ son nổi bật, kiến trúc cổ kính mang đậm dấu ấn triều Nguyễn.",
+      "matched_subqueries": [
+        "q0"
+      ],
+      "quality": {
+        "width": 768,
+        "height": 431,
+        "verify": "yes",
+        "verify_source": "human",
+        "watermark": "unknown",
+        "pixel_checked": false
+      }
+    },
+    {
+      "image_id": "c1c51fcc-dac6-588c-861a-9e46bda8d9a9",
+      "image_url": "https://statics.vinpearl.com/lang-minh-mang-hue-1_1690357157.jpg",
+      "score": 0.25,
+      "entity_id": "0b612af0-e83c-419e-9b58-b4e6b0b7c9a4",
+      "entity_slug": "buu-thanh-lang-minh-mang",
+      "leaf_label": "Bửu thành lăng Minh Mạng",
+      "query_type": "approved_metadata",
+      "parent_class": "Lăng tẩm hoàng triều phong kiến",
+      "description": "Bửu thành lăng Minh Mạng hiện lên với kiến trúc cổng chào uy nghiêm, hai bên là hồ sen xanh mát, dẫn lối đến công trình kiến trúc cổ kính dưới bầu trời trong xanh.",
+      "matched_subqueries": [
+        "q0"
+      ],
+      "quality": {
+        "width": 1080,
+        "height": 914,
+        "verify": "yes",
+        "verify_source": "human",
+        "watermark": "unknown",
+        "pixel_checked": false
+      }
+    },
+    {
+      "image_id": "baa2aa89-a877-57be-a860-c44fbf1797f9",
+      "image_url": "https://admin.triptech.vn/api/v1/blog/3b708a2a-6866-4a7a-9742-1207a80fe162/media/6feca357-dbf7-4c30-9d18-fb2141e6c00f",
+      "score": 0.20833333333333337,
+      "entity_id": "f9d01111-9230-4305-b861-bb3f5afd24eb",
+      "entity_slug": "dien-sung-an-lang-minh-mang-hue",
+      "leaf_label": "Điện Sùng Ân (lăng Minh Mạng, Huế)",
+      "query_type": "approved_metadata",
+      "parent_class": "Cung điện & dinh thự kiến trúc (cung điện Huế, Hoàng thành, dinh Độc Lập, dinh Norodom… — công trình)",
+      "description": "Điện Sùng Ân (lăng Minh Mạng, Huế) nổi bật với kiến trúc cổ kính, mái ngói âm dương và những họa tiết trang trí tinh xảo, tạo nên vẻ uy nghiêm, cổ kính.",
+      "matched_subqueries": [
+        "q0"
+      ],
+      "quality": {
+        "width": 1208,
+        "height": 638,
+        "verify": "yes",
+        "verify_source": "human",
+        "watermark": "unknown",
+        "pixel_checked": false
+      }
+    }
+  ],
+  "facets": {
+    "entities": {
+      "bia-lang-minh-mang-hieu-lang-hue": "Bia lăng Minh Mạng (Hiếu Lăng, Huế)",
+      "lang-minh-mang-hieu-lang": "Lăng Minh Mạng Hiếu Lăng",
+      "lang-minh-mang-hue": "Lăng Minh Mạng - Huế",
+      "scope-9-lang-minh-mang": "Lăng Minh Mạng",
+      "scope-9-lang-minh-mang-2": "Lăng Minh Mạng",
+      "cua-dong-buu-thanh-lang-minh-mang": "Cửa đồng bửu thành lăng Minh Mạng",
+      "buu-thanh-lang-minh-mang": "Bửu thành lăng Minh Mạng",
+      "dien-sung-an-lang-minh-mang-hue": "Điện Sùng Ân (lăng Minh Mạng, Huế)",
+      "dai-hong-mon-lang-minh-mang-hue": "Đại Hồng Môn (Lăng Minh Mạng, Huế)",
+      "dien-sung-an-lang-minh-mang": "Điện Sùng Ân lăng Minh Mạng",
+      "scope-2-lang-minh-mang": "Lăng Minh Mạng",
+      "bia-hieu-lang-lang-minh-mang": "Bia Hiếu Lăng (lăng Minh Mạng)",
+      "tuong-quan-vo-da-lang-minh-mang": "Tượng quan võ đá lăng Minh Mạng"
+    },
+    "classes": {
+      "Bia ghi công & bia ghi danh phi-địa-phương: bia tại trường học, cơ quan, dòng họ–văn miếu, bia tiến sĩ (Văn Miếu) có danh & nguồn độc lập": 2,
+      "Lăng tẩm hoàng triều phong kiến": 13,
+      "Cung điện & dinh thự kiến trúc (cung điện Huế, Hoàng thành, dinh Độc Lập, dinh Norodom… — công trình)": 2,
+      "Khải hoàn môn & cổng tưởng niệm (cổng chiến thắng, cổng tưởng niệm có danh & nguồn độc lập)": 1,
+      "Bia lăng mộ · bia thần đạo (Lam Kinh, lăng vua chúa)": 1,
+      "Đá mỹ nghệ & điêu khắc đá — Tượng đá": 1
+    },
+    "query_types": {
+      "approved_metadata": 20
+    }
+  },
+  "timings_ms": {
+    "catalog": 0.0033000032999552786,
+    "parse": 0.12040000001434237,
+    "llm_wait": 0.2932999996119179,
+    "hop_resolve": 2.5106000030064024,
+    "metadata_filter": 17.757200002961326,
+    "rerank": 0.013700002455152571
+  },
+  "total_ms": 27,
+  "warnings": [],
+  "sub_queries": [
+    {
+      "id": "q0",
+      "text": "lăng của con trai vua gia long",
+      "coverage": "covered",
+      "returned": 20,
+      "evidence": "verified_relation_chain"
+    }
+  ],
+  "parse_confidence": "low",
+  "pipeline_version": "b4-verified-kg-multihop",
+  "resolution": {
+    "status": "resolved",
+    "seed": {
+      "text": "gia long",
+      "nodes": [
+        {
+          "node_id": "person:gia-long",
+          "kind": "person",
+          "label": "Gia Long",
+          "gender": "male"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "phrase": "con trai",
+        "predicate": "PARENT_OF",
+        "direction": "forward",
+        "gender": "male",
+        "edges": [
+          {
+            "subject": "person:gia-long",
+            "subject_label": "Gia Long",
+            "predicate": "PARENT_OF",
+            "object": "person:minh-mang",
+            "object_label": "Minh Mạng",
+            "object_kind": "person",
+            "source_type": "manual_claim",
+            "source": "https://baotanglichsu.vn/vi/Articles/3096/10098/chieu-len-ngoi-cua-vua-minh-menh-trong-chau-ban-trieu-nguyen.html",
+            "evidence": "Vua Minh Mệnh tên thật là Nguyễn Phúc Đảm sinh năm Tân Hợi (1791), là hoàng tử thứ tư con của vua Gia Long và Thuận Thiên Cao Hoàng hậu Trần Thị Đang.",
+            "verifier": "web_search+quote_in_search_snippet"
+          },
+          {
+            "subject": "person:gia-long",
+            "subject_label": "Gia Long",
+            "predicate": "PARENT_OF",
+            "object": "person:minh-mang",
+            "object_label": "Minh Mạng",
+            "object_kind": "person",
+            "source_type": "gemini_doc",
+            "source": "https://vietgoing.com/destination/682-lang-minh-mang.html",
+            "evidence": "Minh Mạng là người con trai thứ tư của vua Gia Long",
+            "verifier": "quote_in_source+checks"
+          },
+          {
+            "subject": "person:gia-long",
+            "subject_label": "Gia Long",
+            "predicate": "PARENT_OF",
+            "object": "person:minh-mang",
+            "object_label": "Minh Mạng",
+            "object_kind": "person",
+            "source_type": "gemini_doc",
+            "source": "https://huesmiletravel.com.vn/blog/773-lang-minh-mang/",
+            "evidence": "Vua Minh Mạng tên là Nguyễn Phúc Đảm – con thứ của Vua Gia Long.",
+            "verifier": "quote_in_source+checks"
+          },
+          {
+            "subject": "person:gia-long",
+            "subject_label": "Gia Long",
+            "predicate": "PARENT_OF",
+            "object": "person:minh-mang",
+            "object_label": "Minh Mạng",
+            "object_kind": "person",
+            "source_type": "gemini_doc",
+            "source": "https://daivietourist.vn/lang-minh-mang-hue/",
+            "evidence": "Vua Minh Mạng (Nguyễn Phúc Đảm) lên ngôi năm 1820, là con trai thứ tư của vua Gia Long.",
+            "verifier": "quote_in_source+checks"
+          }
+        ]
+      },
+      {
+        "phrase": "lăng/mộ/đền/khu",
+        "predicate": "BURIED_AT",
+        "direction": "forward",
+        "gender": null,
+        "edges": [
+          {
+            "subject": "person:minh-mang",
+            "subject_label": "Minh Mạng",
+            "predicate": "BURIED_AT",
+            "object": "place:7ba3071f-3d8b-478a-923c-40fdd972274b",
+            "object_label": "Bia lăng Minh Mạng (Hiếu Lăng, Huế)",
+            "object_kind": "place",
+            "source_type": "catalog_name",
+            "source": "catalog:entity/7ba3071f-3d8b-478a-923c-40fdd972274b",
+            "evidence": "Bia lăng Minh Mạng (Hiếu Lăng, Huế)",
+            "verifier": "catalog_name_pattern"
+          },
+          {
+            "subject": "person:minh-mang",
+            "subject_label": "Minh Mạng",
+            "predicate": "BURIED_AT",
+            "object": "place:d3e18c31-56f8-4005-81e7-87c4bb66f98a",
+            "object_label": "Lăng Minh Mạng Hiếu Lăng",
+            "object_kind": "place",
+            "source_type": "catalog_name",
+            "source": "catalog:entity/d3e18c31-56f8-4005-81e7-87c4bb66f98a",
+            "evidence": "Lăng Minh Mạng Hiếu Lăng",
+            "verifier": "catalog_name_pattern"
+          },
+          {
+            "subject": "person:minh-mang",
+            "subject_label": "Minh Mạng",
+            "predicate": "BURIED_AT",
+            "object": "place:fb7b5e9d-156f-45e3-9fe9-def8817a45e3",
+            "object_label": "Lăng Minh Mạng - Huế",
+            "object_kind": "place",
+            "source_type": "catalog_name",
+            "source": "catalog:entity/fb7b5e9d-156f-45e3-9fe9-def8817a45e3",
+            "evidence": "Lăng Minh Mạng - Huế",
+            "verifier": "catalog_name_pattern"
+          },
+          {
+            "subject": "person:minh-mang",
+            "subject_label": "Minh Mạng",
+            "predicate": "BURIED_AT",
+            "object": "place:fb83abe2-8fc3-41b0-95b0-2b8caf649ba5",
+            "object_label": "Lăng Minh Mạng",
+            "object_kind": "place",
+            "source_type": "catalog_name",
+            "source": "catalog:entity/fb83abe2-8fc3-41b0-95b0-2b8caf649ba5",
+            "evidence": "Lăng Minh Mạng",
+            "verifier": "catalog_name_pattern"
+          },
+          {
+            "subject": "person:minh-mang",
+            "subject_label": "Minh Mạng",
+            "predicate": "BURIED_AT",
+            "object": "place:e2caef83-5503-4aae-bee4-b658938a1770",
+            "object_label": "Lăng Minh Mạng",
+            "object_kind": "place",
+            "source_type": "catalog_name",
+            "source": "catalog:entity/e2caef83-5503-4aae-bee4-b658938a1770",
+            "evidence": "Lăng Minh Mạng",
+            "verifier": "catalog_name_pattern"
+          },
+          {
+            "subject": "person:minh-mang",
+            "subject_label": "Minh Mạng",
+            "predicate": "BURIED_AT",
+            "object": "place:c80c2975-392f-498f-878f-e9fb48407fca",
+            "object_label": "Cửa đồng bửu thành lăng Minh Mạng",
+            "object_kind": "place",
+            "source_type": "catalog_name",
+            "source": "catalog:entity/c80c2975-392f-498f-878f-e9fb48407fca",
+            "evidence": "Cửa đồng bửu thành lăng Minh Mạng",
+            "verifier": "catalog_name_pattern"
+          },
+          {
+            "subject": "person:minh-mang",
+            "subject_label": "Minh Mạng",
+            "predicate": "BURIED_AT",
+            "object": "place:0b612af0-e83c-419e-9b58-b4e6b0b7c9a4",
+            "object_label": "Bửu thành lăng Minh Mạng",
+            "object_kind": "place",
+            "source_type": "catalog_name",
+            "source": "catalog:entity/0b612af0-e83c-419e-9b58-b4e6b0b7c9a4",
+            "evidence": "Bửu thành lăng Minh Mạng",
+            "verifier": "catalog_name_pattern"
+          },
+          {
+            "subject": "person:minh-mang",
+            "subject_label": "Minh Mạng",
+            "predicate": "BURIED_AT",
+            "object": "place:f9d01111-9230-4305-b861-bb3f5afd24eb",
+            "object_label": "Điện Sùng Ân (lăng Minh Mạng, Huế)",
+            "object_kind": "place",
+            "source_type": "catalog_name",
+            "source": "catalog:entity/f9d01111-9230-4305-b861-bb3f5afd24eb",
+            "evidence": "Điện Sùng Ân (lăng Minh Mạng, Huế)",
+            "verifier": "catalog_name_pattern"
+          },
+          {
+            "subject": "person:minh-mang",
+            "subject_label": "Minh Mạng",
+            "predicate": "BURIED_AT",
+            "object": "place:2ee5b6a5-d383-4c1e-b60f-4a5c336e3b87",
+            "object_label": "Đại Hồng Môn (Lăng Minh Mạng, Huế)",
+            "object_kind": "place",
+            "source_type": "catalog_name",
+            "source": "catalog:entity/2ee5b6a5-d383-4c1e-b60f-4a5c336e3b87",
+            "evidence": "Đại Hồng Môn (Lăng Minh Mạng, Huế)",
+            "verifier": "catalog_name_pattern"
+          },
+          {
+            "subject": "person:minh-mang",
+            "subject_label": "Minh Mạng",
+            "predicate": "BURIED_AT",
+            "object": "place:f7032b88-6adb-4dcc-907e-fd31c1ece7d0",
+            "object_label": "Điện Sùng Ân lăng Minh Mạng",
+            "object_kind": "place",
+            "source_type": "catalog_name",
+            "source": "catalog:entity/f7032b88-6adb-4dcc-907e-fd31c1ece7d0",
+            "evidence": "Điện Sùng Ân lăng Minh Mạng",
+            "verifier": "catalog_name_pattern"
+          },
+          {
+            "subject": "person:minh-mang",
+            "subject_label": "Minh Mạng",
+            "predicate": "BURIED_AT",
+            "object": "place:d205ffca-8914-4d6d-9e0a-2a8daa9aff79",
+            "object_label": "Lăng Minh Mạng",
+            "object_kind": "place",
+            "source_type": "catalog_name",
+            "source": "catalog:entity/d205ffca-8914-4d6d-9e0a-2a8daa9aff79",
+            "evidence": "Lăng Minh Mạng",
+            "verifier": "catalog_name_pattern"
+          },
+          {
+            "subject": "person:minh-mang",
+            "subject_label": "Minh Mạng",
+            "predicate": "BURIED_AT",
+            "object": "place:d08ecc40-a7e3-4e0d-880f-a6b66e8b1b12",
+            "object_label": "Bia Hiếu Lăng (lăng Minh Mạng)",
+            "object_kind": "place",
+            "source_type": "catalog_name",
+            "source": "catalog:entity/d08ecc40-a7e3-4e0d-880f-a6b66e8b1b12",
+            "evidence": "Bia Hiếu Lăng (lăng Minh Mạng)",
+            "verifier": "catalog_name_pattern"
+          },
+          {
+            "subject": "person:minh-mang",
+            "subject_label": "Minh Mạng",
+            "predicate": "BURIED_AT",
+            "object": "place:b75f907a-fd80-445e-b981-cc25f790a53c",
+            "object_label": "Tượng quan võ đá lăng Minh Mạng",
+            "object_kind": "place",
+            "source_type": "catalog_name",
+            "source": "catalog:entity/b75f907a-fd80-445e-b981-cc25f790a53c",
+            "evidence": "Tượng quan võ đá lăng Minh Mạng",
+            "verifier": "catalog_name_pattern"
+          },
+          {
+            "subject": "person:minh-mang",
+            "subject_label": "Minh Mạng",
+            "predicate": "BURIED_AT",
+            "object": "place:7ba3071f-3d8b-478a-923c-40fdd972274b",
+            "object_label": "Bia lăng Minh Mạng (Hiếu Lăng, Huế)",
+            "object_kind": "place",
+            "source_type": "gemini_doc",
+            "source": "https://huesmiletravel.com.vn/blog/773-lang-minh-mang/",
+            "evidence": "Tháng 8 năm 1841, thi hài vua Minh Mạng được đưa vào chôn ở Bửu Thành và đầu năm 1843 việc xây lăng mới hoàn tất.",
+            "verifier": "quote_in_source+checks"
+          },
+          {
+            "subject": "person:minh-mang",
+            "subject_label": "Minh Mạng",
+            "predicate": "BURIED_AT",
+            "object": "place:0b612af0-e83c-419e-9b58-b4e6b0b7c9a4",
+            "object_label": "Bửu thành lăng Minh Mạng",
+            "object_kind": "place",
+            "source_type": "gemini_doc",
+            "source": "https://crystalbay.com/lang-minh-mang-kiet-tac-nghe-thuat-dieu-khac-giua-long-co-do-n50719.html",
+            "evidence": "Lăng Minh Mạng không chỉ là nơi an nghỉ của một trong những vị vua nổi bật nhất triều Nguyễn",
+            "verifier": "quote_in_source+checks"
+          },
+          {
+            "subject": "person:minh-mang",
+            "subject_label": "Minh Mạng",
+            "predicate": "BURIED_AT",
+            "object": "place:c80c2975-392f-498f-878f-e9fb48407fca",
+            "object_label": "Cửa đồng bửu thành lăng Minh Mạng",
+            "object_kind": "place",
+            "source_type": "gemini_doc",
+            "source": "https://www.vietourist.com.vn/vn/news/thong-tin-du-lich-trong-nuoc/lang-minh-mang-1570.html",
+            "evidence": "nối liền từ Đại Hồng môn đến Bửu thành - nơi được cho là vị trí chôn cất của vua Minh Mạng.",
+            "verifier": "quote_in_source+checks"
+          },
+          {
+            "subject": "person:minh-mang",
+            "subject_label": "Minh Mạng",
+            "predicate": "BURIED_AT",
+            "object": "place:c80c2975-392f-498f-878f-e9fb48407fca",
+            "object_label": "Cửa đồng bửu thành lăng Minh Mạng",
+            "object_kind": "place",
+            "source_type": "gemini_doc",
+            "source": "https://queenbus.com.vn/kham-pha-lang-minh-mang-hue",
+            "evidence": "Nơi đây là nơi an nghỉ của vị vua thứ hai triều Nguyễn – vua Minh Mạng",
+            "verifier": "quote_in_source+checks"
+          },
+          {
+            "subject": "person:minh-mang",
+            "subject_label": "Minh Mạng",
+            "predicate": "BURIED_AT",
+            "object": "place:fb83abe2-8fc3-41b0-95b0-2b8caf649ba5",
+            "object_label": "Lăng Minh Mạng",
+            "object_kind": "place",
+            "source_type": "gemini_doc",
+            "source": "https://www.klook.com/vi/activity/131046-tomb-of-emperor-minh-mang-ticket-in-unesco-complex-of-hue-monument/",
+            "evidence": "Khám phá lịch sử và tín ngưỡng của triều đại Nguyễn khi tham quan lăng mộ Minh Mạng được bảo tồn tốt.",
+            "verifier": "quote_in_source+checks"
+          },
+          {
+            "subject": "person:minh-mang",
+            "subject_label": "Minh Mạng",
+            "predicate": "BURIED_AT",
+            "object": "place:e2caef83-5503-4aae-bee4-b658938a1770",
+            "object_label": "Lăng Minh Mạng",
+            "object_kind": "place",
+            "source_type": "gemini_doc",
+            "source": "https://crystalbay.com/lang-minh-mang-kiet-tac-nghe-thuat-dieu-khac-giua-long-co-do-n50719.html",
+            "evidence": "lăng minh mạng không chỉ là nơi an nghỉ của một trong những vị vua nổi bật nhất triều nguyễn",
+            "verifier": "quote_in_source+checks"
+          },
+          {
+            "subject": "person:minh-mang",
+            "subject_label": "Minh Mạng",
+            "predicate": "BURIED_AT",
+            "object": "place:7ba3071f-3d8b-478a-923c-40fdd972274b",
+            "object_label": "Bia lăng Minh Mạng (Hiếu Lăng, Huế)",
+            "object_kind": "place",
+            "source_type": "gemini_doc",
+            "source": "https://daivietourist.vn/lang-minh-mang-hue/",
+            "evidence": "Lăng Minh Mạng (Hiếu Lăng) là lăng tẩm của vua Minh Mạng triều Nguyễn, nổi tiếng với bố cục đối xứng chuẩn mực nhất trong hệ thống lăng tẩm Huế.",
+            "verifier": "quote_in_source+checks+named_place"
+          },
+          {
+            "subject": "person:minh-mang",
+            "subject_label": "Minh Mạng",
+            "predicate": "BURIED_AT",
+            "object": "place:fb7b5e9d-156f-45e3-9fe9-def8817a45e3",
+            "object_label": "Lăng Minh Mạng - Huế",
+            "object_kind": "place",
+            "source_type": "gemini_doc",
+            "source": "https://daivietourist.vn/lang-minh-mang-hue/",
+            "evidence": "Lăng Minh Mạng (Hiếu Lăng) là lăng tẩm của vua Minh Mạng triều Nguyễn, nổi tiếng với bố cục đối xứng chuẩn mực nhất trong hệ thống lăng tẩm Huế.",
+            "verifier": "quote_in_source+checks+named_place"
+          },
+          {
+            "subject": "person:minh-mang",
+            "subject_label": "Minh Mạng",
+            "predicate": "BURIED_AT",
+            "object": "place:fb83abe2-8fc3-41b0-95b0-2b8caf649ba5",
+            "object_label": "Lăng Minh Mạng",
+            "object_kind": "place",
+            "source_type": "gemini_doc",
+            "source": "https://daivietourist.vn/lang-minh-mang-hue/",
+            "evidence": "Lăng Minh Mạng (Hiếu Lăng) là lăng tẩm của vua Minh Mạng triều Nguyễn, nổi tiếng với bố cục đối xứng chuẩn mực nhất trong hệ thống lăng tẩm Huế.",
+            "verifier": "quote_in_source+checks+named_place"
+          },
+          {
+            "subject": "person:minh-mang",
+            "subject_label": "Minh Mạng",
+            "predicate": "BURIED_AT",
+            "object": "place:e2caef83-5503-4aae-bee4-b658938a1770",
+            "object_label": "Lăng Minh Mạng",
+            "object_kind": "place",
+            "source_type": "gemini_doc",
+            "source": "https://daivietourist.vn/lang-minh-mang-hue/",
+            "evidence": "Lăng Minh Mạng (Hiếu Lăng) là lăng tẩm của vua Minh Mạng triều Nguyễn, nổi tiếng với bố cục đối xứng chuẩn mực nhất trong hệ thống lăng tẩm Huế.",
+            "verifier": "quote_in_source+checks+named_place"
+          },
+          {
+            "subject": "person:minh-mang",
+            "subject_label": "Minh Mạng",
+            "predicate": "BURIED_AT",
+            "object": "place:c80c2975-392f-498f-878f-e9fb48407fca",
+            "object_label": "Cửa đồng bửu thành lăng Minh Mạng",
+            "object_kind": "place",
+            "source_type": "gemini_doc",
+            "source": "https://daivietourist.vn/lang-minh-mang-hue/",
+            "evidence": "Lăng Minh Mạng (Hiếu Lăng) là lăng tẩm của vua Minh Mạng triều Nguyễn, nổi tiếng với bố cục đối xứng chuẩn mực nhất trong hệ thống lăng tẩm Huế.",
+            "verifier": "quote_in_source+checks+named_place"
+          },
+          {
+            "subject": "person:minh-mang",
+            "subject_label": "Minh Mạng",
+            "predicate": "BURIED_AT",
+            "object": "place:0b612af0-e83c-419e-9b58-b4e6b0b7c9a4",
+            "object_label": "Bửu thành lăng Minh Mạng",
+            "object_kind": "place",
+            "source_type": "gemini_doc",
+            "source": "https://daivietourist.vn/lang-minh-mang-hue/",
+            "evidence": "Lăng Minh Mạng (Hiếu Lăng) là lăng tẩm của vua Minh Mạng triều Nguyễn, nổi tiếng với bố cục đối xứng chuẩn mực nhất trong hệ thống lăng tẩm Huế.",
+            "verifier": "quote_in_source+checks+named_place"
+          },
+          {
+            "subject": "person:minh-mang",
+            "subject_label": "Minh Mạng",
+            "predicate": "BURIED_AT",
+            "object": "place:f7032b88-6adb-4dcc-907e-fd31c1ece7d0",
+            "object_label": "Điện Sùng Ân lăng Minh Mạng",
+            "object_kind": "place",
+            "source_type": "gemini_doc",
+            "source": "https://daivietourist.vn/lang-minh-mang-hue/",
+            "evidence": "Lăng Minh Mạng (Hiếu Lăng) là lăng tẩm của vua Minh Mạng triều Nguyễn, nổi tiếng với bố cục đối xứng chuẩn mực nhất trong hệ thống lăng tẩm Huế.",
+            "verifier": "quote_in_source+checks+named_place"
+          },
+          {
+            "subject": "person:minh-mang",
+            "subject_label": "Minh Mạng",
+            "predicate": "BURIED_AT",
+            "object": "place:d205ffca-8914-4d6d-9e0a-2a8daa9aff79",
+            "object_label": "Lăng Minh Mạng",
+            "object_kind": "place",
+            "source_type": "gemini_doc",
+            "source": "https://daivietourist.vn/lang-minh-mang-hue/",
+            "evidence": "Lăng Minh Mạng (Hiếu Lăng) là lăng tẩm của vua Minh Mạng triều Nguyễn, nổi tiếng với bố cục đối xứng chuẩn mực nhất trong hệ thống lăng tẩm Huế.",
+            "verifier": "quote_in_source+checks+named_place"
+          },
+          {
+            "subject": "person:minh-mang",
+            "subject_label": "Minh Mạng",
+            "predicate": "BURIED_AT",
+            "object": "place:b75f907a-fd80-445e-b981-cc25f790a53c",
+            "object_label": "Tượng quan võ đá lăng Minh Mạng",
+            "object_kind": "place",
+            "source_type": "gemini_doc",
+            "source": "https://daivietourist.vn/lang-minh-mang-hue/",
+            "evidence": "Lăng Minh Mạng (Hiếu Lăng) là lăng tẩm của vua Minh Mạng triều Nguyễn, nổi tiếng với bố cục đối xứng chuẩn mực nhất trong hệ thống lăng tẩm Huế.",
+            "verifier": "quote_in_source+checks+named_place"
+          }
+        ]
+      }
+    ],
+    "target_nodes": [
+      {
+        "node_id": "place:7ba3071f-3d8b-478a-923c-40fdd972274b",
+        "kind": "place",
+        "label": "Bia lăng Minh Mạng (Hiếu Lăng, Huế)",
+        "gender": null
+      },
+      {
+        "node_id": "place:d3e18c31-56f8-4005-81e7-87c4bb66f98a",
+        "kind": "place",
+        "label": "Lăng Minh Mạng Hiếu Lăng",
+        "gender": null
+      },
+      {
+        "node_id": "place:fb7b5e9d-156f-45e3-9fe9-def8817a45e3",
+        "kind": "place",
+        "label": "Lăng Minh Mạng - Huế",
+        "gender": null
+      },
+      {
+        "node_id": "place:fb83abe2-8fc3-41b0-95b0-2b8caf649ba5",
+        "kind": "place",
+        "label": "Lăng Minh Mạng",
+        "gender": null
+      },
+      {
+        "node_id": "place:e2caef83-5503-4aae-bee4-b658938a1770",
+        "kind": "place",
+        "label": "Lăng Minh Mạng",
+        "gender": null
+      },
+      {
+        "node_id": "place:c80c2975-392f-498f-878f-e9fb48407fca",
+        "kind": "place",
+        "label": "Cửa đồng bửu thành lăng Minh Mạng",
+        "gender": null
+      },
+      {
+        "node_id": "place:0b612af0-e83c-419e-9b58-b4e6b0b7c9a4",
+        "kind": "place",
+        "label": "Bửu thành lăng Minh Mạng",
+        "gender": null
+      },
+      {
+        "node_id": "place:f9d01111-9230-4305-b861-bb3f5afd24eb",
+        "kind": "place",
+        "label": "Điện Sùng Ân (lăng Minh Mạng, Huế)",
+        "gender": null
+      },
+      {
+        "node_id": "place:2ee5b6a5-d383-4c1e-b60f-4a5c336e3b87",
+        "kind": "place",
+        "label": "Đại Hồng Môn (Lăng Minh Mạng, Huế)",
+        "gender": null
+      },
+      {
+        "node_id": "place:f7032b88-6adb-4dcc-907e-fd31c1ece7d0",
+        "kind": "place",
+        "label": "Điện Sùng Ân lăng Minh Mạng",
+        "gender": null
+      },
+      {
+        "node_id": "place:d205ffca-8914-4d6d-9e0a-2a8daa9aff79",
+        "kind": "place",
+        "label": "Lăng Minh Mạng",
+        "gender": null
+      },
+      {
+        "node_id": "place:d08ecc40-a7e3-4e0d-880f-a6b66e8b1b12",
+        "kind": "place",
+        "label": "Bia Hiếu Lăng (lăng Minh Mạng)",
+        "gender": null
+      },
+      {
+        "node_id": "place:b75f907a-fd80-445e-b981-cc25f790a53c",
+        "kind": "place",
+        "label": "Tượng quan võ đá lăng Minh Mạng",
+        "gender": null
+      }
+    ],
+    "mapped_target_entity_ids": [
+      "7ba3071f-3d8b-478a-923c-40fdd972274b",
+      "d3e18c31-56f8-4005-81e7-87c4bb66f98a",
+      "fb7b5e9d-156f-45e3-9fe9-def8817a45e3",
+      "fb83abe2-8fc3-41b0-95b0-2b8caf649ba5",
+      "e2caef83-5503-4aae-bee4-b658938a1770",
+      "c80c2975-392f-498f-878f-e9fb48407fca",
+      "0b612af0-e83c-419e-9b58-b4e6b0b7c9a4",
+      "f9d01111-9230-4305-b861-bb3f5afd24eb",
+      "2ee5b6a5-d383-4c1e-b60f-4a5c336e3b87",
+      "f7032b88-6adb-4dcc-907e-fd31c1ece7d0",
+      "d205ffca-8914-4d6d-9e0a-2a8daa9aff79",
+      "d08ecc40-a7e3-4e0d-880f-a6b66e8b1b12",
+      "b75f907a-fd80-445e-b981-cc25f790a53c"
+    ],
+    "evidence_checked": true,
+    "online": {}
+  }
+}

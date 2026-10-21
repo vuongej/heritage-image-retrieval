@@ -1,0 +1,35 @@
+stage1_heuristics:
+  min_width: 600
+  min_height: 400
+  aspect_ratio: [0.4, 3.0]
+  blur_laplacian_var_min: 60
+  entropy_min: 3.0
+  phash_hamming_max: 6
+  watermark_zone_edge_density_max: 0.18
+
+stage2_classifier:
+  model: siglip2-base-patch16-384-finetuned
+  heads: [relevance, watermark, nsfw, violence, politics]
+  batch_size: 128
+  precision: fp16
+  onnx_path: /models/stage2.onnx
+
+routing:
+  accept_p: 0.70
+  reject_p: 0.35
+  uncertain_band: [0.35, 0.70]
+  expected_uncertain_share: 0.08
+
+stage3_vlm:
+  enabled: true                 # tự tắt khi LLM_PROVIDER=none
+  provider_from_env: LLM_PROVIDER
+  max_side_px: 512
+  output_schema: verdict_v1
+  use_batch_api: true
+  prompt_cache: true
+  fallback_when_disabled: human_review_queue
+
+throughput_assumptions:
+  stage1_images_per_sec_per_node: 640
+  stage2_images_per_sec_per_gpu: 1500
+  stage3_images_per_min_batch: 20000

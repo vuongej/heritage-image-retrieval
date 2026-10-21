@@ -1,0 +1,10 @@
+flowchart LR
+  IN[Ảnh crawl] --> S1{"Stage 1 CPU<br/>res >= 600x400<br/>aspect · blur · entropy<br/>pHash dedup"}
+  S1 -->|fail| R1[reject stage=1]
+  S1 -->|pass| S2{"Stage 2 GPU<br/>relevance · watermark<br/>nsfw · violence · politics"}
+  S2 -->|"p >= 0.70"| G[gold/ + index]
+  S2 -->|"p <= 0.35"| R2[reject stage=2]
+  S2 -->|"0.35 < p < 0.70"| Q{"Stage 3 bật?"}
+  Q -->|gemini/local| V[VLM verdict]
+  Q -->|none| H[human_review_queue]
+  V --> G

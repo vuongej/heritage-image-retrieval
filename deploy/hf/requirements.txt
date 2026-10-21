@@ -1,0 +1,12 @@
+# Chỉ những gói nằm trên đường xử lý request; version lấy từ requirements-local.lock.txt.
+fastapi==0.146.0
+uvicorn==0.54.0
+httpx==0.28.1
+pydantic==2.14.1
+numpy==1.26.4
+pillow==11.3.0
+PyYAML==6.0.3
+torch==2.14.1+cpu
+sentence-transformers==6.1.0
+transformers==5.20.1
+huggingface_hub==1.33.0

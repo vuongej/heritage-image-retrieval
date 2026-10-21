@@ -1,0 +1,481 @@
+{
+ "request_id": "4f955a2b-2e97-4872-9bdd-7d0342a87f19",
+ "intent_type": "single",
+ "parser": "rule",
+ "hits": [
+  {
+   "image_id": "14a9a77f-713a-553e-aa10-832ecba09ad4",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/0/08/Muaxuantamcoc.jpg?utm_source=vi.wikipedia.org&utm_campaign=index&utm_content=original",
+   "score": 0.996434211730957,
+   "entity_id": "d028b085-5f52-4230-affa-dc647c22b3ac",
+   "entity_slug": "quan-the-trang-an",
+   "leaf_label": "Quần thể Tràng An",
+   "query_type": "approved_metadata",
+   "parent_class": "Cột đá vôi & tháp karst — Ninh Bình (Tràng An, Tam Cốc–Bích Động, Vân Long)",
+   "description": "Quần thể Tràng An hiện lên hùng vĩ với những dãy núi đá vôi trùng điệp, dòng sông uốn lượn và những chiếc thuyền chở khách du ngoạn giữa khung cảnh thiên nhiên thơ mộng.",
+   "matched_subqueries": [
+    "q0"
+   ],
+   "quality": {
+    "width": null,
+    "height": null,
+    "verify": "yes",
+    "verify_source": "human",
+    "watermark": "unknown",
+    "pixel_checked": false
+   }
+  },
+  {
+   "image_id": "0b2292f6-7e9a-5661-a548-0b06bb03626d",
+   "image_url": "http://trangandanhthang.vn/wp-content/uploads/2025/06/tam-coc-buc-tranh-que.jpg",
+   "score": 0.9962199330329895,
+   "entity_id": "d028b085-5f52-4230-affa-dc647c22b3ac",
+   "entity_slug": "quan-the-trang-an",
+   "leaf_label": "Quần thể Tràng An",
+   "query_type": "approved_metadata",
+   "parent_class": "Cột đá vôi & tháp karst — Ninh Bình (Tràng An, Tam Cốc–Bích Động, Vân Long)",
+   "description": "Quần thể Tràng An hiện lên hùng vĩ với những dãy núi đá vôi trùng điệp, dòng sông uốn lượn và cánh đồng lúa chín vàng rực rỡ, tạo nên bức tranh thiên nhiên tuyệt mỹ.",
+   "matched_subqueries": [
+    "q0"
+   ],
+   "quality": {
+    "width": null,
+    "height": null,
+    "verify": "yes",
+    "verify_source": "human",
+    "watermark": "unknown",
+    "pixel_checked": false
+   }
+  },
+  {
+   "image_id": "2cb8596e-1c62-59b6-b54f-97e43119e089",
+   "image_url": "https://media.tapchixaydung.vn/mediav2/upload/userfiles2021/images/nguyencuong/07_2024/pham-thanh-tung-02_14092024075329_135.jpg",
+   "score": 0.9961456060409546,
+   "entity_id": "d028b085-5f52-4230-affa-dc647c22b3ac",
+   "entity_slug": "quan-the-trang-an",
+   "leaf_label": "Quần thể Tràng An",
+   "query_type": "approved_metadata",
+   "parent_class": "Cột đá vôi & tháp karst — Ninh Bình (Tràng An, Tam Cốc–Bích Động, Vân Long)",
+   "description": "Quần thể Tràng An hiện lên hùng vĩ với những dãy núi đá vôi xanh mướt bao quanh dòng sông nước biếc, điểm xuyết những chiếc thuyền nhỏ.",
+   "matched_subqueries": [
+    "q0"
+   ],
+   "quality": {
+    "width": 1600,
+    "height": 1065,
+    "verify": "yes",
+    "verify_source": "human",
+    "watermark": "unknown",
+    "pixel_checked": false
+   }
+  },
+  {
+   "image_id": "7bb16c36-a9e4-51c8-9ce8-0b6328ab5bb4",
+   "image_url": "https://tourghepdoan.com/wp-content/uploads/2023/01/R-40-1.jpg",
+   "score": 0.9961155652999878,
+   "entity_id": "d028b085-5f52-4230-affa-dc647c22b3ac",
+   "entity_slug": "quan-the-trang-an",
+   "leaf_label": "Quần thể Tràng An",
+   "query_type": "approved_metadata",
+   "parent_class": "Cột đá vôi & tháp karst — Ninh Bình (Tràng An, Tam Cốc–Bích Động, Vân Long)",
+   "description": "Quần thể Tràng An hiện lên hùng vĩ với những dãy núi đá vôi xanh mướt, những ngôi chùa cổ kính và hàng trăm thuyền nan neo đậu trên dòng sông xanh biếc.",
+   "matched_subqueries": [
+    "q0"
+   ],
+   "quality": {
+    "width": 1000,
+    "height": 632,
+    "verify": "yes",
+    "verify_source": "human",
+    "watermark": "unknown",
+    "pixel_checked": false
+   }
+  },
+  {
+   "image_id": "b1410f29-5564-5d1b-a117-9569bc34644b",
+   "image_url": "https://bizweb.dktcdn.net/100/006/093/files/di-san-the-gioi-trang-an-1.jpg?v=1575603184082",
+   "score": 0.9961155652999878,
+   "entity_id": "d028b085-5f52-4230-affa-dc647c22b3ac",
+   "entity_slug": "quan-the-trang-an",
+   "leaf_label": "Quần thể Tràng An",
+   "query_type": "approved_metadata",
+   "parent_class": "Cột đá vôi & tháp karst — Ninh Bình (Tràng An, Tam Cốc–Bích Động, Vân Long)",
+   "description": "Quần thể Tràng An hiện lên với những dãy núi đá vôi xanh mướt bao quanh dòng sông hiền hòa, tạo nên khung cảnh kỳ vĩ.",
+   "matched_subqueries": [
+    "q0"
+   ],
+   "quality": {
+    "width": null,
+    "height": null,
+    "verify": "yes",
+    "verify_source": "human",
+    "watermark": "unknown",
+    "pixel_checked": false
+   }
+  },
+  {
+   "image_id": "31c2de8c-d824-5621-a70e-36781fdd893e",
+   "image_url": "https://cemjqsfu7xw4zjzp.public.blob.vercel-storage.com/content-images/trang-an-landscape-complex-scenic-aerial-trang-river-winding.jpg",
+   "score": 0.9960851669311523,
+   "entity_id": "d028b085-5f52-4230-affa-dc647c22b3ac",
+   "entity_slug": "quan-the-trang-an",
+   "leaf_label": "Quần thể Tràng An",
+   "query_type": "approved_metadata",
+   "parent_class": "Cột đá vôi & tháp karst — Ninh Bình (Tràng An, Tam Cốc–Bích Động, Vân Long)",
+   "description": "Quần thể Tràng An hiện lên với những dãy núi đá vôi hùng vĩ bao quanh cánh đồng lúa vàng óng và dòng sông uốn lượn thơ mộng.",
+   "matched_subqueries": [
+    "q0"
+   ],
+   "quality": {
+    "width": null,
+    "height": null,
+    "verify": "yes",
+    "verify_source": "human",
+    "watermark": "unknown",
+    "pixel_checked": false
+   }
+  },
+  {
+   "image_id": "ef91a71a-4fca-5770-9adb-b10140f123d2",
+   "image_url": "https://mia.vn/media/uploads/blog-du-lich/an-tuong-ve-dep-hung-vi-noi-quan-the-danh-thang-trang-an-16-1640248413.jpg",
+   "score": 0.9960545301437378,
+   "entity_id": "d028b085-5f52-4230-affa-dc647c22b3ac",
+   "entity_slug": "quan-the-trang-an",
+   "leaf_label": "Quần thể Tràng An",
+   "query_type": "approved_metadata",
+   "parent_class": "Cột đá vôi & tháp karst — Ninh Bình (Tràng An, Tam Cốc–Bích Động, Vân Long)",
+   "description": "Quần thể Tràng An hiện lên với ngôi chùa cổ kính uy nghiêm giữa khung cảnh núi non hùng vĩ và thảm thực vật xanh mướt.",
+   "matched_subqueries": [
+    "q0"
+   ],
+   "quality": {
+    "width": 1200,
+    "height": 1200,
+    "verify": "yes",
+    "verify_source": "human",
+    "watermark": "unknown",
+    "pixel_checked": false
+   }
+  },
+  {
+   "image_id": "8ea6974d-fee5-57d7-8343-9f2945fc5582",
+   "image_url": "https://img.cnt.traveloka.com/tvlk/dam/i/01kcp0wm089s0kaf76s12qndpe.png",
+   "score": 0.9958980679512024,
+   "entity_id": "d028b085-5f52-4230-affa-dc647c22b3ac",
+   "entity_slug": "quan-the-trang-an",
+   "leaf_label": "Quần thể Tràng An",
+   "query_type": "approved_metadata",
+   "parent_class": "Cột đá vôi & tháp karst — Ninh Bình (Tràng An, Tam Cốc–Bích Động, Vân Long)",
+   "description": "Quần thể Tràng An hiện lên với kiến trúc cổ kính bên mặt hồ phẳng lặng, phản chiếu cảnh quan xanh mát của núi rừng hùng vĩ.",
+   "matched_subqueries": [
+    "q0"
+   ],
+   "quality": {
+    "width": 800,
+    "height": 400,
+    "verify": "yes",
+    "verify_source": "human",
+    "watermark": "unknown",
+    "pixel_checked": false
+   }
+  },
+  {
+   "image_id": "055b6554-20f2-52ab-89df-b75db5d0fa34",
+   "image_url": "https://sotnmt.ninhbinh.gov.vn/public/userfiles/2022/Anh/Trang-an-ninh-binh-1.jpg",
+   "score": 0.9956685304641724,
+   "entity_id": "d028b085-5f52-4230-affa-dc647c22b3ac",
+   "entity_slug": "quan-the-trang-an",
+   "leaf_label": "Quần thể Tràng An",
+   "query_type": "approved_metadata",
+   "parent_class": "Cột đá vôi & tháp karst — Ninh Bình (Tràng An, Tam Cốc–Bích Động, Vân Long)",
+   "description": "Quần thể Tràng An hiện lên với những dãy núi đá vôi hùng vĩ, dòng sông xanh biếc và hàng trăm thuyền du lịch đang chở du khách khám phá cảnh quan tuyệt đẹp.",
+   "matched_subqueries": [
+    "q0"
+   ],
+   "quality": {
+    "width": null,
+    "height": null,
+    "verify": "yes",
+    "verify_source": "human",
+    "watermark": "unknown",
+    "pixel_checked": false
+   }
+  },
+  {
+   "image_id": "26cb3857-b712-5cb6-ba79-84d5a1848c5b",
+   "image_url": "https://hoangthanhthanglong.vn/wp-content/uploads/2026/01/trangan1.jpg",
+   "score": 0.9953904151916504,
+   "entity_id": "d028b085-5f52-4230-affa-dc647c22b3ac",
+   "entity_slug": "quan-the-trang-an",
+   "leaf_label": "Quần thể Tràng An",
+   "query_type": "approved_metadata",
+   "parent_class": "Cột đá vôi & tháp karst — Ninh Bình (Tràng An, Tam Cốc–Bích Động, Vân Long)",
+   "description": "Quần thể Tràng An hiện lên hùng vĩ với những dãy núi đá vôi trùng điệp, dòng sông xanh ngắt và hàng chục thuyền du khách đang xuôi dòng khám phá vẻ đẹp non nước.",
+   "matched_subqueries": [
+    "q0"
+   ],
+   "quality": {
+    "width": null,
+    "height": null,
+    "verify": "yes",
+    "verify_source": "human",
+    "watermark": "unknown",
+    "pixel_checked": false
+   }
+  },
+  {
+   "image_id": "ca2870a2-fa2d-5b24-a661-772818ed108e",
+   "image_url": "http://trangandanhthang.vn/wp-content/uploads/2025/10/TA.jpg",
+   "score": 0.9952999353408813,
+   "entity_id": "d028b085-5f52-4230-affa-dc647c22b3ac",
+   "entity_slug": "quan-the-trang-an",
+   "leaf_label": "Quần thể Tràng An",
+   "query_type": "approved_metadata",
+   "parent_class": "Cột đá vôi & tháp karst — Ninh Bình (Tràng An, Tam Cốc–Bích Động, Vân Long)",
+   "description": "Quần thể Tràng An hiện lên hùng vĩ với dòng sông uốn lượn, hai bên là núi đá vôi trùng điệp và thảm thực vật xanh mướt, thấp thoáng những chiếc thuyền chở khách du lịch.",
+   "matched_subqueries": [
+    "q0"
+   ],
+   "quality": {
+    "width": null,
+    "height": null,
+    "verify": "yes",
+    "verify_source": "human",
+    "watermark": "unknown",
+    "pixel_checked": false
+   }
+  },
+  {
+   "image_id": "ce16fb28-797a-567d-9687-14395e814b65",
+   "image_url": "https://cdn.daidoanket.vn/w1200/uploaded/images/2025/09/08/389731b9-1e44-4fec-be47-af43a2b4d2e2.jpg",
+   "score": 0.995226263999939,
+   "entity_id": "d028b085-5f52-4230-affa-dc647c22b3ac",
+   "entity_slug": "quan-the-trang-an",
+   "leaf_label": "Quần thể Tràng An",
+   "query_type": "approved_metadata",
+   "parent_class": "Cột đá vôi & tháp karst — Ninh Bình (Tràng An, Tam Cốc–Bích Động, Vân Long)",
+   "description": "Quần thể Tràng An hiện lên hùng vĩ với những dãy núi đá vôi trùng điệp, dòng sông xanh ngắt và những chiếc thuyền chở đầy du khách, tạo nên một bức tranh sơn thủy hữu tình.",
+   "matched_subqueries": [
+    "q0"
+   ],
+   "quality": {
+    "width": null,
+    "height": null,
+    "verify": "yes",
+    "verify_source": "human",
+    "watermark": "unknown",
+    "pixel_checked": false
+   }
+  },
+  {
+   "image_id": "7ead078b-8679-50c8-8616-61e453766d47",
+   "image_url": "https://imgnvsk.vnanet.vn/MediaUpload/Org/2023/08/10/vna-potal-du-lich-viet-nam-non-nuoc-huu-tinh-cua-danh-thang-trang-an-518393910-17-54-35.jpg",
+   "score": 0.9951325058937073,
+   "entity_id": "d028b085-5f52-4230-affa-dc647c22b3ac",
+   "entity_slug": "quan-the-trang-an",
+   "leaf_label": "Quần thể Tràng An",
+   "query_type": "approved_metadata",
+   "parent_class": "Cột đá vôi & tháp karst — Ninh Bình (Tràng An, Tam Cốc–Bích Động, Vân Long)",
+   "description": "Quần thể Tràng An hiện lên với những ngôi chùa cổ kính nép mình giữa rừng cây xanh mướt và dòng sông hiền hòa, nơi có hàng trăm thuyền du lịch neo đậu chờ đón du khách.",
+   "matched_subqueries": [
+    "q0"
+   ],
+   "quality": {
+    "width": null,
+    "height": null,
+    "verify": "yes",
+    "verify_source": "human",
+    "watermark": "unknown",
+    "pixel_checked": false
+   }
+  },
+  {
+   "image_id": "88487d06-3c37-5ba4-8c45-068a5e1d9ffe",
+   "image_url": "https://hungvuongtravel.com.vn/uploads/up/root/tour/2023/07/19/17/31/tou1689741110_86.jpg",
+   "score": 0.9950370192527771,
+   "entity_id": "d028b085-5f52-4230-affa-dc647c22b3ac",
+   "entity_slug": "quan-the-trang-an",
+   "leaf_label": "Quần thể Tràng An",
+   "query_type": "approved_metadata",
+   "parent_class": "Cột đá vôi & tháp karst — Ninh Bình (Tràng An, Tam Cốc–Bích Động, Vân Long)",
+   "description": "Quần thể Tràng An hiện lên với dòng sông xanh biếc uốn lượn giữa những dãy núi đá vôi hùng vĩ, hàng trăm thuyền du lịch đang nối đuôi nhau trên mặt nước.",
+   "matched_subqueries": [
+    "q0"
+   ],
+   "quality": {
+    "width": null,
+    "height": null,
+    "verify": "yes",
+    "verify_source": "human",
+    "watermark": "unknown",
+    "pixel_checked": false
+   }
+  },
+  {
+   "image_id": "80818605-dac8-545c-a9e0-1a0338193976",
+   "image_url": "https://media.baodautu.vn/Images/chicuong/2024/04/23/11.jpg",
+   "score": 0.9926542043685913,
+   "entity_id": "d028b085-5f52-4230-affa-dc647c22b3ac",
+   "entity_slug": "quan-the-trang-an",
+   "leaf_label": "Quần thể Tràng An",
+   "query_type": "approved_metadata",
+   "parent_class": "Cột đá vôi & tháp karst — Ninh Bình (Tràng An, Tam Cốc–Bích Động, Vân Long)",
+   "description": "Toàn cảnh Quần thể Tràng An hiện lên hùng vĩ với những ngôi chùa cổ kính, tháp cao vút ẩn mình giữa núi non xanh mướt và mặt hồ phẳng lặng.",
+   "matched_subqueries": [
+    "q0"
+   ],
+   "quality": {
+    "width": 1000,
+    "height": 649,
+    "verify": "yes",
+    "verify_source": "human",
+    "watermark": "unknown",
+    "pixel_checked": false
+   }
+  },
+  {
+   "image_id": "874d0cfb-a94c-52c4-afbf-61ab665257b9",
+   "image_url": "http://trangandanhthang.vn/wp-content/uploads/2025/06/toan-canh-ta-scaled.jpg",
+   "score": 0.9925969839096069,
+   "entity_id": "d028b085-5f52-4230-affa-dc647c22b3ac",
+   "entity_slug": "quan-the-trang-an",
+   "leaf_label": "Quần thể Tràng An",
+   "query_type": "approved_metadata",
+   "parent_class": "Cột đá vôi & tháp karst — Ninh Bình (Tràng An, Tam Cốc–Bích Động, Vân Long)",
+   "description": "Toàn cảnh Quần thể Tràng An hiện lên hùng vĩ với những dãy núi đá vôi xanh mướt bao quanh dòng sông uốn lượn, tạo nên bức tranh thiên nhiên kỳ ảo.",
+   "matched_subqueries": [
+    "q0"
+   ],
+   "quality": {
+    "width": 2560,
+    "height": 1457,
+    "verify": "yes",
+    "verify_source": "human",
+    "watermark": "unknown",
+    "pixel_checked": false
+   }
+  },
+  {
+   "image_id": "e0223048-b22c-53e1-8f79-0d7f44266511",
+   "image_url": "https://media.tapchixaydung.vn/mediav2/upload/userfiles2021/images/nguyencuong/07_2024/pham-thanh-tung-08_14092024080530_135.jpg",
+   "score": 0.9923638105392456,
+   "entity_id": "d028b085-5f52-4230-affa-dc647c22b3ac",
+   "entity_slug": "quan-the-trang-an",
+   "leaf_label": "Quần thể Tràng An",
+   "query_type": "approved_metadata",
+   "parent_class": "Cột đá vôi & tháp karst — Ninh Bình (Tràng An, Tam Cốc–Bích Động, Vân Long)",
+   "description": "Toàn cảnh Quần thể Tràng An hiện lên hùng vĩ với những ngôi chùa cổ kính, tháp cao vút giữa khung cảnh thiên nhiên xanh mướt và sông nước hữu tình.",
+   "matched_subqueries": [
+    "q0"
+   ],
+   "quality": {
+    "width": null,
+    "height": null,
+    "verify": "yes",
+    "verify_source": "human",
+    "watermark": "unknown",
+    "pixel_checked": false
+   }
+  },
+  {
+   "image_id": "74d8f497-2f8c-501f-9470-cb1c82be0421",
+   "image_url": "https://sunparadiseland.com/_next/image?url=https%3A%2F%2Fsun-ecommerce-cdn.azureedge.net%2Fecommerce%2Fservice-sites%2Fasset%2FSunParadiseLandHaNam%2Fgoogle-doc%2Fpost_id_16988%2FAD_4nXcOG8WTq64IDpAuNJvlUzNf6ngNm_ZtrCcRVJOlRPODdyBj3tc1HOJgWTpjhxkm8CNqe3ZT0_T9Fr8O7iTPBUbs75CILFbKfrz9B16pXUVUFr1WHtqhj4FDPCRBp5sZisGOTzpIrvq6mBzAh-kZu1mAiyQ.webp&w=1200&q=80",
+   "score": 0.9916841983795166,
+   "entity_id": "d028b085-5f52-4230-affa-dc647c22b3ac",
+   "entity_slug": "quan-the-trang-an",
+   "leaf_label": "Quần thể Tràng An",
+   "query_type": "approved_metadata",
+   "parent_class": "Cột đá vôi & tháp karst — Ninh Bình (Tràng An, Tam Cốc–Bích Động, Vân Long)",
+   "description": "Toàn cảnh Quần thể Tràng An hiện lên hùng vĩ với những dãy núi đá vôi trùng điệp, dòng sông xanh ngắt và những ngôi chùa cổ kính, tạo nên bức tranh sơn thủy hữu tình.",
+   "matched_subqueries": [
+    "q0"
+   ],
+   "quality": {
+    "width": null,
+    "height": null,
+    "verify": "yes",
+    "verify_source": "human",
+    "watermark": "unknown",
+    "pixel_checked": false
+   }
+  },
+  {
+   "image_id": "1a70e4b6-f117-5a88-8e3d-ca99a55842b6",
+   "image_url": "https://tourghepdoan.com/wp-content/uploads/2023/01/quy-hoach-quan-the-danh-thang-trang-an-rong-12252-ha1455710103.jpg",
+   "score": 0.9915215969085693,
+   "entity_id": "d028b085-5f52-4230-affa-dc647c22b3ac",
+   "entity_slug": "quan-the-trang-an",
+   "leaf_label": "Quần thể Tràng An",
+   "query_type": "approved_metadata",
+   "parent_class": "Cột đá vôi & tháp karst — Ninh Bình (Tràng An, Tam Cốc–Bích Động, Vân Long)",
+   "description": "Toàn cảnh Quần thể Tràng An hiện lên hùng vĩ với những dãy núi đá vôi xanh mướt, dòng sông uốn lượn và những ngôi chùa cổ kính, cùng hàng trăm thuyền du lịch neo đậu chờ đón du khách.",
+   "matched_subqueries": [
+    "q0"
+   ],
+   "quality": {
+    "width": null,
+    "height": null,
+    "verify": "yes",
+    "verify_source": "human",
+    "watermark": "unknown",
+    "pixel_checked": false
+   }
+  },
+  {
+   "image_id": "b0ab1c90-cb51-5f9b-a071-98ef1ed22174",
+   "image_url": "https://images.vietnamtourism.gov.vn/vn/images/2021/trang_an.jpg",
+   "score": 0.9906960725784302,
+   "entity_id": "d028b085-5f52-4230-affa-dc647c22b3ac",
+   "entity_slug": "quan-the-trang-an",
+   "leaf_label": "Quần thể Tràng An",
+   "query_type": "approved_metadata",
+   "parent_class": "Cột đá vôi & tháp karst — Ninh Bình (Tràng An, Tam Cốc–Bích Động, Vân Long)",
+   "description": "Toàn cảnh Quần thể Tràng An hiện lên hùng vĩ với những dãy núi đá vôi trùng điệp, xanh mướt cây cối, soi bóng xuống mặt hồ phẳng lặng, điểm xuyết là ngôi đình cổ kính giữa lòng non nước.",
+   "matched_subqueries": [
+    "q0"
+   ],
+   "quality": {
+    "width": null,
+    "height": null,
+    "verify": "yes",
+    "verify_source": "human",
+    "watermark": "unknown",
+    "pixel_checked": false
+   }
+  }
+ ],
+ "facets": {
+  "entities": {
+   "quan-the-trang-an": "Quần thể Tràng An"
+  },
+  "classes": {
+   "Cột đá vôi & tháp karst — Ninh Bình (Tràng An, Tam Cốc–Bích Động, Vân Long)": 20
+  },
+  "query_types": {
+   "approved_metadata": 20
+  }
+ },
+ "timings_ms": {
+  "catalog": 0.004800000169780105,
+  "parse": 1.1432999999669846,
+  "embed_query": 420.01170000003185,
+  "dense": 36.15409999838448,
+  "retrieve": 23.975700001756195,
+  "llm_wait": 0.0017000020307023078,
+  "metadata_filter": 22.644500000751577,
+  "rerank": 648.092400002497
+ },
+ "total_ms": 1171,
+ "warnings": [],
+ "sub_queries": [
+  {
+   "id": "q0",
+   "text": "quần thể tràng an",
+   "coverage": "covered",
+   "returned": 20
+  }
+ ],
+ "parse_confidence": "high",
+ "pipeline_version": "b3-guarded-parse-fair-multi",
+ "resolution": null
+}

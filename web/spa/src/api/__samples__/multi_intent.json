@@ -1,0 +1,504 @@
+{
+ "request_id": "b9fe6bd4-ba28-415e-ba9e-3ef6761a5f5a",
+ "intent_type": "single",
+ "parser": "llm",
+ "hits": [
+  {
+   "image_id": "78b9339d-5088-57f6-a310-e98ae7c80d05",
+   "image_url": "http://danangexplorer.com/wp-content/uploads/2020/03/ho-phu-ninh-2.jpg",
+   "score": 0.08434179425239563,
+   "entity_id": "9c2df1d2-c986-4b2e-b7b4-90eb185d02d2",
+   "entity_slug": "khu-du-lich-sinh-thai-phu-ninh-suoi-khoang",
+   "leaf_label": "Khu du lịch sinh thái Phú Ninh (suối khoáng)",
+   "query_type": "approved_metadata",
+   "parent_class": "Khu tắm khoáng-nóng & onsen đã khai thác (Bình Châu, Tháp Bà Nha Trang, Núi Thần Tài, I-Resort, Yoko Onsen Quang Hanh, Alba Wellness, Wanderlust–Thanh Thủy, Tản Đà, Serena Kim Bôi, V-Resort, Mỹ Lâm, Vĩnh Hảo, LeChamp Tú Lệ…)",
+   "description": "Chiếc thuyền lướt trên mặt hồ xanh biếc tại Khu du lịch sinh thái Phú Ninh, với những cụm cây xanh mọc lên từ mặt nước tạo nên khung cảnh thơ mộng.",
+   "matched_subqueries": [
+    "q0",
+    "q1"
+   ],
+   "quality": {
+    "width": null,
+    "height": null,
+    "verify": "yes",
+    "verify_source": "human",
+    "watermark": "unknown",
+    "pixel_checked": false
+   }
+  },
+  {
+   "image_id": "9eb17507-4130-5685-8dcf-5a79e242c2de",
+   "image_url": "https://statics.vinpearl.com/dai-tuong-niem-doi-sim_1747619036.jpg",
+   "score": 0.005099818110466003,
+   "entity_id": "67e1244f-fb31-4fb7-b9e7-dd98de154e64",
+   "entity_slug": "khu-di-tich-lich-su-nha-tu-phu-quoc-kien-giang",
+   "leaf_label": "Khu di tích lịch sử Nhà tù Phú Quốc (Kiên Giang)",
+   "query_type": "approved_metadata",
+   "parent_class": "Quần thể & khu tưởng niệm (khu/cụm công trình tưởng niệm có quy hoạch: khu tưởng niệm, công viên tưởng niệm, quảng trường tưởng niệm có danh)",
+   "description": "Khu di tích lịch sử Nhà tù Phú Quốc hiện lên với tượng đài trung tâm và hai khối điêu khắc hình sóng nước màu xanh nổi bật.",
+   "matched_subqueries": [
+    "q0",
+    "q1"
+   ],
+   "quality": {
+    "width": 1018,
+    "height": 652,
+    "verify": "yes",
+    "verify_source": "human",
+    "watermark": "unknown",
+    "pixel_checked": false
+   }
+  },
+  {
+   "image_id": "2468002f-5824-5674-af51-c3dead6033f4",
+   "image_url": "https://taucaotoc.vn/wp-content/uploads/2020/12/Vuon-tieu-Phu-Quoc.jpg",
+   "score": 0.0383940190076828,
+   "entity_id": "739b9ed1-83a3-44dd-ac5a-2ea2a72d0f18",
+   "entity_slug": "ho-tieu-phu-quoc",
+   "leaf_label": "Hồ tiêu Phú Quốc",
+   "query_type": "approved_metadata",
+   "parent_class": "Hạt tiêu & vỏ-quả thơm gia vị (hồ tiêu Phú Quốc/Chư Sê/Lộc Ninh, quế Trà My/Văn Yên/Trà Bồng, hồi Lạng Sơn, thảo quả, mắc khén, hạt dổi)",
+   "description": "Những hàng tiêu xanh mướt thẳng tắp tạo nên cảnh quan đặc trưng của Hồ tiêu Phú Quốc, mang đến vẻ đẹp trù phú.",
+   "matched_subqueries": [
+    "q0"
+   ],
+   "quality": {
+    "width": null,
+    "height": null,
+    "verify": "yes",
+    "verify_source": "human",
+    "watermark": "unknown",
+    "pixel_checked": false
+   }
+  },
+  {
+   "image_id": "4798f7a5-d77b-5b40-86c5-879bb75f31b1",
+   "image_url": "https://anabasrestaurant.vn/wp-content/uploads/2024/11/phu-ninh-eco-tourism-areas-1.jpg",
+   "score": 0.14596547186374664,
+   "entity_id": "9c2df1d2-c986-4b2e-b7b4-90eb185d02d2",
+   "entity_slug": "khu-du-lich-sinh-thai-phu-ninh-suoi-khoang",
+   "leaf_label": "Khu du lịch sinh thái Phú Ninh (suối khoáng)",
+   "query_type": "approved_metadata",
+   "parent_class": "Khu tắm khoáng-nóng & onsen đã khai thác (Bình Châu, Tháp Bà Nha Trang, Núi Thần Tài, I-Resort, Yoko Onsen Quang Hanh, Alba Wellness, Wanderlust–Thanh Thủy, Tản Đà, Serena Kim Bôi, V-Resort, Mỹ Lâm, Vĩnh Hảo, LeChamp Tú Lệ…)",
+   "description": "Khu du lịch sinh thái Phú Ninh hiện lên với cảnh quan hồ nước xanh biếc, bao quanh bởi những ngọn đồi cây cối tươi tốt và khu vui chơi dưới nước hấp dẫn.",
+   "matched_subqueries": [
+    "q1"
+   ],
+   "quality": {
+    "width": null,
+    "height": null,
+    "verify": "yes",
+    "verify_source": "human",
+    "watermark": "unknown",
+    "pixel_checked": false
+   }
+  },
+  {
+   "image_id": "2b290692-388a-53bc-bca4-8451eaf8f014",
+   "image_url": "https://photo-baomoi.bmcdn.me/w500_r1/2024_10_08_503_50410509/0ade5ac7f2881bd64299.jpg",
+   "score": 0.036700353026390076,
+   "entity_id": "739b9ed1-83a3-44dd-ac5a-2ea2a72d0f18",
+   "entity_slug": "ho-tieu-phu-quoc",
+   "leaf_label": "Hồ tiêu Phú Quốc",
+   "query_type": "approved_metadata",
+   "parent_class": "Hạt tiêu & vỏ-quả thơm gia vị (hồ tiêu Phú Quốc/Chư Sê/Lộc Ninh, quế Trà My/Văn Yên/Trà Bồng, hồi Lạng Sơn, thảo quả, mắc khén, hạt dổi)",
+   "description": "Những hàng tiêu xanh mướt vươn mình trên các cọc gỗ tại Hồ tiêu Phú Quốc tạo nên một khung cảnh trù phú, tràn đầy sức sống.",
+   "matched_subqueries": [
+    "q0"
+   ],
+   "quality": {
+    "width": null,
+    "height": null,
+    "verify": "yes",
+    "verify_source": "human",
+    "watermark": "unknown",
+    "pixel_checked": false
+   }
+  },
+  {
+   "image_id": "ab58602b-94a2-598e-b721-e642ec2594ba",
+   "image_url": "https://lh7-rt.googleusercontent.com/docsz/AD_4nXfu2KPMVtWXgwjkLHQ3O3W94Kv2hIsvt3YMndbna4LO_TR8kDMYvdtakY47rw2iIISBOH393f2m4nT-gL5nQ6AP2Mq72pETaK8M4gDhf5Kbik4EMFYaIPJDllRyJzr7pz1AX3fj4g?key=ykC671ZEkU-oxLxjE-noUMz-",
+   "score": 0.13409411907196045,
+   "entity_id": "623dc200-ab93-45f2-a7dd-67489c188b71",
+   "entity_slug": "khu-di-tich-trai-giam-tu-binh-phu-quoc",
+   "leaf_label": "Khu di tích Trại giam Tù binh Phú Quốc",
+   "query_type": "approved_metadata",
+   "parent_class": "Quần thể & khu tưởng niệm (khu/cụm công trình tưởng niệm có quy hoạch: khu tưởng niệm, công viên tưởng niệm, quảng trường tưởng niệm có danh)",
+   "description": "Khu di tích Trại giam Tù binh Phú Quốc hiện lên với tượng nắm đấm uy nghiêm, kiến trúc độc đáo và cảnh quan xanh mát, gợi nhớ về một thời lịch sử.",
+   "matched_subqueries": [
+    "q1"
+   ],
+   "quality": {
+    "width": 680,
+    "height": 382,
+    "verify": "yes",
+    "verify_source": "human",
+    "watermark": "unknown",
+    "pixel_checked": false
+   }
+  },
+  {
+   "image_id": "9afdc306-bcf2-5d69-9b47-66e948c3604f",
+   "image_url": "https://taucaotoc.vn/wp-content/uploads/2020/12/Vuon-tieu-Phu-Quoc-1024x768.jpg",
+   "score": 0.016277460381388664,
+   "entity_id": "739b9ed1-83a3-44dd-ac5a-2ea2a72d0f18",
+   "entity_slug": "ho-tieu-phu-quoc",
+   "leaf_label": "Hồ tiêu Phú Quốc",
+   "query_type": "approved_metadata",
+   "parent_class": "Hạt tiêu & vỏ-quả thơm gia vị (hồ tiêu Phú Quốc/Chư Sê/Lộc Ninh, quế Trà My/Văn Yên/Trà Bồng, hồi Lạng Sơn, thảo quả, mắc khén, hạt dổi)",
+   "description": "Những hàng tiêu xanh mướt thẳng tắp tạo nên khung cảnh trù phú của Hồ tiêu Phú Quốc dưới ánh nắng vàng rực rỡ.",
+   "matched_subqueries": [
+    "q0"
+   ],
+   "quality": {
+    "width": null,
+    "height": null,
+    "verify": "yes",
+    "verify_source": "human",
+    "watermark": "unknown",
+    "pixel_checked": false
+   }
+  },
+  {
+   "image_id": "0efd1ebc-ab3f-54cb-b5fa-cd4758a9d08b",
+   "image_url": "https://r2.nucuoimekong.com/wp-content/uploads/di-tich-lich-su-nha-tu-phu-quoc-1-e1614918635921.jpg",
+   "score": 0.13061773777008057,
+   "entity_id": "67e1244f-fb31-4fb7-b9e7-dd98de154e64",
+   "entity_slug": "khu-di-tich-lich-su-nha-tu-phu-quoc-kien-giang",
+   "leaf_label": "Khu di tích lịch sử Nhà tù Phú Quốc (Kiên Giang)",
+   "query_type": "approved_metadata",
+   "parent_class": "Quần thể & khu tưởng niệm (khu/cụm công trình tưởng niệm có quy hoạch: khu tưởng niệm, công viên tưởng niệm, quảng trường tưởng niệm có danh)",
+   "description": "Cổng chào Khu di tích lịch sử Nhà tù Phú Quốc nổi bật với kiến trúc trang trọng, hai bên là hàng rào và cây xanh mát mẻ.",
+   "matched_subqueries": [
+    "q1"
+   ],
+   "quality": {
+    "width": null,
+    "height": null,
+    "verify": "yes",
+    "verify_source": "human",
+    "watermark": "unknown",
+    "pixel_checked": false
+   }
+  },
+  {
+   "image_id": "93dda7eb-a3cb-503f-bca8-6711a50b25af",
+   "image_url": "https://gonatour.vn/vnt_upload/news/09_2021/ho_tieu_phu_quoc.jpg",
+   "score": 0.014899643138051033,
+   "entity_id": "739b9ed1-83a3-44dd-ac5a-2ea2a72d0f18",
+   "entity_slug": "ho-tieu-phu-quoc",
+   "leaf_label": "Hồ tiêu Phú Quốc",
+   "query_type": "approved_metadata",
+   "parent_class": "Hạt tiêu & vỏ-quả thơm gia vị (hồ tiêu Phú Quốc/Chư Sê/Lộc Ninh, quế Trà My/Văn Yên/Trà Bồng, hồi Lạng Sơn, thảo quả, mắc khén, hạt dổi)",
+   "description": "Cận cảnh Hồ tiêu Phú Quốc với những chùm tiêu xanh, đỏ xen kẽ, điểm xuyết một chiếc lá xanh mướt.",
+   "matched_subqueries": [
+    "q0"
+   ],
+   "quality": {
+    "width": 1600,
+    "height": 1059,
+    "verify": "yes",
+    "verify_source": "human",
+    "watermark": "unknown",
+    "pixel_checked": false
+   }
+  },
+  {
+   "image_id": "53b54844-ec46-528a-834d-6db27203a6bd",
+   "image_url": "https://media-cdn-v2.laodong.vn/Storage/NewsPortal/2022/6/6/1053355/_DSC8345.JPG",
+   "score": 0.12326004356145859,
+   "entity_id": "67e1244f-fb31-4fb7-b9e7-dd98de154e64",
+   "entity_slug": "khu-di-tich-lich-su-nha-tu-phu-quoc-kien-giang",
+   "leaf_label": "Khu di tích lịch sử Nhà tù Phú Quốc (Kiên Giang)",
+   "query_type": "approved_metadata",
+   "parent_class": "Quần thể & khu tưởng niệm (khu/cụm công trình tưởng niệm có quy hoạch: khu tưởng niệm, công viên tưởng niệm, quảng trường tưởng niệm có danh)",
+   "description": "Du khách tham quan mô hình tái hiện cảnh lao động khổ sai tại Khu di tích lịch sử Nhà tù Phú Quốc, với ánh sáng hắt ra từ đường hầm.",
+   "matched_subqueries": [
+    "q1"
+   ],
+   "quality": {
+    "width": null,
+    "height": null,
+    "verify": "yes",
+    "verify_source": "human",
+    "watermark": "unknown",
+    "pixel_checked": false
+   }
+  },
+  {
+   "image_id": "a5b0956b-2479-589a-8395-8b275319dc7d",
+   "image_url": "https://phuquocxanh.com/vi/wp-content/uploads/2018/03/ho-tieu-phu-quoc-003.jpg",
+   "score": 0.008745181374251842,
+   "entity_id": "739b9ed1-83a3-44dd-ac5a-2ea2a72d0f18",
+   "entity_slug": "ho-tieu-phu-quoc",
+   "leaf_label": "Hồ tiêu Phú Quốc",
+   "query_type": "approved_metadata",
+   "parent_class": "Hạt tiêu & vỏ-quả thơm gia vị (hồ tiêu Phú Quốc/Chư Sê/Lộc Ninh, quế Trà My/Văn Yên/Trà Bồng, hồi Lạng Sơn, thảo quả, mắc khén, hạt dổi)",
+   "description": "Cận cảnh Hồ tiêu Phú Quốc với nhiều hạt tiêu đen, đỏ và xanh xen kẽ trên đĩa trắng, tạo nên màu sắc hấp dẫn.",
+   "matched_subqueries": [
+    "q0"
+   ],
+   "quality": {
+    "width": null,
+    "height": null,
+    "verify": "yes",
+    "verify_source": "human",
+    "watermark": "unknown",
+    "pixel_checked": false
+   }
+  },
+  {
+   "image_id": "244d6b97-fbc6-50d6-8f36-34442a7bd56a",
+   "image_url": "https://cdn3.ivivu.com/2023/02/nha-tu-phu-quoc-ivivu-3.png",
+   "score": 0.12137296795845032,
+   "entity_id": "67e1244f-fb31-4fb7-b9e7-dd98de154e64",
+   "entity_slug": "khu-di-tich-lich-su-nha-tu-phu-quoc-kien-giang",
+   "leaf_label": "Khu di tích lịch sử Nhà tù Phú Quốc (Kiên Giang)",
+   "query_type": "approved_metadata",
+   "parent_class": "Quần thể & khu tưởng niệm (khu/cụm công trình tưởng niệm có quy hoạch: khu tưởng niệm, công viên tưởng niệm, quảng trường tưởng niệm có danh)",
+   "description": "Khu di tích lịch sử Nhà tù Phú Quốc hiện lên với những dãy nhà tù cũ kỹ, hàng rào kẽm gai và khung cảnh hoang vắng phía sau.",
+   "matched_subqueries": [
+    "q1"
+   ],
+   "quality": {
+    "width": 680,
+    "height": 454,
+    "verify": "yes",
+    "verify_source": "human",
+    "watermark": "unknown",
+    "pixel_checked": false
+   }
+  },
+  {
+   "image_id": "f3d67737-8b32-5ad5-a331-8ee301810bc5",
+   "image_url": "https://cdn2.tuoitre.vn/zoom/1200_630/471584752817336320/2025/2/10/tieu-1-173915391261178300822-58-0-471-788-crop-17391540506832018363002.png",
+   "score": 0.0064882696606218815,
+   "entity_id": "739b9ed1-83a3-44dd-ac5a-2ea2a72d0f18",
+   "entity_slug": "ho-tieu-phu-quoc",
+   "leaf_label": "Hồ tiêu Phú Quốc",
+   "query_type": "approved_metadata",
+   "parent_class": "Hạt tiêu & vỏ-quả thơm gia vị (hồ tiêu Phú Quốc/Chư Sê/Lộc Ninh, quế Trà My/Văn Yên/Trà Bồng, hồi Lạng Sơn, thảo quả, mắc khén, hạt dổi)",
+   "description": "Hai người dân đang thăm vườn tiêu xanh mướt, trĩu quả, cho thấy sự phát triển của Hồ tiêu Phú Quốc.",
+   "matched_subqueries": [
+    "q0"
+   ],
+   "quality": {
+    "width": null,
+    "height": null,
+    "verify": "yes",
+    "verify_source": "human",
+    "watermark": "unknown",
+    "pixel_checked": false
+   }
+  },
+  {
+   "image_id": "9b3576cc-a076-5f41-8e20-60d3d69bae36",
+   "image_url": "https://phuquocsanhodo.com/images/nha-tu/nha-tu-phu-quoc-4.jpg",
+   "score": 0.11920291930437088,
+   "entity_id": "67e1244f-fb31-4fb7-b9e7-dd98de154e64",
+   "entity_slug": "khu-di-tich-lich-su-nha-tu-phu-quoc-kien-giang",
+   "leaf_label": "Khu di tích lịch sử Nhà tù Phú Quốc (Kiên Giang)",
+   "query_type": "approved_metadata",
+   "parent_class": "Quần thể & khu tưởng niệm (khu/cụm công trình tưởng niệm có quy hoạch: khu tưởng niệm, công viên tưởng niệm, quảng trường tưởng niệm có danh)",
+   "description": "Lối vào Khu di tích lịch sử Nhà tù Phú Quốc với các bảng đá, tháp canh và nhiều cây xanh rợp bóng mát.",
+   "matched_subqueries": [
+    "q1"
+   ],
+   "quality": {
+    "width": null,
+    "height": null,
+    "verify": "yes",
+    "verify_source": "human",
+    "watermark": "unknown",
+    "pixel_checked": false
+   }
+  },
+  {
+   "image_id": "2764e029-ff73-59ea-ae67-a713436c61fa",
+   "image_url": "https://tapchivietnamhuongsac.vn/stores/news_dataimages/2026/032026/05/21/diep-le20260305212857.jpg?rt=20260305212903",
+   "score": 0.004982269834727049,
+   "entity_id": "739b9ed1-83a3-44dd-ac5a-2ea2a72d0f18",
+   "entity_slug": "ho-tieu-phu-quoc",
+   "leaf_label": "Hồ tiêu Phú Quốc",
+   "query_type": "approved_metadata",
+   "parent_class": "Hạt tiêu & vỏ-quả thơm gia vị (hồ tiêu Phú Quốc/Chư Sê/Lộc Ninh, quế Trà My/Văn Yên/Trà Bồng, hồi Lạng Sơn, thảo quả, mắc khén, hạt dổi)",
+   "description": "Hình ảnh Hồ tiêu Phú Quốc với cận cảnh một người phụ nữ đang phân loại hạt tiêu Phú Quốc vào các túi nhỏ, chuẩn bị cho việc đóng gói và tiêu thụ.",
+   "matched_subqueries": [
+    "q0"
+   ],
+   "quality": {
+    "width": null,
+    "height": null,
+    "verify": "yes",
+    "verify_source": "human",
+    "watermark": "unknown",
+    "pixel_checked": false
+   }
+  },
+  {
+   "image_id": "76879451-1f75-5893-a697-b8d6d85c55a6",
+   "image_url": "https://bizweb.dktcdn.net/100/539/761/files/nha-tu-phu-quoc-2.jpg?v=1741139810246",
+   "score": 0.11656273901462555,
+   "entity_id": "67e1244f-fb31-4fb7-b9e7-dd98de154e64",
+   "entity_slug": "khu-di-tich-lich-su-nha-tu-phu-quoc-kien-giang",
+   "leaf_label": "Khu di tích lịch sử Nhà tù Phú Quốc (Kiên Giang)",
+   "query_type": "approved_metadata",
+   "parent_class": "Quần thể & khu tưởng niệm (khu/cụm công trình tưởng niệm có quy hoạch: khu tưởng niệm, công viên tưởng niệm, quảng trường tưởng niệm có danh)",
+   "description": "Khu di tích lịch sử Nhà tù Phú Quốc tái hiện cảnh tra tấn tù nhân bằng các mô hình và hình ảnh lịch sử chân thực.",
+   "matched_subqueries": [
+    "q1"
+   ],
+   "quality": {
+    "width": null,
+    "height": null,
+    "verify": "yes",
+    "verify_source": "human",
+    "watermark": "unknown",
+    "pixel_checked": false
+   }
+  },
+  {
+   "image_id": "0835ff63-774e-5370-b9c5-bf2d1dee6b89",
+   "image_url": "https://static.vinwonders.com/2022/02/Chua-ho-quoc-1-1.jpg",
+   "score": 0.003260345896705985,
+   "entity_id": "890b5772-0f11-4740-9a98-8fd6d29f9688",
+   "entity_slug": "tuong-quan-am-nam-hai-chua-ho-quoc-phu-quoc",
+   "leaf_label": "Tượng Quan Âm Nam Hải chùa Hộ Quốc (Phú Quốc)",
+   "query_type": "approved_metadata",
+   "parent_class": "Tượng & phù điêu nhân vật tôn giáo – tâm linh quy mô công trình (tượng Phật/Quan Âm/Di Lặc lớn, Đức Mẹ, Thánh tử đạo... đặt tên, có nguồn độc lập, là công trình điểm-đến)",
+   "description": "Toàn cảnh Tượng Quan Âm Nam Hải chùa Hộ Quốc (Phú Quốc) hiện lên uy nghiêm giữa khung cảnh hoàng hôn huyền ảo bên bờ biển.",
+   "matched_subqueries": [
+    "q0"
+   ],
+   "quality": {
+    "width": 700,
+    "height": 465,
+    "verify": "yes",
+    "verify_source": "human",
+    "watermark": "unknown",
+    "pixel_checked": false
+   }
+  },
+  {
+   "image_id": "e2015099-8c6a-5759-aeae-606e675e8dd1",
+   "image_url": "https://imgchinhsachcuocsong.vnanet.vn/MediaUpload/Org/2022/12/09/083533-ttxvntrai_giam_phu_quoc.jpg",
+   "score": 0.11436853557825089,
+   "entity_id": "623dc200-ab93-45f2-a7dd-67489c188b71",
+   "entity_slug": "khu-di-tich-trai-giam-tu-binh-phu-quoc",
+   "leaf_label": "Khu di tích Trại giam Tù binh Phú Quốc",
+   "query_type": "approved_metadata",
+   "parent_class": "Quần thể & khu tưởng niệm (khu/cụm công trình tưởng niệm có quy hoạch: khu tưởng niệm, công viên tưởng niệm, quảng trường tưởng niệm có danh)",
+   "description": "Khu di tích Trại giam Tù binh Phú Quốc hiện lên với những dãy nhà tôn đơn sơ và du khách tham quan trong khuôn viên.",
+   "matched_subqueries": [
+    "q1"
+   ],
+   "quality": {
+    "width": null,
+    "height": null,
+    "verify": "yes",
+    "verify_source": "human",
+    "watermark": "unknown",
+    "pixel_checked": false
+   }
+  },
+  {
+   "image_id": "848c007a-0c57-524b-b623-61097c761660",
+   "image_url": "https://doanhnghiepkinhtexanh.vn/zoom-share/1200x630/uploads/blog/nguyenhongcong/2026/07/12/ht1-1783830525.jpg",
+   "score": 0.002560870721936226,
+   "entity_id": "1ea36903-9187-4a76-8d46-71df502d1eb6",
+   "entity_slug": "scope-14-ho-tieu-quang-tri",
+   "leaf_label": "Hồ tiêu Quảng Trị",
+   "query_type": "approved_metadata",
+   "parent_class": "Hạt tiêu & vỏ-quả thơm gia vị (hồ tiêu Phú Quốc/Chư Sê/Lộc Ninh, quế Trà My/Văn Yên/Trà Bồng, hồi Lạng Sơn, thảo quả, mắc khén, hạt dổi)",
+   "description": "Những trụ tiêu xanh mướt, lá sum suê tạo nên cảnh quan trù phú của Hồ tiêu Quảng Trị, hứa hẹn mùa bội thu.",
+   "matched_subqueries": [
+    "q0"
+   ],
+   "quality": {
+    "width": 1200,
+    "height": 630,
+    "verify": "yes",
+    "verify_source": "human",
+    "watermark": "unknown",
+    "pixel_checked": false
+   }
+  },
+  {
+   "image_id": "ea0d10f9-3a9f-5a74-a023-5530ddae2bd7",
+   "image_url": "https://media.vietnamplus.vn/images/782b75656060bb88d3da0b5dc4f78d7c3acf960944e1e86bf5a431b94a4d2b972f20f95794f2d7236cad16d6a8d86880/nha-tu-phu-quoc2.jpg",
+   "score": 0.11240508407354355,
+   "entity_id": "67e1244f-fb31-4fb7-b9e7-dd98de154e64",
+   "entity_slug": "khu-di-tich-lich-su-nha-tu-phu-quoc-kien-giang",
+   "leaf_label": "Khu di tích lịch sử Nhà tù Phú Quốc (Kiên Giang)",
+   "query_type": "approved_metadata",
+   "parent_class": "Quần thể & khu tưởng niệm (khu/cụm công trình tưởng niệm có quy hoạch: khu tưởng niệm, công viên tưởng niệm, quảng trường tưởng niệm có danh)",
+   "description": "Khu di tích lịch sử Nhà tù Phú Quốc tái hiện cảnh tù nhân đứng trước cai ngục, với những dãy nhà tôn và tháp canh phía sau.",
+   "matched_subqueries": [
+    "q1"
+   ],
+   "quality": {
+    "width": null,
+    "height": null,
+    "verify": "yes",
+    "verify_source": "human",
+    "watermark": "unknown",
+    "pixel_checked": false
+   }
+  }
+ ],
+ "facets": {
+  "entities": {
+   "khu-du-lich-sinh-thai-phu-ninh-suoi-khoang": "Khu du lịch sinh thái Phú Ninh (suối khoáng)",
+   "khu-di-tich-lich-su-nha-tu-phu-quoc-kien-giang": "Khu di tích lịch sử Nhà tù Phú Quốc (Kiên Giang)",
+   "ho-tieu-phu-quoc": "Hồ tiêu Phú Quốc",
+   "khu-di-tich-trai-giam-tu-binh-phu-quoc": "Khu di tích Trại giam Tù binh Phú Quốc",
+   "tuong-quan-am-nam-hai-chua-ho-quoc-phu-quoc": "Tượng Quan Âm Nam Hải chùa Hộ Quốc (Phú Quốc)",
+   "scope-14-ho-tieu-quang-tri": "Hồ tiêu Quảng Trị"
+  },
+  "classes": {
+   "Khu tắm khoáng-nóng & onsen đã khai thác (Bình Châu, Tháp Bà Nha Trang, Núi Thần Tài, I-Resort, Yoko Onsen Quang Hanh, Alba Wellness, Wanderlust–Thanh Thủy, Tản Đà, Serena Kim Bôi, V-Resort, Mỹ Lâm, Vĩnh Hảo, LeChamp Tú Lệ…)": 2,
+   "Quần thể & khu tưởng niệm (khu/cụm công trình tưởng niệm có quy hoạch: khu tưởng niệm, công viên tưởng niệm, quảng trường tưởng niệm có danh)": 9,
+   "Hạt tiêu & vỏ-quả thơm gia vị (hồ tiêu Phú Quốc/Chư Sê/Lộc Ninh, quế Trà My/Văn Yên/Trà Bồng, hồi Lạng Sơn, thảo quả, mắc khén, hạt dổi)": 8,
+   "Tượng & phù điêu nhân vật tôn giáo – tâm linh quy mô công trình (tượng Phật/Quan Âm/Di Lặc lớn, Đức Mẹ, Thánh tử đạo... đặt tên, có nguồn độc lập, là công trình điểm-đến)": 1
+  },
+  "query_types": {
+   "approved_metadata": 20
+  }
+ },
+ "timings_ms": {
+  "catalog": 0.0027999994927085936,
+  "parse": 0.7769000003463589,
+  "embed_query": 185.87879999904544,
+  "dense": 22.645100001682295,
+  "retrieve": 139.38299999790615,
+  "llm_wait": 0.009499999578110874,
+  "embed_query_llm": 158.61650000078953,
+  "dense_llm": 34.52900000047521,
+  "retrieve_llm": 138.08499999868218,
+  "metadata_filter": 31.947800001944415,
+  "rerank": 277.49170000242884
+ },
+ "total_ms": 1019,
+ "warnings": [],
+ "sub_queries": [
+  {
+   "id": "q0",
+   "text": "hồ bơi ở phú quốc",
+   "evidence": "retrieval_rank",
+   "supported_candidates": 24,
+   "coverage": "covered",
+   "returned": 11
+  },
+  {
+   "id": "q1",
+   "text": "công viên nước ở phú quốc",
+   "evidence": "retrieval_rank",
+   "supported_candidates": 24,
+   "coverage": "covered",
+   "returned": 11
+  }
+ ],
+ "parse_confidence": "low",
+ "pipeline_version": "b3-guarded-parse-fair-multi",
+ "resolution": null
+}

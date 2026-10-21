@@ -1,0 +1,211 @@
+name: ci
+
+# PR:        backend test + web test + build image  -> preview Vercel (comment link vào PR)
+# push main: như trên -> deploy backend (HF Space) -> deploy web (Vercel prod) -> smoke -> k6 + report
+on:
+  push: { branches: [main] }
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      loadtest_profile:
+        description: "Kịch bản k6 sau deploy"
+        type: choice
+        options: [smoke, full]
+        default: smoke
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+env:
+  VERCEL_CLI: vercel@63.1.2
+  SLO_P95_MS: "3000"
+
+jobs:
+  backend:
+    name: Backend · ruff + pytest
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements-local.lock.txt
+      - run: pip install --extra-index-url https://download.pytorch.org/whl/cpu -r requirements-local.lock.txt
+      - run: ruff check .
+      - run: pytest -q --junitxml=test-results/junit.xml
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with: { name: pytest-junit, path: test-results/ }
+
+  web:
+    name: Web · vitest + typecheck + build
+    runs-on: ubuntu-latest
+    defaults: { run: { working-directory: web/spa } }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: web/spa/package-lock.json
+      - run: npm ci
+      - run: npm test
+      - run: npm run build # gồm tsc
+
+  image:
+    name: Docker · build + boot image backend
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/setup-buildx-action@v3
+      - uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: deploy/hf/Dockerfile
+          load: true
+          tags: heritage-api:ci
+          cache-from: type=gha,scope=space
+          cache-to: type=gha,mode=max,scope=space
+      # Khởi động không dữ liệu: bắt lỗi thiếu package / import trước khi đẩy lên Space.
+      - name: Boot + /v1/health
+        run: |
+          docker run -d --name api -p 7860:7860 -e PRELOAD_MODELS=false heritage-api:ci
+          for i in $(seq 1 30); do
+            curl -fsS http://127.0.0.1:7860/v1/health > /dev/null && { echo "health OK"; exit 0; }
+            sleep 2
+          done
+          docker logs api; exit 1
+
+  deploy-backend:
+    name: Deploy · backend → Hugging Face Space
+    needs: [backend, web, image]
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    environment:
+      name: backend
+      url: ${{ steps.push.outputs.url }}
+    env:
+      HF_TOKEN: ${{ secrets.HF_TOKEN }}
+      HF_SPACE: ${{ vars.HF_SPACE }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: pip install huggingface_hub==1.33.0
+      - id: push
+        run: python -m deploy.hf_deploy push-space
+      - name: Chờ Space build và khởi động
+        run: python -m deploy.hf_deploy wait --timeout 2400
+
+  deploy-web:
+    name: Deploy · web → Vercel production
+    needs: deploy-backend
+    runs-on: ubuntu-latest
+    environment:
+      name: production
+      url: ${{ vars.APP_URL }}
+    env:
+      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+    defaults: { run: { working-directory: web/spa } }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - run: npm install --global "$VERCEL_CLI"
+      - run: vercel pull --yes --environment=production --token="$VERCEL_TOKEN"
+      - run: vercel build --prod --token="$VERCEL_TOKEN"
+      - run: vercel deploy --prebuilt --prod --token="$VERCEL_TOKEN"
+
+  preview-web:
+    name: Preview · web → Vercel
+    needs: web
+    if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    permissions: { contents: read, pull-requests: write }
+    env:
+      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+      GH_TOKEN: ${{ github.token }}
+    defaults: { run: { working-directory: web/spa } }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - run: npm install --global "$VERCEL_CLI"
+      - run: vercel pull --yes --environment=preview --token="$VERCEL_TOKEN"
+      - run: vercel build --token="$VERCEL_TOKEN"
+      - name: Deploy preview + comment
+        run: |
+          url=$(vercel deploy --prebuilt --token="$VERCEL_TOKEN")
+          gh pr comment ${{ github.event.pull_request.number }} --body "Preview: $url (gọi chung backend production)"
+
+  smoke:
+    name: Smoke · 3 loại query qua domain production
+    needs: deploy-web
+    runs-on: ubuntu-latest
+    env:
+      APP_URL: ${{ vars.APP_URL }}
+    steps:
+      - name: Health
+        run: |
+          for i in $(seq 1 30); do
+            curl -fsS "$APP_URL/api/v1/health" > /dev/null && { echo "health OK"; exit 0; }
+            sleep 10
+          done
+          exit 1
+      - name: Search (lần 1 làm nóng, lần 2 đo; cần < SLO)
+        run: |
+          fail=0
+          while IFS='|' read -r type query; do
+            body=$(jq -nc --arg q "$query" '{query: $q, top_k: 10}')
+            curl -fsS -o /dev/null -X POST "$APP_URL/api/v1/search" -H 'Content-Type: application/json' -d "$body" || true
+            read -r code secs < <(curl -sS -o resp.json -w '%{http_code} %{time_total}' \
+              -X POST "$APP_URL/api/v1/search" -H 'Content-Type: application/json' -d "$body")
+            ms=$(awk "BEGIN{printf \"%d\", $secs*1000}")
+            hits=$(jq '.hits | length' resp.json 2>/dev/null || echo "?")
+            echo "| $type | $query | $code | $hits | $ms ms |" | tee -a "$GITHUB_STEP_SUMMARY"
+            [ "$code" = 200 ] && [ "$ms" -lt "$SLO_P95_MS" ] || fail=1
+          done <<'EOF'
+          single|bãi biển Nha Trang
+          multi_intent|hồ bơi và công viên nước ở Phú Quốc
+          multi_hop|lăng của con trai vua Gia Long
+          EOF
+          exit $fail
+
+  loadtest:
+    name: Load test · k6 + report
+    needs: smoke
+    runs-on: ubuntu-latest
+    env:
+      APP_URL: ${{ vars.APP_URL }}
+      PROFILE: ${{ inputs.loadtest_profile || 'smoke' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - uses: grafana/setup-k6-action@v1
+      - name: k6 (${{ env.PROFILE }})
+        run: |
+          mkdir -p reports
+          k6 run loadtest/loadtest.js -e PROFILE="$PROFILE" -e API_BASE="$APP_URL/api" \
+            -e SLO_P95_MS="$SLO_P95_MS" -e SUMMARY_PATH=reports/raw.json
+      - name: Sinh report HTML/JSON
+        if: always()
+        run: |
+          python -m loadtest.make_report reports/raw.json -o reports/report.html --slo-ms "$SLO_P95_MS"
+          python - <<'EOF' >> "$GITHUB_STEP_SUMMARY"
+          import json
+          s = json.load(open("reports/report.json"))
+          print(f"### k6 ({'${{ env.PROFILE }}'}) · {s['throughput_rps'] or 0:.2f} req/s · lỗi {(s['error_rate'] or 0) * 100:.2f}%")
+          print("| loại | p50 ms | p95 ms | p99 ms |\n|---|---|---|---|")
+          for t, v in s["by_type"].items():
+              print(f"| {t} | {v['p50']:.0f} | {v['p95']:.0f} | {v['p99']:.0f} |")
+          EOF
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with: { name: perf-report, path: reports/ }

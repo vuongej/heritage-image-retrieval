@@ -1,0 +1,17 @@
+.git
+.github
+.env
+.env.*
+!.env.example
+.venv*/
+.vscode
+.pytest_cache
+.ruff_cache
+**/__pycache__
+**/node_modules
+**/dist
+**/.vercel
+data/
+reports/raw*.json
+evals/runs
+docs/UI_Capstone_v2

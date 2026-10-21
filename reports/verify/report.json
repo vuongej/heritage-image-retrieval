@@ -1,0 +1,393 @@
+{
+  "csv": "data/data_anh_pass_80000_full_pham_van_vuong.csv",
+  "seed": 42,
+  "pilot_groups": 400,
+  "target_split": "test",
+  "budget_alpha": 0.15,
+  "gate": {
+    "source_rows": 80000,
+    "live_rows": 79208,
+    "rejected_rows": 792,
+    "rejected_share": 0.0099,
+    "by_rule": {
+      "R1_blocked": 787,
+      "R1_ws": 4,
+      "R1_invalid": 1
+    },
+    "noext_policy": "download",
+    "noext_kept_for_download": 1642,
+    "entities": 11228,
+    "name_groups": 11212
+  },
+  "split": {
+    "rows": {
+      "train": 44750,
+      "test": 23395,
+      "val": 11063
+    },
+    "groups": {
+      "test": 3239,
+      "val": 1522,
+      "train": 6063
+    },
+    "name_keys": 10883,
+    "groups_after_fuzzy_merge": 10824,
+    "buckets": 587,
+    "test_share_rows": 0.2954,
+    "seed": 42
+  },
+  "pilot_rows": 3240,
+  "fetch": {
+    "ok": 3151,
+    "dead": 83,
+    "dup_sha256": 6
+  },
+  "sha256_dups_in_entity": 6,
+  "cross_split_content_leaks_dropped": 1,
+  "embedding": {
+    "reused": 3150
+  },
+  "bootstrap": {
+    "labelled": 3150,
+    "yes_rate": 0.6933
+  },
+  "head": {
+    "C": 0.01,
+    "val_logloss_by_C": {
+      "0.003": 0.2739,
+      "0.01": 0.2512,
+      "0.03": 0.2626,
+      "0.1": 0.3128,
+      "0.3": 0.3907,
+      "1.0": 0.4876
+    },
+    "train_labelled": 1888,
+    "val_labelled": 367,
+    "train_yes_rate": 0.688,
+    "ece_val_raw": 0.0756,
+    "ece_val_calibrated_crossfit": 0.047,
+    "features": 782,
+    "ece_target_raw": 0.0628,
+    "ece_target_calibrated": 0.0343
+  },
+  "jev": {
+    "decided": 1262,
+    "defer_share": 0.1989,
+    "confidence_source": {
+      "self": 1000,
+      "logprob": 11
+    },
+    "ece_val_raw": 0.0933,
+    "ece_val_calibrated_crossfit": 0.0352,
+    "agreement_with_head_when_decided": 1.0,
+    "errors": 81,
+    "routed_models": {
+      "z-ai/glm-5.3-flash": 870,
+      "google/gemini-3.8-flash": 88,
+      "deepseek/deepseek-v4.1-flash-1017": 223,
+      "null": 81
+    }
+  },
+  "primary_layer": "jev",
+  "layers_proxy_eval": {
+    "head": {
+      "proxy_rows": 895,
+      "proxy_agreement_all": 0.9128,
+      "risk_coverage": {
+        "points": [
+          {
+            "alpha": 0.0,
+            "coverage": 1.0,
+            "acc_keep": 0.9128
+          },
+          {
+            "alpha": 0.05,
+            "coverage": 0.9497,
+            "acc_keep": 0.9247
+          },
+          {
+            "alpha": 0.1,
+            "coverage": 0.9006,
+            "acc_keep": 0.9293
+          },
+          {
+            "alpha": 0.15,
+            "coverage": 0.8503,
+            "acc_keep": 0.9369
+          },
+          {
+            "alpha": 0.2,
+            "coverage": 0.8,
+            "acc_keep": 0.9399
+          },
+          {
+            "alpha": 0.3,
+            "coverage": 0.6994,
+            "acc_keep": 0.9361
+          }
+        ],
+        "aurc": 0.0523
+      },
+      "ece_conf": 0.0329
+    },
+    "jev": {
+      "proxy_rows": 895,
+      "proxy_agreement_all": 0.9128,
+      "risk_coverage": {
+        "points": [
+          {
+            "alpha": 0.0,
+            "coverage": 1.0,
+            "acc_keep": 0.9128
+          },
+          {
+            "alpha": 0.05,
+            "coverage": 0.9497,
+            "acc_keep": 0.9129
+          },
+          {
+            "alpha": 0.1,
+            "coverage": 0.9006,
+            "acc_keep": 0.9107
+          },
+          {
+            "alpha": 0.15,
+            "coverage": 0.8503,
+            "acc_keep": 0.912
+          },
+          {
+            "alpha": 0.2,
+            "coverage": 0.8,
+            "acc_keep": 0.9106
+          },
+          {
+            "alpha": 0.3,
+            "coverage": 0.6994,
+            "acc_keep": 0.9233
+          }
+        ],
+        "aurc": 0.0649
+      },
+      "ece_conf": 0.2037
+    }
+  },
+  "router": {
+    "alpha": 0.15,
+    "budget_images": 134,
+    "chosen": 134,
+    "defer_rate_actual": 0.1497,
+    "decision_layer_defers": 173,
+    "excluded_small_entity_rows": 116,
+    "excluded_entity_already_enough_yes": 376,
+    "entities_needing_more_images": 44,
+    "conformal_theta_val": 1.0,
+    "target_share_above_theta": 0.0
+  },
+  "vlm": {
+    "vlm_2run_agree": 65,
+    "vlm_1run": 163,
+    "vlm_disagree_no_judge": 1,
+    "jev_judge_defer_no": 3,
+    "jev_judge": 1
+  },
+  "cascade_proxy": {
+    "rows": 895,
+    "agreement_all": 0.9162,
+    "agreement_keep": 0.9133,
+    "agreement_routed_vlm": 0.9328,
+    "routed_share": 0.1497
+  },
+  "approved_flag_eval": {
+    "rows": 895,
+    "approved": 895,
+    "rejected": 0,
+    "accuracy_vlm_teacher": 0.7039,
+    "accuracy_vlm_teacher_if_watermark_allowed": 0.9263,
+    "accuracy_head": 0.7665,
+    "accuracy_jev": 0.7665,
+    "accuracy_cascade": 0.7654,
+    "measurable": "false-reject only"
+  },
+  "human_eval": {
+    "status": "chưa có nhãn người — gán nhãn ở tab 'Gán nhãn' của giao diện"
+  },
+  "entity_level": {
+    "entities": 118,
+    "share_ge3_yes": 0.6949,
+    "share_ge5_yes": 0.4576,
+    "median_yes": 4.0
+  },
+  "by_category": [
+    {
+      "key": "kênh & rạch sài gòn – đông nam bộ",
+      "n": 33,
+      "yes_rate": 0.848,
+      "agreement": 1.0
+    },
+    {
+      "key": "trại nuôi nhuyễn thể",
+      "n": 32,
+      "yes_rate": 0.5,
+      "agreement": 0.969
+    },
+    {
+      "key": "nghĩa trang liệt sĩ vùng tây nguyên",
+      "n": 29,
+      "yes_rate": 0.897,
+      "agreement": 1.0
+    },
+    {
+      "key": "mì & hủ tiếu & bún khô",
+      "n": 25,
+      "yes_rate": 0.72,
+      "agreement": 0.92
+    },
+    {
+      "key": "gỏi hải sản",
+      "n": 23,
+      "yes_rate": 0.739,
+      "agreement": 1.0
+    },
+    {
+      "key": "đèo",
+      "n": 20,
+      "yes_rate": 0.9,
+      "agreement": 1.0
+    },
+    {
+      "key": "trang trại gà thả vườn / gà đặc sản",
+      "n": 20,
+      "yes_rate": 0.65,
+      "agreement": 0.95
+    },
+    {
+      "key": "resort & khu nghỉ dưỡng",
+      "n": 18,
+      "yes_rate": 1.0,
+      "agreement": 1.0
+    },
+    {
+      "key": "từ đường & nhà thờ tổ",
+      "n": 17,
+      "yes_rate": 0.294,
+      "agreement": 0.471
+    },
+    {
+      "key": "nhà ga đường sắt quốc gia",
+      "n": 16,
+      "yes_rate": 0.938,
+      "agreement": 0.938
+    },
+    {
+      "key": "cơ sở lưu trú & ăn uống khác",
+      "n": 14,
+      "yes_rate": 1.0,
+      "agreement": 1.0
+    },
+    {
+      "key": "giống bò & trâu",
+      "n": 14,
+      "yes_rate": 0.643,
+      "agreement": 0.857
+    }
+  ],
+  "by_host": [
+    {
+      "key": "media-cdn-v2.laodong.vn",
+      "n": 29,
+      "yes_rate": 0.897,
+      "agreement": 0.966
+    },
+    {
+      "key": "i.ex-cdn.com",
+      "n": 29,
+      "yes_rate": 0.414,
+      "agreement": 0.966
+    },
+    {
+      "key": "danviet.ex-cdn.com",
+      "n": 29,
+      "yes_rate": 0.793,
+      "agreement": 0.966
+    },
+    {
+      "key": "cdn.tgdd.vn",
+      "n": 22,
+      "yes_rate": 0.955,
+      "agreement": 0.909
+    },
+    {
+      "key": "cdn2.tuoitre.vn",
+      "n": 22,
+      "yes_rate": 0.682,
+      "agreement": 0.909
+    },
+    {
+      "key": "mia.vn",
+      "n": 20,
+      "yes_rate": 0.85,
+      "agreement": 0.85
+    },
+    {
+      "key": "bizweb.dktcdn.net",
+      "n": 19,
+      "yes_rate": 0.842,
+      "agreement": 1.0
+    },
+    {
+      "key": "media.vov.vn",
+      "n": 16,
+      "yes_rate": 0.188,
+      "agreement": 1.0
+    },
+    {
+      "key": "down-vn.img.susercontent.com",
+      "n": 16,
+      "yes_rate": 0.688,
+      "agreement": 0.875
+    },
+    {
+      "key": "luhanhvietnam.com.vn",
+      "n": 13,
+      "yes_rate": 0.846,
+      "agreement": 1.0
+    },
+    {
+      "key": "cdn2.fptshop.com.vn",
+      "n": 10,
+      "yes_rate": 0.9,
+      "agreement": 1.0
+    },
+    {
+      "key": "imagevietnam.vnanet.vn",
+      "n": 9,
+      "yes_rate": 0.222,
+      "agreement": 0.889
+    }
+  ],
+  "cost": {
+    "deepseek_this_run": {},
+    "deepseek_usd_estimate": 0.0,
+    "jev_this_run": {
+      "requests": 0,
+      "usd": 0,
+      "prompt_tokens": 0,
+      "mean_ms": null
+    },
+    "cache_note": "VLM/Jev answers are cached; a re-run only pays for new requests"
+  },
+  "seconds": {
+    "S0_gate": 1.33,
+    "S2b_split": 1.21,
+    "S1_download": 0.03,
+    "S1_encode": 0.02,
+    "S2_features": 0.61,
+    "S3_bootstrap": 0.04,
+    "S4_head": 0.48,
+    "S4_jev": 0.02,
+    "S5_vlm": 17.14,
+    "total": 21.16
+  },
+  "verified_csv": "reports\\verify\\data_anh_pass_80000_full_pham_van_vuong_test_verified.csv",
+  "proxy_warning": "proxy_* / agreement_* = đồng thuận với nhãn VLM bootstrap, KHÔNG phải accuracy (skill_06 bẫy #3)"
+}

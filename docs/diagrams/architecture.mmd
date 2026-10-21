@@ -1,0 +1,29 @@
+flowchart TB
+  subgraph SRC["① Nguồn"]
+    CR[Crawler HTML/API] --> RAW[(S3 bronze/raw)]
+    CSV[CSV entity nhóm 1] --> RAW
+  end
+  subgraph PART_A["② PHẦN A — Pipeline lọc ảnh tự động"]
+    RAW --> S1["Stage 1 · Heuristics CPU"]
+    S1 -->|pass| S2["Stage 2 · Small classifier GPU · 5 head"]
+    S1 -->|fail| REJ[(S3 rejects/)]
+    S2 -->|"p >= 0.70"| GOLD["S3 gold/ · Parquet + manifest"]
+    S2 -->|"p <= 0.35"| REJ
+    S2 -->|"0.35 < p < 0.70 · ~8%"| S3["Stage 3 · VLM"]
+    S3 --> GOLD
+  end
+  subgraph PART_B["③ PHẦN B — Retrieval (KHÔNG agent)"]
+    Q[Người dùng nhập query] --> API[API Gateway · X-API-Key]
+    API --> QP["Query Parser · rule fast path + LLM speculative"]
+    QP --> VEC["Query Encoder · SigLIP2"]
+    QP --> GR["Graph traversal"]
+    GR --> VEC
+    VEC --> ANN["ANN search HNSW · top-200"]
+    ANN --> FLT["Metadata filter"]
+    FLT --> RR["Reranker 100 -> 10"]
+    RR --> OUT[Top-10 + facet]
+  end
+  GOLD --> IDX[(Vector index + Metadata)]
+  IDX --> ANN
+  GOLD --> GRAPH[(Entity Graph)]
+  GRAPH --> GR

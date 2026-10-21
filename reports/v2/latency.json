@@ -1,0 +1,130 @@
+{
+  "environment": {
+    "python": "3.12.10",
+    "machine": "Windows-11-10.0.26300-SP0",
+    "pipeline_version": "b3-guarded-parse-fair-multi",
+    "index_model": "qwen3-embedding-4b",
+    "index_count": 130428,
+    "rerank": [
+      "local_ce",
+      "BAAI/bge-reranker-v2-m3"
+    ],
+    "parse_mode": "ambiguous_only",
+    "parse_llm": "google/gemini-3.5-flash-lite",
+    "vector_backend": "qdrant",
+    "gpu": "NVIDIA GeForce RTX 4050 Laptop GPU"
+  },
+  "cache_state": "warm_uncached",
+  "offered_rpm": 85,
+  "endpoint_rate_limit": "100 requests/min/key (LiteLLM), client limiter EMBED_API_RPM",
+  "runs": {
+    "concurrency_1": {
+      "requests": 244,
+      "errors": 0,
+      "p50": 1625,
+      "p95": 2753,
+      "p99": 3153,
+      "max": 3669,
+      "under_1500ms": 0.4795,
+      "under_3000ms": 0.9795,
+      "warnings_429": 0,
+      "warnings_degraded": 0,
+      "parsers": {
+        "rule": 224,
+        "llm": 4,
+        "rule+llm": 5,
+        "rule (llm timeout)": 11
+      },
+      "stage_p50": {
+        "parse": 1,
+        "embed_query": 1042,
+        "dense": 36,
+        "retrieve": 262,
+        "llm_wait": 0,
+        "rerank": 177
+      },
+      "stage_p95": {
+        "parse": 2,
+        "embed_query": 1958,
+        "dense": 72,
+        "retrieve": 580,
+        "llm_wait": 0,
+        "rerank": 416
+      },
+      "by_kind": {
+        "entity": {
+          "p50": 1684,
+          "p95": 2566
+        },
+        "multi": {
+          "p50": 2402,
+          "p95": 3265
+        },
+        "regression": {
+          "p50": 1204,
+          "p95": 2752
+        },
+        "set": {
+          "p50": 903,
+          "p95": 3669
+        }
+      },
+      "wall_seconds": 380.4,
+      "throughput_qps": 0.64
+    },
+    "concurrency_4": {
+      "requests": 244,
+      "errors": 0,
+      "p50": 1053,
+      "p95": 2471,
+      "p99": 2696,
+      "max": 2841,
+      "under_1500ms": 0.6475,
+      "under_3000ms": 1.0,
+      "warnings_429": 0,
+      "warnings_degraded": 0,
+      "parsers": {
+        "rule": 224,
+        "llm": 2,
+        "rule+llm": 3,
+        "rule (llm timeout)": 15
+      },
+      "stage_p50": {
+        "parse": 0,
+        "embed_query": 617,
+        "dense": 27,
+        "retrieve": 123,
+        "llm_wait": 0,
+        "rerank": 207
+      },
+      "stage_p95": {
+        "parse": 1,
+        "embed_query": 1837,
+        "dense": 44,
+        "retrieve": 381,
+        "llm_wait": 0,
+        "rerank": 413
+      },
+      "by_kind": {
+        "entity": {
+          "p50": 981,
+          "p95": 2393
+        },
+        "multi": {
+          "p50": 1510,
+          "p95": 2760
+        },
+        "regression": {
+          "p50": 1096,
+          "p95": 2579
+        },
+        "set": {
+          "p50": 1039,
+          "p95": 2251
+        }
+      },
+      "wall_seconds": 172.4,
+      "throughput_qps": 1.42
+    }
+  }
+}

@@ -1,0 +1,110 @@
+{
+  "request_id": "76280472-ce8f-46d3-b686-2da71cfc48ab",
+  "intent_type": "multi_hop",
+  "parser": "rule+llm",
+  "hits": [],
+  "facets": {
+    "entities": {},
+    "classes": {},
+    "query_types": {}
+  },
+  "timings_ms": {
+    "catalog": 0.004699999408330768,
+    "parse": 0.13000000035390258,
+    "llm_wait": 0.14699999883305281,
+    "hop_resolve": 2.2882999983266927
+  },
+  "total_ms": 21,
+  "warnings": [
+    "multi_hop target_not_in_catalog: relation chain verified, but the target has no images in the catalog (see resolution.target_nodes / related_places)"
+  ],
+  "sub_queries": [],
+  "parse_confidence": "low",
+  "pipeline_version": "b4-verified-kg-multihop",
+  "resolution": {
+    "status": "target_not_in_catalog",
+    "seed": {
+      "text": "khải định",
+      "nodes": [
+        {
+          "node_id": "person:khai-dinh",
+          "kind": "person",
+          "label": "Khải Định",
+          "gender": "male"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "phrase": "vợ",
+        "predicate": "SPOUSE_OF",
+        "direction": "any",
+        "gender": "female",
+        "edges": [
+          {
+            "subject": "person:khai-dinh",
+            "subject_label": "Khải Định",
+            "predicate": "SPOUSE_OF",
+            "object": "person:ho-thi-chi",
+            "object_label": "Hồ Thị Chỉ",
+            "object_kind": "person",
+            "source_type": "online",
+            "source": "https://danviet.vn/danh-tinh-12-ba-vo-cua-vua-khai-dinh-20200916123046875-d908974.html",
+            "evidence": "Bà Hồ Thị Chỉ là ái nữ của quan Học bộ Thượng thư Hồ Đắc Trung được vua Khải Định cưới vào ngày 3/12/1917 (tức ngày 19 tháng 10 năm Khải Định thứ 2).",
+            "verifier": "web_search+quote_in_search_snippet"
+          },
+          {
+            "subject": "person:khai-dinh",
+            "subject_label": "Khải Định",
+            "predicate": "SPOUSE_OF",
+            "object": "person:tu-cung",
+            "object_label": "Từ Cung",
+            "object_kind": "person",
+            "source_type": "online",
+            "source": "https://vi.wikipedia.org/wiki/Kh%E1%BA%A3i_%C4%90%E1%BB%8Bnh",
+            "evidence": "Hậu duệ: Tuy vua Khải Định có 12 bà vợ nhưng chỉ có duy nhất một người con là: Nguyễn Phúc Vĩnh Thụy (1913 -1997), tức hoàng đế Bảo Đại, mẹ là Nhất giai Hậu phi Hoàng Thị Cúc",
+            "verifier": "web_search+quote_in_search_snippet"
+          },
+          {
+            "subject": "person:khai-dinh",
+            "subject_label": "Khải Định",
+            "predicate": "SPOUSE_OF",
+            "object": "person:truong-nhu-thi-tinh",
+            "object_label": "Trương Như Thị Tịnh",
+            "object_kind": "person",
+            "source_type": "online",
+            "source": "https://vi.wikipedia.org/wiki/Tr%C6%B0%C6%A1ng_Nh%C6%B0_Th%E1%BB%8B_T%E1%BB%8Bnh",
+            "evidence": "Trương Như Thị Tịnh (chữ Hán: 張如氏靜; 7 tháng 4, năm 1889 - 20 tháng 6, năm 1968), còn gọi là Giác Huệ ni sư (覺惠尼師), là người vợ đầu tiên và chính thức của Hoằng Tông Khải Định hoàng đế thuộc triều đại nhà Nguyễn trong lịch sử Việt Nam.",
+            "verifier": "web_search+quote_in_search_snippet"
+          }
+        ]
+      }
+    ],
+    "target_nodes": [
+      {
+        "node_id": "person:ho-thi-chi",
+        "kind": "person",
+        "label": "Hồ Thị Chỉ",
+        "gender": "female",
+        "related_places": []
+      },
+      {
+        "node_id": "person:tu-cung",
+        "kind": "person",
+        "label": "Từ Cung",
+        "gender": "female",
+        "related_places": []
+      },
+      {
+        "node_id": "person:truong-nhu-thi-tinh",
+        "kind": "person",
+        "label": "Trương Như Thị Tịnh",
+        "gender": "female",
+        "related_places": []
+      }
+    ],
+    "mapped_target_entity_ids": [],
+    "evidence_checked": true,
+    "online": {}
+  }
+}

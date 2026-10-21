@@ -1,0 +1,6 @@
+make.exe --dry-run --always-make --keep-going --print-directory
+make.exe: Entering directory `c:/heritage-image-retrieval'
+cp -n .env.example .env || true
+docker compose up -d --build
+make.exe: Leaving directory `c:/heritage-image-retrieval'
+ 

@@ -1,0 +1,25 @@
+embedding:
+  text_tower: siglip2-base-patch16-384
+  image_tower: siglip2-base-patch16-384
+  dim: 1152
+  onnx_path: /models/siglip2.onnx
+  cpu_capable: true
+
+rerank:
+  model: bge-reranker-v2-m3
+  top_k: 100
+  keep: 10
+
+llm:
+  gemini: gemini-3.5-flash-lite
+  local_chat: qwen3.5:2b
+  local_chat_alt: qwen3.5:4b
+  local_vlm: qwen3-vl:4b
+  local_vlm_tiny: smolvlm2:2b
+
+index:
+  backend: qdrant
+  hnsw_m: 32
+  hnsw_ef_construct: 200
+  hnsw_ef_search: 128
+  metric: cosine

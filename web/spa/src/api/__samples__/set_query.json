@@ -1,0 +1,487 @@
+{
+ "request_id": "75f11528-4088-4d44-8ef1-3169e1d919ab",
+ "intent_type": "set_query",
+ "parser": "rule+llm",
+ "hits": [
+  {
+   "image_id": "92938a7a-da79-52ab-a139-2ec710557f38",
+   "image_url": "https://dltm-cdn.vnptit3.vn/resources/portal//Images/TBH/admintbh/diem_mua_sam/cho_bo/thai_binh_cho_bo_trung_tam_mua_sam_tram_lang_giua_long_thanh_pho_nhon_nhip_ivivu_2_555201972.jpg",
+   "score": 0.9900636076927185,
+   "entity_id": "ebde2fff-379f-43bc-bf80-d5990c4705b2",
+   "entity_slug": "cho-bo",
+   "leaf_label": "Chợ Bo",
+   "query_type": "approved_metadata",
+   "parent_class": "Chợ truyền thống",
+   "description": "Chợ Bo hiện lên với những gian hàng san sát bày bán đủ loại vật dụng sinh hoạt, tạo nên một khung cảnh nhộn nhịp dưới mái che.",
+   "matched_subqueries": [
+    "q0"
+   ],
+   "quality": {
+    "width": 1000,
+    "height": 751,
+    "verify": "yes",
+    "verify_source": "human",
+    "watermark": "unknown",
+    "pixel_checked": false
+   }
+  },
+  {
+   "image_id": "6c7db4dc-f7fb-5545-9e76-1add1a50d46c",
+   "image_url": "https://cdn.xanhsm.com/2025/01/995bb5cb-cho-hoi-an-thumbnail-1024x576.jpg",
+   "score": 0.9891815781593323,
+   "entity_id": "64e96ec8-25b2-4832-b02e-0f4ddaa6c86f",
+   "entity_slug": "cho-hoi-an",
+   "leaf_label": "Chợ Hội An",
+   "query_type": "approved_metadata",
+   "parent_class": "Chợ truyền thống",
+   "description": "Bức ảnh thể hiện nhiều góc nhìn về Chợ Hội An, từ kiến trúc cổ kính đến không khí nhộn nhịp của khu chợ truyền thống với các gian hàng ẩm thực và mua sắm.",
+   "matched_subqueries": [
+    "q0"
+   ],
+   "quality": {
+    "width": null,
+    "height": null,
+    "verify": "yes",
+    "verify_source": "human",
+    "watermark": "unknown",
+    "pixel_checked": false
+   }
+  },
+  {
+   "image_id": "a60213fc-2616-580e-9a3d-a9d39775ec21",
+   "image_url": "https://cdn2.tuoitre.vn/tcdulichtphcm/media/upload/1-2026/images/2026-02-23/picture-399732508-1771832093-333-width1429height1071.jpg",
+   "score": 0.9869794845581055,
+   "entity_id": "d92435b0-5f58-4923-8403-27d346e3b6f5",
+   "entity_slug": "cho-vy-da-hue",
+   "leaf_label": "Chợ Vỹ Dạ (Huế)",
+   "query_type": "approved_metadata",
+   "parent_class": "Chợ truyền thống",
+   "description": "Hình ảnh toàn cảnh Chợ Vỹ Dạ (Huế) với các gian hàng bày bán hoa tươi, trái cây và các mặt hàng tạp hóa, tạo nên không khí nhộn nhịp đặc trưng của một khu chợ truyền thống.",
+   "matched_subqueries": [
+    "q0"
+   ],
+   "quality": {
+    "width": 1429,
+    "height": 1071,
+    "verify": "yes",
+    "verify_source": "human",
+    "watermark": "unknown",
+    "pixel_checked": false
+   }
+  },
+  {
+   "image_id": "0f45243a-7447-592c-af16-d89553e23132",
+   "image_url": "https://hoianheritage.net/uploads/trao-doi-chuyen-nganh/2016_06/choxua.gif",
+   "score": 0.9862577319145203,
+   "entity_id": "64e96ec8-25b2-4832-b02e-0f4ddaa6c86f",
+   "entity_slug": "cho-hoi-an",
+   "leaf_label": "Chợ Hội An",
+   "query_type": "approved_metadata",
+   "parent_class": "Chợ truyền thống",
+   "description": "Hình ảnh toàn cảnh Chợ Hội An với kiến trúc cổ kính, mái ngói rêu phong và các gian hàng san sát, tái hiện không khí nhộn nhịp của một khu chợ truyền thống.",
+   "matched_subqueries": [
+    "q0"
+   ],
+   "quality": {
+    "width": null,
+    "height": null,
+    "verify": "yes",
+    "verify_source": "human",
+    "watermark": "unknown",
+    "pixel_checked": false
+   }
+  },
+  {
+   "image_id": "efdc20f3-1358-5ec8-aadc-9bf8f61385b5",
+   "image_url": "https://hoianheritage.net/uploads/di-san-van-hoa/2015_09/gieng-nuoc-cho-hoi-an-1930.jpg",
+   "score": 0.9859904050827026,
+   "entity_id": "64e96ec8-25b2-4832-b02e-0f4ddaa6c86f",
+   "entity_slug": "cho-hoi-an",
+   "leaf_label": "Chợ Hội An",
+   "query_type": "approved_metadata",
+   "parent_class": "Chợ truyền thống",
+   "description": "Hình ảnh toàn cảnh Chợ Hội An với kiến trúc cổ kính, mái ngói âm dương và những mái vòm đặc trưng, tái hiện không khí nhộn nhịp của một khu chợ truyền thống.",
+   "matched_subqueries": [
+    "q0"
+   ],
+   "quality": {
+    "width": null,
+    "height": null,
+    "verify": "yes",
+    "verify_source": "human",
+    "watermark": "unknown",
+    "pixel_checked": false
+   }
+  },
+  {
+   "image_id": "bdbb025b-9ff4-5b98-9800-ba514ea7b618",
+   "image_url": "https://nestahotel.com.vn/wp-content/uploads/2026/05/image-48-1024x682.png",
+   "score": 0.9805806875228882,
+   "entity_id": "64e96ec8-25b2-4832-b02e-0f4ddaa6c86f",
+   "entity_slug": "cho-hoi-an",
+   "leaf_label": "Chợ Hội An",
+   "query_type": "approved_metadata",
+   "parent_class": "Chợ truyền thống",
+   "description": "Chợ Hội An nhộn nhịp với những gánh hàng rau củ tươi ngon và người dân địa phương trong trang phục truyền thống dưới mái ngói đỏ tươi.",
+   "matched_subqueries": [
+    "q0"
+   ],
+   "quality": {
+    "width": null,
+    "height": null,
+    "verify": "yes",
+    "verify_source": "human",
+    "watermark": "unknown",
+    "pixel_checked": false
+   }
+  },
+  {
+   "image_id": "9e8ac371-b632-5683-90d8-dc023daffa1d",
+   "image_url": "https://kenh14cdn.com/203336854389633024/2025/11/27/dsc06901-1764286877401-17642868776221480787057.jpg",
+   "score": 0.979393482208252,
+   "entity_id": "760b05de-edfd-4c49-86b8-04c85cad302e",
+   "entity_slug": "cho-ban",
+   "leaf_label": "Chợ Bần",
+   "query_type": "approved_metadata",
+   "parent_class": "Chợ truyền thống",
+   "description": "Chợ Bần nhộn nhịp với các gian hàng vải vóc đầy màu sắc, người dân ngồi nghỉ ngơi bên những chồng vải lớn.",
+   "matched_subqueries": [
+    "q0"
+   ],
+   "quality": {
+    "width": 1390,
+    "height": 924,
+    "verify": "yes",
+    "verify_source": "human",
+    "watermark": "unknown",
+    "pixel_checked": false
+   }
+  },
+  {
+   "image_id": "ba2a16aa-6f2a-53c4-80b9-576a035cda87",
+   "image_url": "https://danviet.ex-cdn.com/files/f1/296231569849192448/2022/9/15/a11-166325668879513781005.jpg",
+   "score": 0.979393482208252,
+   "entity_id": "41d58161-8eef-48ec-b990-aa8ab404f7a2",
+   "entity_slug": "cho-hang-da",
+   "leaf_label": "Chợ Hàng Da",
+   "query_type": "approved_metadata",
+   "parent_class": "Chợ truyền thống",
+   "description": "Chợ Hàng Da hiện lên với những cửa hàng san sát, xe xích lô và xe máy tấp nập trên con phố cổ kính.",
+   "matched_subqueries": [
+    "q0"
+   ],
+   "quality": {
+    "width": null,
+    "height": null,
+    "verify": "yes",
+    "verify_source": "human",
+    "watermark": "unknown",
+    "pixel_checked": false
+   }
+  },
+  {
+   "image_id": "91d6aea7-7ab3-5325-9abc-7f4b5d1caf5c",
+   "image_url": "https://vj-prod-website-cms.s3.ap-southeast-1.amazonaws.com/depositphotos196442922xl-1732498164999.jpg",
+   "score": 0.9783018827438354,
+   "entity_id": "9f0e746a-8624-4e9e-b0e0-d16147ac0709",
+   "entity_slug": "cho-dong-ba-hue",
+   "leaf_label": "Chợ Đông Ba Huế",
+   "query_type": "approved_metadata",
+   "parent_class": "Chợ truyền thống",
+   "description": "Hình ảnh toàn cảnh Chợ Đông Ba Huế với kiến trúc đặc trưng, biển hiệu lớn và hoạt động mua bán nhộn nhịp, thể hiện nét văn hóa truyền thống của thành phố.",
+   "matched_subqueries": [
+    "q0"
+   ],
+   "quality": {
+    "width": null,
+    "height": null,
+    "verify": "yes",
+    "verify_source": "human",
+    "watermark": "unknown",
+    "pixel_checked": false
+   }
+  },
+  {
+   "image_id": "ccfc224f-1bcd-5eac-96fa-068964c74035",
+   "image_url": "https://ik.imgkit.net/tvlk/blog/2023/09/cho-hoi-an-31.jpg?tr=q-70,c-at_max,w-1000,h-600",
+   "score": 0.9780936241149902,
+   "entity_id": "64e96ec8-25b2-4832-b02e-0f4ddaa6c86f",
+   "entity_slug": "cho-hoi-an",
+   "leaf_label": "Chợ Hội An",
+   "query_type": "approved_metadata",
+   "parent_class": "Chợ truyền thống",
+   "description": "Bức ảnh chụp toàn cảnh Chợ Hội An với kiến trúc đặc trưng, mái ngói cổ kính và các gian hàng nhộn nhịp, mang đậm nét văn hóa địa phương.",
+   "matched_subqueries": [
+    "q0"
+   ],
+   "quality": {
+    "width": null,
+    "height": null,
+    "verify": "yes",
+    "verify_source": "human",
+    "watermark": "unknown",
+    "pixel_checked": false
+   }
+  },
+  {
+   "image_id": "29841c3c-a56e-58e0-b431-11e330f73dbf",
+   "image_url": "https://lalago.vn/wp-content/uploads/2025/04/ban-yen-nhan-8.jpg",
+   "score": 0.9754835963249207,
+   "entity_id": "760b05de-edfd-4c49-86b8-04c85cad302e",
+   "entity_slug": "cho-ban",
+   "leaf_label": "Chợ Bần",
+   "query_type": "approved_metadata",
+   "parent_class": "Chợ truyền thống",
+   "description": "Chợ Bần hiện lên với hàng trăm chum tương truyền thống được xếp ngay ngắn, một người đang cẩn thận chiết rót tương vào chum.",
+   "matched_subqueries": [
+    "q0"
+   ],
+   "quality": {
+    "width": null,
+    "height": null,
+    "verify": "yes",
+    "verify_source": "human",
+    "watermark": "unknown",
+    "pixel_checked": false
+   }
+  },
+  {
+   "image_id": "ea401e55-35a9-5d33-8012-88470e1315b7",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/9/9b/Ch%E1%BB%A3_H%E1%BA%A1nh_Th%C3%B4ng_t%C3%A2y%2C_quang_trung%2C_Go_vap._tp_Ho_Chi_Minh_%2C_vietnam_-_panoramio.jpg?utm_source=vi.wikipedia.org&utm_campaign=index&utm_content=original",
+   "score": 0.9742394685745239,
+   "entity_id": "64b623ea-e20d-47a0-8240-fb5da60f6ca2",
+   "entity_slug": "cho-hoa-hanh-thong-tay",
+   "leaf_label": "Chợ hoa Hạnh Thông Tây",
+   "query_type": "approved_metadata",
+   "parent_class": "Chợ truyền thống",
+   "description": null,
+   "matched_subqueries": [
+    "q0"
+   ],
+   "quality": {
+    "width": null,
+    "height": null,
+    "verify": "yes",
+    "verify_source": "human",
+    "watermark": "unknown",
+    "pixel_checked": false
+   }
+  },
+  {
+   "image_id": "db7c088f-5190-577d-a6d8-1f1b1a5a52ef",
+   "image_url": "https://thank-trip-dev.s3.ap-southeast-1.amazonaws.com/images/618bc13a331782002a44dcb1/d80be514-5058-472a-8e05-9b6f7e5afc91.webp",
+   "score": 0.9742394685745239,
+   "entity_id": "64b623ea-e20d-47a0-8240-fb5da60f6ca2",
+   "entity_slug": "cho-hoa-hanh-thong-tay",
+   "leaf_label": "Chợ hoa Hạnh Thông Tây",
+   "query_type": "approved_metadata",
+   "parent_class": "Chợ truyền thống",
+   "description": null,
+   "matched_subqueries": [
+    "q0"
+   ],
+   "quality": {
+    "width": null,
+    "height": null,
+    "verify": "yes",
+    "verify_source": "human",
+    "watermark": "unknown",
+    "pixel_checked": false
+   }
+  },
+  {
+   "image_id": "57d01829-04f7-5b22-9c96-fd2e848eb084",
+   "image_url": "https://greenfuture.tech/_next/image?url=https%3A%2F%2Fupload-static.fgf.vn%2Fcms%2Fcho-Hanh-Thong-Tay-2.jpg&w=3840&q=100",
+   "score": 0.9742394685745239,
+   "entity_id": "64b623ea-e20d-47a0-8240-fb5da60f6ca2",
+   "entity_slug": "cho-hoa-hanh-thong-tay",
+   "leaf_label": "Chợ hoa Hạnh Thông Tây",
+   "query_type": "approved_metadata",
+   "parent_class": "Chợ truyền thống",
+   "description": null,
+   "matched_subqueries": [
+    "q0"
+   ],
+   "quality": {
+    "width": null,
+    "height": null,
+    "verify": "yes",
+    "verify_source": "human",
+    "watermark": "unknown",
+    "pixel_checked": false
+   }
+  },
+  {
+   "image_id": "dbfb0013-fccd-5209-8bcf-6873d489e7b2",
+   "image_url": "https://greenfuture.tech/_next/image?url=https%3A%2F%2Fupload-static.fgf.vn%2Fcms%2Fcho-Hanh-Thong-Tay-5.jpg&w=3840&q=100",
+   "score": 0.9742394685745239,
+   "entity_id": "64b623ea-e20d-47a0-8240-fb5da60f6ca2",
+   "entity_slug": "cho-hoa-hanh-thong-tay",
+   "leaf_label": "Chợ hoa Hạnh Thông Tây",
+   "query_type": "approved_metadata",
+   "parent_class": "Chợ truyền thống",
+   "description": null,
+   "matched_subqueries": [
+    "q0"
+   ],
+   "quality": {
+    "width": null,
+    "height": null,
+    "verify": "yes",
+    "verify_source": "human",
+    "watermark": "unknown",
+    "pixel_checked": false
+   }
+  },
+  {
+   "image_id": "863a8702-6915-559a-a301-e2b562af26c3",
+   "image_url": "https://thank-trip-dev.s3.ap-southeast-1.amazonaws.com/images/6510f8276ba9e70607785504/2c091f2f-a1fd-4226-8710-4b47bdfae582.jpg",
+   "score": 0.9742394685745239,
+   "entity_id": "64b623ea-e20d-47a0-8240-fb5da60f6ca2",
+   "entity_slug": "cho-hoa-hanh-thong-tay",
+   "leaf_label": "Chợ hoa Hạnh Thông Tây",
+   "query_type": "approved_metadata",
+   "parent_class": "Chợ truyền thống",
+   "description": null,
+   "matched_subqueries": [
+    "q0"
+   ],
+   "quality": {
+    "width": null,
+    "height": null,
+    "verify": "yes",
+    "verify_source": "human",
+    "watermark": "unknown",
+    "pixel_checked": false
+   }
+  },
+  {
+   "image_id": "368e4bcd-d6cd-5199-a767-e471c5aaff6d",
+   "image_url": "https://greenfuture.tech/_next/image?url=https%3A%2F%2Fupload-static.fgf.vn%2Fcms%2Fcho-Hanh-Thong-Tay-8.jpg&w=3840&q=100",
+   "score": 0.9742394685745239,
+   "entity_id": "64b623ea-e20d-47a0-8240-fb5da60f6ca2",
+   "entity_slug": "cho-hoa-hanh-thong-tay",
+   "leaf_label": "Chợ hoa Hạnh Thông Tây",
+   "query_type": "approved_metadata",
+   "parent_class": "Chợ truyền thống",
+   "description": null,
+   "matched_subqueries": [
+    "q0"
+   ],
+   "quality": {
+    "width": null,
+    "height": null,
+    "verify": "yes",
+    "verify_source": "human",
+    "watermark": "unknown",
+    "pixel_checked": false
+   }
+  },
+  {
+   "image_id": "066d1bdf-5094-53da-9408-8cfa1809d311",
+   "image_url": "https://static1.cafeland.vn/cafelandnew/hinh-anh/2023/04/19/95/Cho-hanh-thong-tay.jpg",
+   "score": 0.9742394685745239,
+   "entity_id": "64b623ea-e20d-47a0-8240-fb5da60f6ca2",
+   "entity_slug": "cho-hoa-hanh-thong-tay",
+   "leaf_label": "Chợ hoa Hạnh Thông Tây",
+   "query_type": "approved_metadata",
+   "parent_class": "Chợ truyền thống",
+   "description": null,
+   "matched_subqueries": [
+    "q0"
+   ],
+   "quality": {
+    "width": null,
+    "height": null,
+    "verify": "yes",
+    "verify_source": "human",
+    "watermark": "unknown",
+    "pixel_checked": false
+   }
+  },
+  {
+   "image_id": "4749be4f-f73a-5690-9df9-da7cea63fb15",
+   "image_url": "https://cdnnews.mogi.vn/news/wp-content/uploads/2024/08/09203920/cho-hanh-thong-tay-4.jpg",
+   "score": 0.9742394685745239,
+   "entity_id": "64b623ea-e20d-47a0-8240-fb5da60f6ca2",
+   "entity_slug": "cho-hoa-hanh-thong-tay",
+   "leaf_label": "Chợ hoa Hạnh Thông Tây",
+   "query_type": "approved_metadata",
+   "parent_class": "Chợ truyền thống",
+   "description": null,
+   "matched_subqueries": [
+    "q0"
+   ],
+   "quality": {
+    "width": null,
+    "height": null,
+    "verify": "yes",
+    "verify_source": "human",
+    "watermark": "unknown",
+    "pixel_checked": false
+   }
+  },
+  {
+   "image_id": "31338f03-03c4-58b2-8225-0b166d082ef0",
+   "image_url": "https://mia.vn/media/uploads/blog-du-lich/cho-hanh-thong-tay-9-1689599572.jpg",
+   "score": 0.9742394685745239,
+   "entity_id": "64b623ea-e20d-47a0-8240-fb5da60f6ca2",
+   "entity_slug": "cho-hoa-hanh-thong-tay",
+   "leaf_label": "Chợ hoa Hạnh Thông Tây",
+   "query_type": "approved_metadata",
+   "parent_class": "Chợ truyền thống",
+   "description": null,
+   "matched_subqueries": [
+    "q0"
+   ],
+   "quality": {
+    "width": null,
+    "height": null,
+    "verify": "yes",
+    "verify_source": "human",
+    "watermark": "unknown",
+    "pixel_checked": false
+   }
+  }
+ ],
+ "facets": {
+  "entities": {
+   "cho-bo": "Chợ Bo",
+   "cho-hoi-an": "Chợ Hội An",
+   "cho-vy-da-hue": "Chợ Vỹ Dạ (Huế)",
+   "cho-ban": "Chợ Bần",
+   "cho-hang-da": "Chợ Hàng Da",
+   "cho-dong-ba-hue": "Chợ Đông Ba Huế",
+   "cho-hoa-hanh-thong-tay": "Chợ hoa Hạnh Thông Tây"
+  },
+  "classes": {
+   "Chợ truyền thống": 20
+  },
+  "query_types": {
+   "approved_metadata": 20
+  }
+ },
+ "timings_ms": {
+  "catalog": 0.0032999996619764715,
+  "parse": 0.12930000229971483,
+  "embed_query": 143.96900000065216,
+  "dense": 33.8889000013296,
+  "retrieve": 16.29509999838774,
+  "llm_wait": 0.007499998901039362,
+  "metadata_filter": 5.573599999479484,
+  "rerank": 38.316299996949965
+ },
+ "total_ms": 244,
+ "warnings": [],
+ "sub_queries": [
+  {
+   "id": "q0",
+   "text": "các chợ truyền thống",
+   "coverage": "covered",
+   "returned": 20
+  }
+ ],
+ "parse_confidence": "medium",
+ "pipeline_version": "b3-guarded-parse-fair-multi",
+ "resolution": null
+}

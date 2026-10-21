@@ -1,0 +1,428 @@
+{
+  "request_id": "1a8f436f-7ed0-4830-9361-cd7c9c4a678a",
+  "intent_type": "multi_hop",
+  "parser": "rule+llm",
+  "hits": [
+    {
+      "image_id": "99f6cd54-3b46-5795-9523-656c6b8f10bf",
+      "image_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/07/L%C4%83ng_Gia_Long%2C_Hu%E1%BA%BF_%2833447904478%29.jpg/1280px-L%C4%83ng_Gia_Long%2C_Hu%E1%BA%BF_%2833447904478%29.jpg?utm_source=vi.wikipedia.org&utm_campaign=index&utm_content=thumbnail",
+      "score": 1.0,
+      "entity_id": "7cecf5c9-54b4-4ed9-9353-27cf436f50fe",
+      "entity_slug": "cong-chinh-lang-thien-tho-huu",
+      "leaf_label": "Cổng chính lăng Thiên Thọ Hữu",
+      "query_type": "approved_metadata",
+      "parent_class": "Lăng tẩm hoàng triều phong kiến",
+      "description": "Cổng chính lăng Thiên Thọ Hữu hiện lên uy nghiêm với kiến trúc cổ kính, tường vàng rực rỡ, ẩn mình giữa không gian xanh mát của cây cối và mặt hồ sen thơ mộng.",
+      "matched_subqueries": [
+        "q0"
+      ],
+      "quality": {
+        "width": null,
+        "height": null,
+        "verify": "yes",
+        "verify_source": "human",
+        "watermark": "unknown",
+        "pixel_checked": false
+      }
+    },
+    {
+      "image_id": "e5b2cea4-5ed8-5f3e-b0b6-ab1916cce38f",
+      "image_url": "https://cms.junglebosstours.com/assets/23f33e14-8a9e-4b68-9846-32cc120600c4?width=1300&height=730",
+      "score": 0.9285714285714286,
+      "entity_id": "7cecf5c9-54b4-4ed9-9353-27cf436f50fe",
+      "entity_slug": "cong-chinh-lang-thien-tho-huu",
+      "leaf_label": "Cổng chính lăng Thiên Thọ Hữu",
+      "query_type": "approved_metadata",
+      "parent_class": "Lăng tẩm hoàng triều phong kiến",
+      "description": "Cổng chính lăng Thiên Thọ Hữu hiện lên từ góc nhìn toàn cảnh, với kiến trúc cổ kính, tường thành bao quanh và hai điện thờ mái vàng nổi bật giữa không gian trầm mặc.",
+      "matched_subqueries": [
+        "q0"
+      ],
+      "quality": {
+        "width": null,
+        "height": null,
+        "verify": "yes",
+        "verify_source": "human",
+        "watermark": "unknown",
+        "pixel_checked": false
+      }
+    },
+    {
+      "image_id": "5a668a89-1ecb-532b-9700-1a181396f0f5",
+      "image_url": "https://khamphahue.com.vn/Portals/0/DiSan/DiSanVatThe/QuanTheDiTichCoDo/LangGiaLong/Khamphahue_Lang-tam-Hue_LangGiaLong.jpg?ver=2022-10-22-082720-733",
+      "score": 0.8571428571428572,
+      "entity_id": "7cecf5c9-54b4-4ed9-9353-27cf436f50fe",
+      "entity_slug": "cong-chinh-lang-thien-tho-huu",
+      "leaf_label": "Cổng chính lăng Thiên Thọ Hữu",
+      "query_type": "approved_metadata",
+      "parent_class": "Lăng tẩm hoàng triều phong kiến",
+      "description": "Cổng chính lăng Thiên Thọ Hữu hiện lên trong góc nhìn toàn cảnh, bao quanh bởi cảnh quan xanh mát của cây cối và mặt nước, tạo nên một quần thể kiến trúc uy nghiêm.",
+      "matched_subqueries": [
+        "q0"
+      ],
+      "quality": {
+        "width": 2048,
+        "height": 1151,
+        "verify": "yes",
+        "verify_source": "human",
+        "watermark": "unknown",
+        "pixel_checked": false
+      }
+    },
+    {
+      "image_id": "bc5e6983-344e-5bbc-bc32-28b7fc2a12f7",
+      "image_url": "https://cms.junglebosstours.com/assets/4e63b40c-abde-4389-aa42-09932ef4e491?width=1200&height=674",
+      "score": 0.7857142857142857,
+      "entity_id": "7cecf5c9-54b4-4ed9-9353-27cf436f50fe",
+      "entity_slug": "cong-chinh-lang-thien-tho-huu",
+      "leaf_label": "Cổng chính lăng Thiên Thọ Hữu",
+      "query_type": "approved_metadata",
+      "parent_class": "Lăng tẩm hoàng triều phong kiến",
+      "description": "Hình ảnh Cổng chính lăng Thiên Thọ Hữu với toàn cảnh lăng Thiên Thọ Hữu với kiến trúc uy nghiêm, khuôn viên rộng lớn bao quanh bởi hồ nước và cây xanh, thể hiện nét đẹp cổ kính của lăng tẩm triều Nguyễn.",
+      "matched_subqueries": [
+        "q0"
+      ],
+      "quality": {
+        "width": null,
+        "height": null,
+        "verify": "yes",
+        "verify_source": "human",
+        "watermark": "unknown",
+        "pixel_checked": false
+      }
+    },
+    {
+      "image_id": "42152b91-5715-5199-9485-3c26783a458e",
+      "image_url": "https://g8opentour.com/wp-content/uploads/2025/07/lang-tam-hue-1.jpg",
+      "score": 0.7142857142857143,
+      "entity_id": "7cecf5c9-54b4-4ed9-9353-27cf436f50fe",
+      "entity_slug": "cong-chinh-lang-thien-tho-huu",
+      "leaf_label": "Cổng chính lăng Thiên Thọ Hữu",
+      "query_type": "approved_metadata",
+      "parent_class": "Lăng tẩm hoàng triều phong kiến",
+      "description": "Toàn cảnh Cổng chính lăng Thiên Thọ Hữu với kiến trúc cổ kính, mái ngói vàng rực rỡ, bao quanh bởi tường thành vững chãi và cảnh quan thiên nhiên xanh mát.",
+      "matched_subqueries": [
+        "q0"
+      ],
+      "quality": {
+        "width": null,
+        "height": null,
+        "verify": "yes",
+        "verify_source": "human",
+        "watermark": "unknown",
+        "pixel_checked": false
+      }
+    },
+    {
+      "image_id": "0b68461a-a0d9-567a-bc45-de644d961b7a",
+      "image_url": "https://huetourism.gov.vn/Medias/Nam2023/Thang11/lang-vua-gia-long-thien-tho-lang.jpg",
+      "score": 0.6428571428571428,
+      "entity_id": "7cecf5c9-54b4-4ed9-9353-27cf436f50fe",
+      "entity_slug": "cong-chinh-lang-thien-tho-huu",
+      "leaf_label": "Cổng chính lăng Thiên Thọ Hữu",
+      "query_type": "approved_metadata",
+      "parent_class": "Lăng tẩm hoàng triều phong kiến",
+      "description": "Cổng chính lăng Thiên Thọ Hữu nổi bật với kiến trúc cổ kính, mái ngói âm dương và các họa tiết trang trí tinh xảo, mang đậm nét văn hóa triều Nguyễn.",
+      "matched_subqueries": [
+        "q0"
+      ],
+      "quality": {
+        "width": null,
+        "height": null,
+        "verify": "yes",
+        "verify_source": "human",
+        "watermark": "unknown",
+        "pixel_checked": false
+      }
+    },
+    {
+      "image_id": "923151a8-56fc-53d6-951f-8ac83046c31a",
+      "image_url": "https://huetourism.gov.vn/Medias/Nam2023/Thang11/huetourism-lang-vua-gia-long-thien-tho-lang-4.jpg",
+      "score": 0.5714285714285714,
+      "entity_id": "7cecf5c9-54b4-4ed9-9353-27cf436f50fe",
+      "entity_slug": "cong-chinh-lang-thien-tho-huu",
+      "leaf_label": "Cổng chính lăng Thiên Thọ Hữu",
+      "query_type": "approved_metadata",
+      "parent_class": "Lăng tẩm hoàng triều phong kiến",
+      "description": "Cổng chính lăng Thiên Thọ Hữu nổi bật với kiến trúc cổ kính, mái ngói âm dương, tường vàng rực rỡ và những chậu cây cảnh được bài trí trang trọng.",
+      "matched_subqueries": [
+        "q0"
+      ],
+      "quality": {
+        "width": null,
+        "height": null,
+        "verify": "yes",
+        "verify_source": "human",
+        "watermark": "unknown",
+        "pixel_checked": false
+      }
+    },
+    {
+      "image_id": "fa07f661-ba72-53ec-8a6a-f906192f2a05",
+      "image_url": "https://gotrangtri.vn/wp-content/uploads/2018/12/lang-gia-long-57.jpg",
+      "score": 0.5,
+      "entity_id": "7cecf5c9-54b4-4ed9-9353-27cf436f50fe",
+      "entity_slug": "cong-chinh-lang-thien-tho-huu",
+      "leaf_label": "Cổng chính lăng Thiên Thọ Hữu",
+      "query_type": "approved_metadata",
+      "parent_class": "Lăng tẩm hoàng triều phong kiến",
+      "description": "Cổng chính lăng Thiên Thọ Hữu hiện ra uy nghiêm với kiến trúc cổ kính, mái ngói đỏ tươi, hai bên là hai trụ đá lớn, bao quanh bởi cây xanh mát mẻ.",
+      "matched_subqueries": [
+        "q0"
+      ],
+      "quality": {
+        "width": null,
+        "height": null,
+        "verify": "yes",
+        "verify_source": "human",
+        "watermark": "unknown",
+        "pixel_checked": false
+      }
+    },
+    {
+      "image_id": "4862078f-2d6c-5aff-8f16-00b6ccd59135",
+      "image_url": "https://khamphahue.com.vn/Portals/0/Medias/Nam2025/T2/Khamphahue-ThienThoLang7_10_2_2025_17_17_49_788_CH.jpg",
+      "score": 0.4285714285714286,
+      "entity_id": "7cecf5c9-54b4-4ed9-9353-27cf436f50fe",
+      "entity_slug": "cong-chinh-lang-thien-tho-huu",
+      "leaf_label": "Cổng chính lăng Thiên Thọ Hữu",
+      "query_type": "approved_metadata",
+      "parent_class": "Lăng tẩm hoàng triều phong kiến",
+      "description": "Cổng chính lăng Thiên Thọ Hữu nổi bật với kiến trúc cổ kính, mái ngói âm dương và những bậc thang uy nghiêm, được trang trí bởi cây xanh và hoa cảnh.",
+      "matched_subqueries": [
+        "q0"
+      ],
+      "quality": {
+        "width": 2048,
+        "height": 1366,
+        "verify": "yes",
+        "verify_source": "human",
+        "watermark": "unknown",
+        "pixel_checked": false
+      }
+    },
+    {
+      "image_id": "3a7be806-4722-50e8-8e7b-98269984e549",
+      "image_url": "https://ik.imagekit.io/tvlk/blog/2023/09/lang-gia-long-6.jpg?tr=q-70,c-at_max,w-1000,h-600",
+      "score": 0.3571428571428571,
+      "entity_id": "7cecf5c9-54b4-4ed9-9353-27cf436f50fe",
+      "entity_slug": "cong-chinh-lang-thien-tho-huu",
+      "leaf_label": "Cổng chính lăng Thiên Thọ Hữu",
+      "query_type": "approved_metadata",
+      "parent_class": "Lăng tẩm hoàng triều phong kiến",
+      "description": "Cổng chính lăng Thiên Thọ Hữu nổi bật với mái ngói âm dương màu vàng rực rỡ, kiến trúc cổ kính và các họa tiết trang trí tinh xảo, tọa lạc giữa không gian xanh mát của cây cối.",
+      "matched_subqueries": [
+        "q0"
+      ],
+      "quality": {
+        "width": 900,
+        "height": 600,
+        "verify": "yes",
+        "verify_source": "human",
+        "watermark": "unknown",
+        "pixel_checked": false
+      }
+    },
+    {
+      "image_id": "efed6251-5908-5677-9cbc-480eb95e6a59",
+      "image_url": "https://file.huengaynay.vn/data/0/images/2026/10/08/upload_3827/img-2210.jpg?dpi=150&quality=100&w=850",
+      "score": 0.2857142857142857,
+      "entity_id": "7cecf5c9-54b4-4ed9-9353-27cf436f50fe",
+      "entity_slug": "cong-chinh-lang-thien-tho-huu",
+      "leaf_label": "Cổng chính lăng Thiên Thọ Hữu",
+      "query_type": "approved_metadata",
+      "parent_class": "Lăng tẩm hoàng triều phong kiến",
+      "description": "Cổng chính lăng Thiên Thọ Hữu uy nghiêm với kiến trúc cổ kính, hai bên là cây cảnh xanh tươi và sân lát gạch cổ.",
+      "matched_subqueries": [
+        "q0"
+      ],
+      "quality": {
+        "width": null,
+        "height": null,
+        "verify": "yes",
+        "verify_source": "human",
+        "watermark": "unknown",
+        "pixel_checked": false
+      }
+    },
+    {
+      "image_id": "84a19596-e6a8-5700-93e1-97a92471a8ad",
+      "image_url": "https://khamphahue.com.vn/Portals/0/Medias/Nam2025/T2/Khamphahue-ThienThoLang.jpg",
+      "score": 0.2142857142857143,
+      "entity_id": "7cecf5c9-54b4-4ed9-9353-27cf436f50fe",
+      "entity_slug": "cong-chinh-lang-thien-tho-huu",
+      "leaf_label": "Cổng chính lăng Thiên Thọ Hữu",
+      "query_type": "approved_metadata",
+      "parent_class": "Lăng tẩm hoàng triều phong kiến",
+      "description": "Cổng chính lăng Thiên Thọ Hữu hiện lên uy nghiêm với kiến trúc cổ kính, phản chiếu xuống mặt hồ yên ả dưới bầu trời xanh trong.",
+      "matched_subqueries": [
+        "q0"
+      ],
+      "quality": {
+        "width": null,
+        "height": null,
+        "verify": "yes",
+        "verify_source": "human",
+        "watermark": "unknown",
+        "pixel_checked": false
+      }
+    },
+    {
+      "image_id": "e0e8f518-7031-5ee4-86c8-a64773b0aec9",
+      "image_url": "https://cdn.tuoitre.vn/thumb_w/730/2021/11/2/tho-lang-16358607079041671248313.jpg",
+      "score": 0.1428571428571429,
+      "entity_id": "7cecf5c9-54b4-4ed9-9353-27cf436f50fe",
+      "entity_slug": "cong-chinh-lang-thien-tho-huu",
+      "leaf_label": "Cổng chính lăng Thiên Thọ Hữu",
+      "query_type": "approved_metadata",
+      "parent_class": "Lăng tẩm hoàng triều phong kiến",
+      "description": "Cổng chính lăng Thiên Thọ Hữu hiện lên với hai ngôi nhà mái ngói cổ kính, hai bên là hai bàn thờ chạm khắc tinh xảo.",
+      "matched_subqueries": [
+        "q0"
+      ],
+      "quality": {
+        "width": null,
+        "height": null,
+        "verify": "yes",
+        "verify_source": "human",
+        "watermark": "unknown",
+        "pixel_checked": false
+      }
+    },
+    {
+      "image_id": "d7430e9a-9d5f-5dce-b86d-6633c6f79d72",
+      "image_url": "https://cdn2.tuoitre.vn/zoom/1200_1200/471584752817336320/2025/3/10/lang-vua-gia-long-1-17415896117971961735334-275-0-1280-1920-crop-1741590633498370779998.jpg",
+      "score": 0.0714285714285714,
+      "entity_id": "7cecf5c9-54b4-4ed9-9353-27cf436f50fe",
+      "entity_slug": "cong-chinh-lang-thien-tho-huu",
+      "leaf_label": "Cổng chính lăng Thiên Thọ Hữu",
+      "query_type": "approved_metadata",
+      "parent_class": "Lăng tẩm hoàng triều phong kiến",
+      "description": null,
+      "matched_subqueries": [
+        "q0"
+      ],
+      "quality": {
+        "width": 1200,
+        "height": 1200,
+        "verify": "yes",
+        "verify_source": "human",
+        "watermark": "unknown",
+        "pixel_checked": false
+      }
+    }
+  ],
+  "facets": {
+    "entities": {
+      "cong-chinh-lang-thien-tho-huu": "Cổng chính lăng Thiên Thọ Hữu"
+    },
+    "classes": {
+      "Lăng tẩm hoàng triều phong kiến": 14
+    },
+    "query_types": {
+      "approved_metadata": 14
+    }
+  },
+  "timings_ms": {
+    "catalog": 0.0047000066842883825,
+    "parse": 0.47980000090319663,
+    "llm_wait": 0.577899998461362,
+    "hop_resolve": 5.309399995894637,
+    "metadata_filter": 5.92760000290582,
+    "rerank": 0.008600000001024455
+  },
+  "total_ms": 38,
+  "warnings": [],
+  "sub_queries": [
+    {
+      "id": "q0",
+      "text": "lăng của mẹ vua minh mạng",
+      "coverage": "covered",
+      "returned": 14,
+      "evidence": "verified_relation_chain"
+    }
+  ],
+  "parse_confidence": "low",
+  "pipeline_version": "b4-verified-kg-multihop",
+  "resolution": {
+    "status": "resolved",
+    "seed": {
+      "text": "minh mạng",
+      "nodes": [
+        {
+          "node_id": "person:minh-mang",
+          "kind": "person",
+          "label": "Minh Mạng",
+          "gender": "male"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "phrase": "mẹ",
+        "predicate": "PARENT_OF",
+        "direction": "reverse",
+        "gender": "female",
+        "edges": [
+          {
+            "subject": "person:thuan-thien-cao-hoang-hau",
+            "subject_label": "Thuận Thiên Cao Hoàng Hậu",
+            "predicate": "PARENT_OF",
+            "object": "person:minh-mang",
+            "object_label": "Minh Mạng",
+            "object_kind": "person",
+            "source_type": "gemini_doc",
+            "source": "https://ticotravel.com.vn/lang-gia-long/",
+            "evidence": "được biết lăng thiên thọ hữu là nơi đặt phần mộ của thuận thiên cao hoàng hậu – người vợ thứ 2 của vua gia long và cũng chính là thân mẫu của vua minh mạng.",
+            "verifier": "quote_in_source+checks"
+          },
+          {
+            "subject": "person:thuan-thien-cao-hoang-hau",
+            "subject_label": "Thuận Thiên Cao Hoàng Hậu",
+            "predicate": "PARENT_OF",
+            "object": "person:minh-mang",
+            "object_label": "Minh Mạng",
+            "object_kind": "person",
+            "source_type": "gemini_doc",
+            "source": "https://luhanhvietnam.com.vn/du-lich/lang-gia-long-hue-trieu-nguyen.html",
+            "evidence": "lăng thiên thọ hữu của bà thuận thiên cao hoàng hậu, đây là người vợ thứ hai của vua gia long, đồng thời cũng là mẹ vua minh mạng.",
+            "verifier": "quote_in_source+checks"
+          }
+        ]
+      },
+      {
+        "phrase": "lăng/mộ/đền/khu",
+        "predicate": "BURIED_AT",
+        "direction": "forward",
+        "gender": null,
+        "edges": [
+          {
+            "subject": "person:thuan-thien-cao-hoang-hau",
+            "subject_label": "Thuận Thiên Cao Hoàng Hậu",
+            "predicate": "BURIED_AT",
+            "object": "place:7cecf5c9-54b4-4ed9-9353-27cf436f50fe",
+            "object_label": "Cổng chính lăng Thiên Thọ Hữu",
+            "object_kind": "place",
+            "source_type": "gemini_doc",
+            "source": "https://mia.vn/cam-nang-du-lich/lang-gia-long-hue-17007",
+            "evidence": "lăng thiên thọ hữu là nơi an nghỉ của thuận thiên cao hoàng hậu",
+            "verifier": "quote_in_source+checks+named_place"
+          }
+        ]
+      }
+    ],
+    "target_nodes": [
+      {
+        "node_id": "place:7cecf5c9-54b4-4ed9-9353-27cf436f50fe",
+        "kind": "place",
+        "label": "Cổng chính lăng Thiên Thọ Hữu",
+        "gender": null
+      }
+    ],
+    "mapped_target_entity_ids": [
+      "7cecf5c9-54b4-4ed9-9353-27cf436f50fe"
+    ],
+    "evidence_checked": true,
+    "online": {}
+  }
+}

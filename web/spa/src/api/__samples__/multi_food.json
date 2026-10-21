@@ -1,0 +1,493 @@
+{
+ "request_id": "46b26451-93b8-4e3e-95e3-1ad88162d634",
+ "intent_type": "multi_intent",
+ "parser": "rule",
+ "hits": [
+  {
+   "image_id": "5e3c9d3a-6245-5546-b3b2-67fc9480e3c0",
+   "image_url": "https://cdn.zsoft.solutions/poseidon-web/app/media/Kham-pha-am-thuc/07.2024/050724-pho-viet-huong-vi-tu-goc-pho-02.jpg",
+   "score": 0.9972423315048218,
+   "entity_id": "318e4194-6f49-4bb3-b870-bdc802530bc0",
+   "entity_slug": "scope-3-pho-bo",
+   "leaf_label": "Phở bò",
+   "query_type": "approved_metadata",
+   "parent_class": "Phở (sợi gạo dẹt) — phở bò các loại, phở gà, phở sốt vang, phở khô/phở trộn, phở Bắc/phở Nam",
+   "description": "Bát phở bò đầy đặn với thịt bò tái, chín, gầu, gân, hành lá xanh mướt và hành tây thái mỏng, ăn kèm rau thơm, giá đỗ, chanh, ớt và hai loại tương.",
+   "matched_subqueries": [
+    "q0"
+   ],
+   "quality": {
+    "width": null,
+    "height": null,
+    "verify": "yes",
+    "verify_source": "human",
+    "watermark": "unknown",
+    "pixel_checked": false
+   }
+  },
+  {
+   "image_id": "98b9b0f2-d92b-5e94-82d7-b24e6ab1a019",
+   "image_url": "https://photo.znews.vn/w660/Uploaded/mdf_kxrxdf/2019_06_10/xoithittrung.jpg",
+   "score": 0.9933071732521057,
+   "entity_id": "6aa653d0-9f8a-4ccc-bb7e-7f2173bfa1e0",
+   "entity_slug": "banh-cuon",
+   "leaf_label": "Bánh cuốn",
+   "query_type": "approved_metadata",
+   "parent_class": "Bánh hấp – bánh luộc",
+   "description": "Bánh cuốn được bày biện đẹp mắt trên mẹt đỏ, gồm bánh trắng mềm, chả lụa, hành phi và rau thơm ăn kèm.",
+   "matched_subqueries": [
+    "q1"
+   ],
+   "quality": {
+    "width": null,
+    "height": null,
+    "verify": "yes",
+    "verify_source": "human",
+    "watermark": "unknown",
+    "pixel_checked": false
+   }
+  },
+  {
+   "image_id": "b05e7601-76cd-53cc-bf2c-4ae96695829a",
+   "image_url": "https://i.ex-cdn.com/taichinhdoanhnghiep.net.vn/files/daotam/2022/01/10/pho-bo-1736.jpg",
+   "score": 0.9972099661827087,
+   "entity_id": "318e4194-6f49-4bb3-b870-bdc802530bc0",
+   "entity_slug": "scope-3-pho-bo",
+   "leaf_label": "Phở bò",
+   "query_type": "approved_metadata",
+   "parent_class": "Phở (sợi gạo dẹt) — phở bò các loại, phở gà, phở sốt vang, phở khô/phở trộn, phở Bắc/phở Nam",
+   "description": "Một tô phở bò nóng hổi với những lát thịt bò tái mềm mại, hành lá xanh mướt và sợi phở trắng ngần, hấp dẫn.",
+   "matched_subqueries": [
+    "q0"
+   ],
+   "quality": {
+    "width": 679,
+    "height": 680,
+    "verify": "yes",
+    "verify_source": "human",
+    "watermark": "unknown",
+    "pixel_checked": false
+   }
+  },
+  {
+   "image_id": "c53a50f5-371e-560f-84e1-ebb8d0cf4acc",
+   "image_url": "https://cdn.daidoanket.vn/w1200/uploaded/images/2025/09/08/c18bf931-e72f-4efe-8802-5dfa65ab4c18.png",
+   "score": 0.9915544390678406,
+   "entity_id": "6aa653d0-9f8a-4ccc-bb7e-7f2173bfa1e0",
+   "entity_slug": "banh-cuon",
+   "leaf_label": "Bánh cuốn",
+   "query_type": "approved_metadata",
+   "parent_class": "Bánh hấp – bánh luộc",
+   "description": "Đĩa Bánh cuốn trắng ngần, mềm mại, phủ lớp hành phi vàng giòn và lá bạc hà xanh tươi, ăn kèm bát nước chấm đậm đà.",
+   "matched_subqueries": [
+    "q1"
+   ],
+   "quality": {
+    "width": null,
+    "height": null,
+    "verify": "yes",
+    "verify_source": "human",
+    "watermark": "unknown",
+    "pixel_checked": false
+   }
+  },
+  {
+   "image_id": "2547dca2-c6b5-5263-b062-270cf5cc6deb",
+   "image_url": "https://media.istockphoto.com/id/910864612/vi/anh/vietnamese-soup-pho-bo.jpg?s=612x612&w=0&k=20&c=mWhHVgX-_ag5SoqPB-I2m-MZLJoZYw25CuEGoSZ25vo=",
+   "score": 0.9969125986099243,
+   "entity_id": "318e4194-6f49-4bb3-b870-bdc802530bc0",
+   "entity_slug": "scope-3-pho-bo",
+   "leaf_label": "Phở bò",
+   "query_type": "approved_metadata",
+   "parent_class": "Phở (sợi gạo dẹt) — phở bò các loại, phở gà, phở sốt vang, phở khô/phở trộn, phở Bắc/phở Nam",
+   "description": "Bát Phở bò nóng hổi với thịt bò mềm, bánh phở trắng, rau thơm tươi xanh và ớt đỏ rực trên nền gỗ mộc mạc.",
+   "matched_subqueries": [
+    "q0"
+   ],
+   "quality": {
+    "width": null,
+    "height": null,
+    "verify": "yes",
+    "verify_source": "human",
+    "watermark": "unknown",
+    "pixel_checked": false
+   }
+  },
+  {
+   "image_id": "feb2766d-67eb-53c6-b77e-e2b63fb65cbe",
+   "image_url": "https://danviet.ex-cdn.com/files/f1/296231569849192448/2023/5/26/banh-cuon-thanh-tri-so-11679915069-168483097175728851477-1685078302572-16850783026961249331250.jpg",
+   "score": 0.9903663396835327,
+   "entity_id": "6aa653d0-9f8a-4ccc-bb7e-7f2173bfa1e0",
+   "entity_slug": "banh-cuon",
+   "leaf_label": "Bánh cuốn",
+   "query_type": "approved_metadata",
+   "parent_class": "Bánh hấp – bánh luộc",
+   "description": "Bánh cuốn trắng mềm phủ hành phi giòn tan, ăn kèm chả lụa thái lát cam và xám hấp dẫn.",
+   "matched_subqueries": [
+    "q1"
+   ],
+   "quality": {
+    "width": null,
+    "height": null,
+    "verify": "yes",
+    "verify_source": "human",
+    "watermark": "unknown",
+    "pixel_checked": false
+   }
+  },
+  {
+   "image_id": "9ed85b4b-5d7f-534e-9845-264f6cd3f62a",
+   "image_url": "https://tl.cdnchinhphu.vn/344445545208135680/2024/12/13/nha-hang-loi-phat-17340906075481293876502.jpg",
+   "score": 0.9968273043632507,
+   "entity_id": "318e4194-6f49-4bb3-b870-bdc802530bc0",
+   "entity_slug": "scope-3-pho-bo",
+   "leaf_label": "Phở bò",
+   "query_type": "approved_metadata",
+   "parent_class": "Phở (sợi gạo dẹt) — phở bò các loại, phở gà, phở sốt vang, phở khô/phở trộn, phở Bắc/phở Nam",
+   "description": "Bát phở bò nóng hổi với những lát thịt bò mềm, hành tây, ớt và rau thơm xanh mướt, nước dùng trong veo hấp dẫn.",
+   "matched_subqueries": [
+    "q0"
+   ],
+   "quality": {
+    "width": 800,
+    "height": 800,
+    "verify": "yes",
+    "verify_source": "human",
+    "watermark": "unknown",
+    "pixel_checked": false
+   }
+  },
+  {
+   "image_id": "7bcb8bac-5341-521f-bc93-411759129d5b",
+   "image_url": "https://media-cdn-v2.laodong.vn/Storage/NewsPortal/2023/11/26/1272154/Banh-Cuon-Mao-Dien.jpeg",
+   "score": 0.9898303151130676,
+   "entity_id": "6aa653d0-9f8a-4ccc-bb7e-7f2173bfa1e0",
+   "entity_slug": "banh-cuon",
+   "leaf_label": "Bánh cuốn",
+   "query_type": "approved_metadata",
+   "parent_class": "Bánh hấp – bánh luộc",
+   "description": "Đĩa bánh cuốn nóng hổi phủ hành phi thơm lừng, ăn kèm bát nước chấm vàng óng và vài miếng chả giòn tan.",
+   "matched_subqueries": [
+    "q1"
+   ],
+   "quality": {
+    "width": null,
+    "height": null,
+    "verify": "yes",
+    "verify_source": "human",
+    "watermark": "unknown",
+    "pixel_checked": false
+   }
+  },
+  {
+   "image_id": "0c32a825-619e-551a-bc13-3ae03afe63e2",
+   "image_url": "https://media.istockphoto.com/id/1168028042/vi/anh/ph%E1%BB%9F-b%C3%B2-lan-ch%C3%A2u-l%C3%A0-m%E1%BB%99t-lo%E1%BA%A1i-ph%E1%BB%9F-ramen-trung-qu%E1%BB%91c-v%E1%BB%9Bi-l%C3%A1t-th%E1%BB%8Bt-b%C3%B2-%C4%91%C6%B0%E1%BB%A3c-ph%E1%BB%A5c-v%E1%BB%A5-tr%C3%AAn-c%E1%BA%ADn-c%E1%BA%A3nh.jpg?s=1024x1024&w=is&k=20&c=5ssoZZck4BkHgBj9TLM-RIHPKSrNlbOGG_6SZBSKr8E=",
+   "score": 0.9968024492263794,
+   "entity_id": "318e4194-6f49-4bb3-b870-bdc802530bc0",
+   "entity_slug": "scope-3-pho-bo",
+   "leaf_label": "Phở bò",
+   "query_type": "approved_metadata",
+   "parent_class": "Phở (sợi gạo dẹt) — phở bò các loại, phở gà, phở sốt vang, phở khô/phở trộn, phở Bắc/phở Nam",
+   "description": "Bát phở bò nóng hổi với những lát thịt bò mềm, bánh phở dai ngon, hành lá xanh mướt và vài lát củ cải trắng, tạo nên một món ăn hấp dẫn.",
+   "matched_subqueries": [
+    "q0"
+   ],
+   "quality": {
+    "width": 1024,
+    "height": 682,
+    "verify": "yes",
+    "verify_source": "human",
+    "watermark": "unknown",
+    "pixel_checked": false
+   }
+  },
+  {
+   "image_id": "f3e75098-16c6-5972-a32e-1d9b43f1c661",
+   "image_url": "https://diadiemlongkhanh.cdn.vccloud.vn/static/images/2023/11/08/d82b11dc-acac-48f2-b1c3-1faba4058fa3-img1057-copy1jpg.jpeg?w=960",
+   "score": 0.989591658115387,
+   "entity_id": "6aa653d0-9f8a-4ccc-bb7e-7f2173bfa1e0",
+   "entity_slug": "banh-cuon",
+   "leaf_label": "Bánh cuốn",
+   "query_type": "approved_metadata",
+   "parent_class": "Bánh hấp – bánh luộc",
+   "description": "Đĩa bánh cuốn đầy đặn với chả lụa, nem rán, trứng ốp la và rau giá ăn kèm cùng chén nước chấm hấp dẫn.",
+   "matched_subqueries": [
+    "q1"
+   ],
+   "quality": {
+    "width": null,
+    "height": null,
+    "verify": "yes",
+    "verify_source": "human",
+    "watermark": "unknown",
+    "pixel_checked": false
+   }
+  },
+  {
+   "image_id": "f00585db-7164-5036-a901-157a7ffdc1e0",
+   "image_url": "https://poliva.vn/wp-content/uploads/2019/06/pho-bo-nam-dinh-4.jpg",
+   "score": 0.9966495633125305,
+   "entity_id": "318e4194-6f49-4bb3-b870-bdc802530bc0",
+   "entity_slug": "scope-3-pho-bo",
+   "leaf_label": "Phở bò",
+   "query_type": "approved_metadata",
+   "parent_class": "Phở (sợi gạo dẹt) — phở bò các loại, phở gà, phở sốt vang, phở khô/phở trộn, phở Bắc/phở Nam",
+   "description": "Bát phở bò nóng hổi với những lát thịt mỏng, hành lá xanh mướt, rau thơm và lát chanh tươi, tỏa hương thơm quyến rũ trên nền gỗ mộc mạc.",
+   "matched_subqueries": [
+    "q0"
+   ],
+   "quality": {
+    "width": 600,
+    "height": 375,
+    "verify": "yes",
+    "verify_source": "human",
+    "watermark": "unknown",
+    "pixel_checked": false
+   }
+  },
+  {
+   "image_id": "cf4148bf-c9cb-5d1b-a6ff-0f6eb02a55da",
+   "image_url": "https://img-global.cpcdn.com/recipes/b235f5db0142062d/1200x630cq80/photo.jpg",
+   "score": 0.9895513653755188,
+   "entity_id": "6aa653d0-9f8a-4ccc-bb7e-7f2173bfa1e0",
+   "entity_slug": "banh-cuon",
+   "leaf_label": "Bánh cuốn",
+   "query_type": "approved_metadata",
+   "parent_class": "Bánh hấp – bánh luộc",
+   "description": "Đĩa bánh cuốn trắng ngần, phủ hành phi vàng giòn, ăn kèm giá đỗ và lá húng tươi hấp dẫn.",
+   "matched_subqueries": [
+    "q1"
+   ],
+   "quality": {
+    "width": null,
+    "height": null,
+    "verify": "yes",
+    "verify_source": "human",
+    "watermark": "unknown",
+    "pixel_checked": false
+   }
+  },
+  {
+   "image_id": "4b3bc611-745e-5cbd-891f-0747e89ec79a",
+   "image_url": "https://vcdn1-dulich.vnecdn.net/2025/01/09/12-1736393888-4117-1736393944.jpg?w=1020&h=0&q=100&dpr=2&fit=crop&s=p9Im7-bNxlBdCRtsPYjyvg",
+   "score": 0.9966365098953247,
+   "entity_id": "318e4194-6f49-4bb3-b870-bdc802530bc0",
+   "entity_slug": "scope-3-pho-bo",
+   "leaf_label": "Phở bò",
+   "query_type": "approved_metadata",
+   "parent_class": "Phở (sợi gạo dẹt) — phở bò các loại, phở gà, phở sốt vang, phở khô/phở trộn, phở Bắc/phở Nam",
+   "description": "Bát phở bò nóng hổi với những lát thịt bò mềm, bánh phở trắng ngần, điểm xuyết hành lá xanh mướt và rau thơm tươi ngon.",
+   "matched_subqueries": [
+    "q0"
+   ],
+   "quality": {
+    "width": 1020,
+    "height": 612,
+    "verify": "yes",
+    "verify_source": "human",
+    "watermark": "unknown",
+    "pixel_checked": false
+   }
+  },
+  {
+   "image_id": "1f7c7350-2f6f-58e9-bad5-261c7a1b89b9",
+   "image_url": "https://media-cdn-v2.laodong.vn/storage/newsportal/2023/11/25/1272003/Suat-Banh-Cuon-Tai-Q.jpg",
+   "score": 0.9887987971305847,
+   "entity_id": "6aa653d0-9f8a-4ccc-bb7e-7f2173bfa1e0",
+   "entity_slug": "banh-cuon",
+   "leaf_label": "Bánh cuốn",
+   "query_type": "approved_metadata",
+   "parent_class": "Bánh hấp – bánh luộc",
+   "description": "Bánh cuốn được bày biện hấp dẫn với chả lụa, nem chua rán, rau thơm tươi ngon và bát nước chấm đậm đà.",
+   "matched_subqueries": [
+    "q1"
+   ],
+   "quality": {
+    "width": null,
+    "height": null,
+    "verify": "yes",
+    "verify_source": "human",
+    "watermark": "unknown",
+    "pixel_checked": false
+   }
+  },
+  {
+   "image_id": "184027f9-16dc-5ffe-b0d5-173f1044714c",
+   "image_url": "https://vncooking.com/files/common/2019/11/07/kham-pha-mon-pho-truyen-thong-cua-viet-nam-kvwpcagc.jpg",
+   "score": 0.9965301156044006,
+   "entity_id": "318e4194-6f49-4bb3-b870-bdc802530bc0",
+   "entity_slug": "scope-3-pho-bo",
+   "leaf_label": "Phở bò",
+   "query_type": "approved_metadata",
+   "parent_class": "Phở (sợi gạo dẹt) — phở bò các loại, phở gà, phở sốt vang, phở khô/phở trộn, phở Bắc/phở Nam",
+   "description": "Bát Phở bò nóng hổi với thịt bò mềm, bánh phở trắng, hành lá xanh và ớt đỏ tươi, ăn kèm chanh và rau thơm.",
+   "matched_subqueries": [
+    "q0"
+   ],
+   "quality": {
+    "width": null,
+    "height": null,
+    "verify": "yes",
+    "verify_source": "human",
+    "watermark": "unknown",
+    "pixel_checked": false
+   }
+  },
+  {
+   "image_id": "e80f9e95-0675-568a-99e6-073dc3cf2761",
+   "image_url": "https://mediabls.mediatech.vn/upload/image/202112/medium/136755_BC2.jpg",
+   "score": 0.988711953163147,
+   "entity_id": "6aa653d0-9f8a-4ccc-bb7e-7f2173bfa1e0",
+   "entity_slug": "banh-cuon",
+   "leaf_label": "Bánh cuốn",
+   "query_type": "approved_metadata",
+   "parent_class": "Bánh hấp – bánh luộc",
+   "description": "Đĩa bánh cuốn trắng ngần với lớp nhân nâu bên trong, ăn kèm với một phần bánh màu vàng phủ ruốc hấp dẫn.",
+   "matched_subqueries": [
+    "q1"
+   ],
+   "quality": {
+    "width": null,
+    "height": null,
+    "verify": "yes",
+    "verify_source": "human",
+    "watermark": "unknown",
+    "pixel_checked": false
+   }
+  },
+  {
+   "image_id": "c70fc975-5b79-56e6-a8a6-70e05785afb0",
+   "image_url": "https://silkpathhotel.com/wp-content/uploads/2025/03/Silk-Path-Cam-nang-du-lich-Viet-Nam-Pho-The-Gloria-by-Silk-Path-600x400.jpg",
+   "score": 0.9962199330329895,
+   "entity_id": "318e4194-6f49-4bb3-b870-bdc802530bc0",
+   "entity_slug": "scope-3-pho-bo",
+   "leaf_label": "Phở bò",
+   "query_type": "approved_metadata",
+   "parent_class": "Phở (sợi gạo dẹt) — phở bò các loại, phở gà, phở sốt vang, phở khô/phở trộn, phở Bắc/phở Nam",
+   "description": "Bát phở bò nóng hổi với thịt mềm, bánh phở trắng ngần, hành lá xanh mướt và ớt tươi, ăn kèm trứng chần, trái cây và bánh ngọt.",
+   "matched_subqueries": [
+    "q0"
+   ],
+   "quality": {
+    "width": 600,
+    "height": 400,
+    "verify": "yes",
+    "verify_source": "human",
+    "watermark": "unknown",
+    "pixel_checked": false
+   }
+  },
+  {
+   "image_id": "8b9e1d42-781f-5965-beb7-ae3b740ff2cd",
+   "image_url": "https://media-cdn-v2.laodong.vn/Storage/NewsPortal/2022/11/4/1112805/Banh-Cuon-Phuong.jpg",
+   "score": 0.9885361194610596,
+   "entity_id": "6aa653d0-9f8a-4ccc-bb7e-7f2173bfa1e0",
+   "entity_slug": "banh-cuon",
+   "leaf_label": "Bánh cuốn",
+   "query_type": "approved_metadata",
+   "parent_class": "Bánh hấp – bánh luộc",
+   "description": "Đĩa bánh cuốn trắng mềm phủ hành phi thơm lừng, ăn kèm chả lụa và bát nước chấm ớt cay hấp dẫn.",
+   "matched_subqueries": [
+    "q1"
+   ],
+   "quality": {
+    "width": null,
+    "height": null,
+    "verify": "yes",
+    "verify_source": "human",
+    "watermark": "unknown",
+    "pixel_checked": false
+   }
+  },
+  {
+   "image_id": "3c0156a0-e499-5136-a53c-429facbb6621",
+   "image_url": "https://media-cdn-v2.laodong.vn/storage/newsportal/2024/11/20/1424066/Pho-Bo-Tai-Chin-1-01.jpeg",
+   "score": 0.9962199330329895,
+   "entity_id": "318e4194-6f49-4bb3-b870-bdc802530bc0",
+   "entity_slug": "scope-3-pho-bo",
+   "leaf_label": "Phở bò",
+   "query_type": "approved_metadata",
+   "parent_class": "Phở (sợi gạo dẹt) — phở bò các loại, phở gà, phở sốt vang, phở khô/phở trộn, phở Bắc/phở Nam",
+   "description": "Bát phở bò nóng hổi với những lát thịt mỏng, hành lá xanh mướt, rau thơm và ớt tươi, nước dùng đậm đà, hấp dẫn.",
+   "matched_subqueries": [
+    "q0"
+   ],
+   "quality": {
+    "width": 928,
+    "height": 566,
+    "verify": "yes",
+    "verify_source": "human",
+    "watermark": "unknown",
+    "pixel_checked": false
+   }
+  },
+  {
+   "image_id": "f9b1586b-1145-5969-a2f0-a1de936f6feb",
+   "image_url": "https://cdn-i2.congthuong.vn/stores/news_dataimages/venvn/102015/04/09/banh-cuon-cao-bang-065120160621170516.7274360.jpg",
+   "score": 0.9878528118133545,
+   "entity_id": "6aa653d0-9f8a-4ccc-bb7e-7f2173bfa1e0",
+   "entity_slug": "banh-cuon",
+   "leaf_label": "Bánh cuốn",
+   "query_type": "approved_metadata",
+   "parent_class": "Bánh hấp – bánh luộc",
+   "description": "Cận cảnh Bánh cuốn trắng ngần cuộn nhân thịt, ăn kèm chả và rau thơm, cùng lát chanh, ớt đỏ tươi.",
+   "matched_subqueries": [
+    "q1"
+   ],
+   "quality": {
+    "width": 600,
+    "height": 467,
+    "verify": "yes",
+    "verify_source": "human",
+    "watermark": "unknown",
+    "pixel_checked": false
+   }
+  }
+ ],
+ "facets": {
+  "entities": {
+   "scope-3-pho-bo": "Phở bò",
+   "banh-cuon": "Bánh cuốn"
+  },
+  "classes": {
+   "Phở (sợi gạo dẹt) — phở bò các loại, phở gà, phở sốt vang, phở khô/phở trộn, phở Bắc/phở Nam": 10,
+   "Bánh hấp – bánh luộc": 10
+  },
+  "query_types": {
+   "approved_metadata": 20
+  }
+ },
+ "timings_ms": {
+  "catalog": 0.004800000169780105,
+  "parse": 0.30809999952907674,
+  "embed_query": 145.05149999968125,
+  "dense": 30.568600002879975,
+  "retrieve": 15.115500002139015,
+  "llm_wait": 0.0014999968698248267,
+  "metadata_filter": 26.825900000403635,
+  "rerank": 136.87290000234498
+ },
+ "total_ms": 380,
+ "warnings": [],
+ "sub_queries": [
+  {
+   "id": "q0",
+   "text": "phở bò",
+   "evidence": "entity_name",
+   "supported_candidates": 24,
+   "coverage": "covered",
+   "returned": 10
+  },
+  {
+   "id": "q1",
+   "text": "bánh cuốn",
+   "evidence": "entity_name",
+   "supported_candidates": 24,
+   "coverage": "covered",
+   "returned": 10
+  }
+ ],
+ "parse_confidence": "high",
+ "pipeline_version": "b3-guarded-parse-fair-multi",
+ "resolution": null
+}

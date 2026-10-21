@@ -1,0 +1,289 @@
+[
+  {
+    "id": "TC01",
+    "group": "search",
+    "title": "Tên thực thể chính xác",
+    "query": "Quần thể Tràng An",
+    "why": "Truy vấn đúng tên: ảnh đầu tiên phải thuộc đúng thực thể, và phần lớn top 10 là ảnh của nó (thực thể có 9 ảnh).",
+    "checks": {
+      "min_hits": 5,
+      "top1_entity": "Quần thể Tràng An",
+      "label_contains": {
+        "text": "Quần thể Tràng An",
+        "min_ratio": 0.8
+      }
+    }
+  },
+  {
+    "id": "TC02",
+    "group": "search",
+    "title": "Gõ không dấu",
+    "query": "nem chua thanh hoa",
+    "why": "Catalog lưu bản bỏ dấu cho FTS và khớp tên, nên gõ không dấu vẫn ra đúng thực thể.",
+    "checks": {
+      "min_hits": 5,
+      "top1_entity": "Nem chua Thanh Hóa"
+    }
+  },
+  {
+    "id": "TC03",
+    "group": "search",
+    "title": "Truy vấn mô tả (không nêu tên)",
+    "query": "chợ họp trên sông, thuyền chở đầy trái cây",
+    "why": "Không có tên riêng; dense + DeepSeek rerank phải đưa các chợ nổi lên.",
+    "checks": {
+      "min_hits": 3,
+      "label_contains": {
+        "text": "chợ nổi",
+        "min_ratio": 0.5
+      }
+    }
+  },
+  {
+    "id": "TC04",
+    "group": "search",
+    "title": "Multi-intent: hai món ăn",
+    "query": "Phở bò và Bánh cuốn",
+    "why": "DeepSeek tách 2 sub-query; quota bảo đảm cả hai món đều có mặt trong top 10.",
+    "checks": {
+      "intent": "multi_intent",
+      "entities_include": [
+        "Phở bò",
+        "Bánh cuốn"
+      ]
+    }
+  },
+  {
+    "id": "TC05",
+    "group": "search",
+    "title": "Set query theo nhóm",
+    "query": "các chợ truyền thống",
+    "why": "Hỏi cả một lớp: phần lớn kết quả phải thuộc nhóm 'Chợ truyền thống' và đến từ nhiều chợ khác nhau.",
+    "checks": {
+      "min_hits": 5,
+      "class_prefix": {
+        "text": "Chợ truyền thống",
+        "min_ratio": 0.6
+      },
+      "min_distinct_entities": 3
+    }
+  },
+  {
+    "id": "TC06",
+    "group": "search",
+    "title": "Địa danh chứa chữ 'Ngang' không bị hiểu là filter",
+    "query": "Nhà cổ 48 Hàng Ngang",
+    "why": "Hồi quy cho lỗi cũ: chữ 'ngang' trong tên phố từng bật filter hướng ảnh và lọc sạch kết quả.",
+    "checks": {
+      "min_hits": 3,
+      "top1_entity_contains": "48 Hàng Ngang",
+      "no_warning_contains": "orientation"
+    }
+  },
+  {
+    "id": "TC07",
+    "group": "search",
+    "title": "Filter hướng ảnh được báo là không hỗ trợ",
+    "query": "ảnh ngang Văn Miếu Huế",
+    "why": "Nhiều ảnh chưa biết kích thước: filter hướng ảnh vẫn áp nhưng giữ ảnh chưa rõ kích thước, có cảnh báo; kết quả vẫn trả về.",
+    "checks": {
+      "min_hits": 3,
+      "warning_contains": "size filter",
+      "label_contains": {
+        "text": "Văn Miếu Huế",
+        "min_ratio": 0.5
+      }
+    }
+  },
+  {
+    "id": "TC08",
+    "group": "search",
+    "title": "Multi-hop không bịa quan hệ",
+    "query": "con trai của chủ tịch tập đoàn Vingroup",
+    "why": "KG không có quan hệ có nguồn cho người này: trả 0 ảnh kèm cảnh báo multi_hop, không đoán.",
+    "checks": {
+      "max_hits": 0,
+      "intent": "multi_hop",
+      "warning_contains": "multi_hop"
+    }
+  },
+  {
+    "id": "TC09",
+    "group": "search",
+    "title": "Tên mơ hồ — nhiều thực thể cùng tên",
+    "query": "Văn Miếu",
+    "why": "Có nhiều Văn Miếu (Huế, Bắc Ninh, Hà Tĩnh, Nghệ An…): kết quả nên trải ra nhiều thực thể.",
+    "checks": {
+      "min_hits": 5,
+      "label_contains": {
+        "text": "Văn Miếu",
+        "min_ratio": 0.8
+      },
+      "min_distinct_entities": 3
+    }
+  },
+  {
+    "id": "TC10",
+    "group": "search",
+    "title": "Loại + địa điểm",
+    "query": "nhà thờ ở Đà Lạt",
+    "why": "Kết hợp loại công trình và địa danh: các nhà thờ có 'Đà Lạt' trong tên.",
+    "checks": {
+      "min_hits": 5,
+      "label_contains": [
+        {
+          "text": "Đà Lạt",
+          "min_ratio": 0.7
+        },
+        {
+          "text": "nhà thờ",
+          "min_ratio": 0.7
+        }
+      ]
+    }
+  },
+  {
+    "id": "TC11",
+    "group": "search",
+    "title": "Truy vấn tiếng Anh",
+    "query": "old merchant house in Hoi An",
+    "why": "Model embedding đa ngôn ngữ + DeepSeek: truy vấn tiếng Anh vẫn tìm được nhà cổ Hội An.",
+    "checks": {
+      "min_hits": 3,
+      "label_contains": {
+        "text": "Hội An",
+        "min_ratio": 0.5
+      }
+    }
+  },
+  {
+    "id": "TC12",
+    "group": "search",
+    "title": "Truy vấn vô nghĩa",
+    "query": "xyzqw blorf kraznik",
+    "why": "Không có gì liên quan: mọi ứng viên dưới ngưỡng điểm cross-encoder 0,2 (scripts/calibrate_relevance.py) nên trả 0 ảnh kèm cảnh báo no_relevant_results.",
+    "checks": {
+      "max_hits": 0,
+      "warning_contains": "no_relevant_results"
+    }
+  },
+  {
+    "id": "TC19",
+    "group": "search",
+    "title": "Truy vấn ngoài phạm vi không trả ảnh",
+    "query": "iphone 15 pro max giá rẻ",
+    "why": "Kho chỉ có di sản / văn hoá Việt Nam: không trả ảnh 'gần nhất' khi không ảnh nào đạt ngưỡng liên quan.",
+    "checks": {
+      "max_hits": 0,
+      "warning_contains": "no_relevant_results"
+    }
+  },
+  {
+    "id": "TC20",
+    "group": "search",
+    "title": "Loại từ 'con' không phải quan hệ",
+    "query": "con trâu cày ruộng",
+    "why": "'con' là loại từ, không phải 'con của ai': phải là truy vấn thường, không vào multi-hop (0 ảnh + tra web).",
+    "checks": {
+      "intent": "single",
+      "min_hits": 1
+    }
+  },
+  {
+    "id": "TC13",
+    "group": "search",
+    "title": "Cache: lặp lại truy vấn",
+    "query": "Quần thể Tràng An",
+    "run_twice": true,
+    "why": "Lần gọi thứ hai trả từ cache SQLite, không gọi DeepSeek nữa.",
+    "checks": {
+      "max_total_ms": 200,
+      "timing_key": "cache_lookup"
+    }
+  },
+  {
+    "id": "TC14",
+    "group": "api",
+    "title": "Thiếu X-API-Key bị chặn",
+    "request": {
+      "method": "POST",
+      "path": "/v1/search",
+      "body": {
+        "query": "Tràng An"
+      },
+      "auth": false
+    },
+    "why": "Mọi endpoint /v1 trừ health đều cần key.",
+    "checks": {
+      "status": 401
+    }
+  },
+  {
+    "id": "TC15",
+    "group": "api",
+    "title": "top_k ngoài phạm vi bị từ chối",
+    "request": {
+      "method": "POST",
+      "path": "/v1/search",
+      "body": {
+        "query": "Tràng An",
+        "top_k": 0
+      }
+    },
+    "why": "Validate input: top_k phải trong [1, 100].",
+    "checks": {
+      "status": 422
+    }
+  },
+  {
+    "id": "TC16",
+    "group": "api",
+    "title": "Query rỗng bị từ chối",
+    "request": {
+      "method": "POST",
+      "path": "/v1/search",
+      "body": {
+        "query": ""
+      }
+    },
+    "why": "Validate input: query không được rỗng.",
+    "checks": {
+      "status": 422
+    }
+  },
+  {
+    "id": "TC17",
+    "group": "api",
+    "title": "Duyệt thực thể theo tên",
+    "request": {
+      "method": "GET",
+      "path": "/v1/entities?q=Bát Tràng&limit=50"
+    },
+    "why": "Catalog có nhiều sản phẩm gốm Bát Tràng.",
+    "checks": {
+      "status": 200,
+      "body_min": {
+        "total": 10
+      }
+    }
+  },
+  {
+    "id": "TC18",
+    "group": "api",
+    "title": "Health báo đúng phạm vi dữ liệu",
+    "request": {
+      "method": "GET",
+      "path": "/v1/health",
+      "auth": false
+    },
+    "why": "Index hoàn chỉnh, đúng 130.428 ảnh của data_anh_pass_master.csv (dữ liệu đã duyệt tay), Stage 3 bật.",
+    "checks": {
+      "status": 200,
+      "body_equals": {
+        "index_complete": true,
+        "catalog.images": 130428,
+        "stage3_vlm_enabled": true
+      }
+    }
+  }
+]

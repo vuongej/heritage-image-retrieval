@@ -1,0 +1,1 @@
+{"buildTargets":[".PHONY","clean","down","eval","lint","loadtest","logs","ps","report","seed","test","up"],"launchTargets":[],"customConfigurationProvider":{"workspaceBrowse":{"browsePath":[],"compilerArgs":[]},"fileIndex":[]}}
