@@ -1,0 +1,30 @@
+# Production trên VM Oracle Always Free (Ubuntu 24.04 aarch64). CI chép file này vào ~/heritage
+# rồi chạy: TAG=<git sha> docker compose pull && docker compose up -d
+name: heritage
+
+services:
+  api:
+    image: ${API_IMAGE:-ghcr.io/vuongej/heritage-image-retrieval/api}:${TAG:-latest}
+    env_file: [.env]
+    volumes:
+      - ./data:/home/user/data # index tải từ HF dataset ở lần khởi động đầu, giữ lại giữa các lần deploy
+    expose: ["8000"]
+    restart: unless-stopped
+    # healthcheck lấy từ image (start-period 15 phút cho lần tải dữ liệu đầu tiên)
+
+  caddy:
+    image: caddy:2-alpine
+    ports: ["80:80", "443:443"]
+    environment:
+      API_DOMAIN: ${API_DOMAIN:?đặt API_DOMAIN trong .env}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data # chứng chỉ TLS
+      - caddy_config:/config
+    depends_on:
+      api: { condition: service_healthy }
+    restart: unless-stopped
+
+volumes:
+  caddy_data:
+  caddy_config:

@@ -35,11 +35,15 @@ load_env()
 def _preload() -> None:
     """Nạp sẵn catalog tên + reranker local ở luồng nền: truy vấn đầu không phải chờ ~20 s."""
     try:
-        from retrieval import rerank
+        from retrieval import local_index, rerank, vector_store
         from retrieval.catalog import for_index
         from retrieval.local_index import manifest
 
         for_index(manifest().get("csv_sha256"))
+        if vector_store.backend() == "numpy":
+            # Một phép nhân ma trận đọc toàn bộ vectors.npy (mmap) vào page cache: truy vấn đầu
+            # sau khởi động không phải chịu ~3 s đọc đĩa.
+            local_index.search_vector([0.0] * local_index.EMBED_DIM, 1)
         if rerank.backend() == "local_ce":
             rerank._load_local(rerank.local_model())
     except Exception:  # nạp sẵn chỉ là tối ưu; lỗi thật sẽ lộ ở request đầu tiên

@@ -3,7 +3,7 @@
 > **Bộ tài liệu rà soát 21/10/2026:** [Tài liệu kỹ thuật](docs/technical-report.vi.md) · [Performance và benchmark](docs/performance-benchmark.vi.md) · [Test case](docs/test-cases.vi.md).
 > Các tài liệu này đối chiếu mã hiện tại với dữ liệu master, phân biệt kết quả đo, giả định thiết kế và phần còn là stub. Nội dung skeleton bên dưới là hướng dẫn từ giai đoạn đầu của dự án.
 
-> **Deploy + CI/CD** (Vercel cho web, Hugging Face Space cho API, GitHub Actions): [docs/deploy.md](docs/deploy.md).
+> **Deploy + CI/CD** (Vercel cho web, VM Oracle Always Free cho API, GitHub Actions): [docs/deploy.md](docs/deploy.md).
 > Chạy local với dữ liệu approved và DeepSeek: xem [hướng dẫn](docs/local-approved-run.md).
 > Bản ghi lần chạy full pipeline cho `username = pham_van_vuong`: [docs/pipeline-run-pham_van_vuong.md](docs/pipeline-run-pham_van_vuong.md).
 > Giao diện local (http://127.0.0.1:8000/) + 18 test case: [docs/ui-testcases.md](docs/ui-testcases.md).

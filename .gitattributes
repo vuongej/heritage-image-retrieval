@@ -1,4 +1,5 @@
 * text=auto
 *.sh text eol=lf
 Dockerfile* text eol=lf
-deploy/hf/Dockerfile text eol=lf
+*.Dockerfile text eol=lf
+Caddyfile text eol=lf

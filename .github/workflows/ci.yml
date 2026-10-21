@@ -1,7 +1,8 @@
 name: ci
 
 # PR:        backend test + web test + build image  -> preview Vercel (comment link vào PR)
-# push main: như trên -> deploy backend (HF Space) -> deploy web (Vercel prod) -> smoke -> k6 + report
+# push main: như trên -> deploy backend (image arm64 -> GHCR -> VM Oracle) -> deploy web (Vercel prod)
+#            -> smoke 3 loại query -> k6 + report
 on:
   push: { branches: [main] }
   pull_request:
@@ -63,41 +64,77 @@ jobs:
       - uses: docker/build-push-action@v6
         with:
           context: .
-          file: deploy/hf/Dockerfile
+          file: deploy/backend.Dockerfile
           load: true
           tags: heritage-api:ci
-          cache-from: type=gha,scope=space
-          cache-to: type=gha,mode=max,scope=space
-      # Khởi động không dữ liệu: bắt lỗi thiếu package / import trước khi đẩy lên Space.
-      - name: Boot + /v1/health
+          cache-from: type=gha,scope=backend-amd64
+          cache-to: type=gha,mode=max,scope=backend-amd64
+      # Khởi động không dữ liệu: bắt lỗi thiếu package / import trước khi deploy.
+      - name: Boot + /v1/health + kích thước image
         run: |
-          docker run -d --name api -p 7860:7860 -e PRELOAD_MODELS=false heritage-api:ci
+          docker image inspect heritage-api:ci --format 'image size: {{.Size}} bytes' | tee -a "$GITHUB_STEP_SUMMARY"
+          docker run -d --name api -p 8000:8000 -e PRELOAD_MODELS=false heritage-api:ci
           for i in $(seq 1 30); do
-            curl -fsS http://127.0.0.1:7860/v1/health > /dev/null && { echo "health OK"; exit 0; }
-            sleep 2
+            curl -fsS http://127.0.0.1:8000/v1/health > /dev/null && { echo "health OK sau ${i}s"; exit 0; }
+            sleep 1
           done
           docker logs api; exit 1
 
   deploy-backend:
-    name: Deploy · backend → Hugging Face Space
+    name: Deploy · backend → VM Oracle (GHCR + compose)
     needs: [backend, web, image]
     if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
     runs-on: ubuntu-latest
+    permissions: { contents: read, packages: write }
     environment:
       name: backend
-      url: ${{ steps.push.outputs.url }}
-    env:
-      HF_TOKEN: ${{ secrets.HF_TOKEN }}
-      HF_SPACE: ${{ vars.HF_SPACE }}
+      url: https://${{ vars.API_DOMAIN }}/v1/health
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with: { python-version: "3.12" }
-      - run: pip install huggingface_hub==1.33.0
-      - id: push
-        run: python -m deploy.hf_deploy push-space
-      - name: Chờ Space build và khởi động
-        run: python -m deploy.hf_deploy wait --timeout 2400
+      - run: echo "IMAGE=ghcr.io/${GITHUB_REPOSITORY,,}/api" >> "$GITHUB_ENV" # GHCR bắt buộc chữ thường
+      - uses: docker/setup-qemu-action@v3
+      - uses: docker/setup-buildx-action@v3
+      - uses: docker/login-action@v3
+        with: { registry: ghcr.io, username: "${{ github.actor }}", password: "${{ secrets.GITHUB_TOKEN }}" }
+      - uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: deploy/backend.Dockerfile
+          platforms: linux/arm64 # VM.Standard.A1.Flex (Ampere)
+          push: true
+          tags: ${{ env.IMAGE }}:${{ github.sha }},${{ env.IMAGE }}:latest
+          cache-from: type=gha,scope=backend-arm64
+          cache-to: type=gha,mode=max,scope=backend-arm64
+      - uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.ORACLE_HOST }}
+          username: ${{ secrets.ORACLE_USER }}
+          key: ${{ secrets.ORACLE_SSH_KEY }}
+          source: deploy/oracle/compose.yml,deploy/oracle/Caddyfile
+          target: heritage
+          strip_components: 2
+      - uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.ORACLE_HOST }}
+          username: ${{ secrets.ORACLE_USER }}
+          key: ${{ secrets.ORACLE_SSH_KEY }}
+          command_timeout: 20m
+          script: |
+            set -e
+            cd ~/heritage
+            echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
+            export API_IMAGE=${{ env.IMAGE }} TAG=${{ github.sha }}
+            docker compose pull --quiet
+            docker compose up -d --remove-orphans --wait --wait-timeout 900
+            docker logout ghcr.io
+            docker image prune -f
+      - name: Health qua HTTPS
+        run: |
+          for i in $(seq 1 30); do
+            curl -fsS "https://${{ vars.API_DOMAIN }}/v1/health" > /dev/null && { echo "health OK"; exit 0; }
+            sleep 10
+          done
+          exit 1
 
   deploy-web:
     name: Deploy · web → Vercel production
