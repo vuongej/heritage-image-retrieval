@@ -8,6 +8,7 @@ export type ApiErrorKind =
   | 'not_found'
   | 'invalid_request'
   | 'rate_limited'
+  | 'blocked'
   | 'unavailable'
   | 'server'
   | 'invalid_payload';
@@ -19,6 +20,8 @@ export class ApiError extends Error {
     public status?: number,
     public retryAfterSeconds?: number,
     public detail?: string,
+    /** Mã máy đọc được do backend trả kèm (vd `query_blocked`). */
+    public code?: string,
   ) {
     super(message);
     this.name = 'ApiError';
@@ -41,15 +44,17 @@ function kindFor(status: number): ApiErrorKind {
   return 'server';
 }
 
-async function readDetail(res: Response): Promise<string | undefined> {
+async function readDetail(res: Response): Promise<{ detail?: string; code?: string }> {
   try {
-    const body = (await res.json()) as { detail?: unknown };
-    if (typeof body.detail === 'string') return body.detail;
-    if (Array.isArray(body.detail)) return body.detail.map((d) => d?.msg ?? '').join('; ');
+    const body = (await res.json()) as { detail?: unknown; code?: unknown };
+    const code = typeof body.code === 'string' ? body.code : undefined;
+    if (typeof body.detail === 'string') return { detail: body.detail, code };
+    if (Array.isArray(body.detail)) return { detail: body.detail.map((d) => d?.msg ?? '').join('; '), code };
+    return { code };
   } catch {
     /* non-JSON error body */
   }
-  return undefined;
+  return {};
 }
 
 /** Same-origin request through the /api proxy (the proxy attaches X-API-Key server-side). */
@@ -83,14 +88,16 @@ export async function request<T>(
   }
   const clientObservedMs = Math.round(performance.now() - started);
   if (!res.ok) {
-    const detail = await readDetail(res);
+    const { detail, code } = await readDetail(res);
     const retry = Number(res.headers.get('Retry-After'));
     throw new ApiError(
-      kindFor(res.status),
+      // Truy vấn bị bộ lọc nội dung từ chối (HTTP 400 + code): không phải lỗi hệ thống, không thử lại.
+      code === 'query_blocked' ? 'blocked' : kindFor(res.status),
       `HTTP ${res.status}`,
       res.status,
       Number.isFinite(retry) && retry > 0 ? retry : undefined,
       detail,
+      code,
     );
   }
   const json: unknown = await res.json();
@@ -118,6 +125,7 @@ export const errorCopy: Record<ApiErrorKind, { title: string; hint: string }> = 
   auth: { title: 'Bị từ chối xác thực', hint: 'Proxy chưa gắn X-API-Key hợp lệ (TEST_API_KEY trong .env).' },
   not_found: { title: 'Không tìm thấy', hint: 'Endpoint hoặc báo cáo chưa tồn tại trên backend.' },
   invalid_request: { title: 'Yêu cầu không hợp lệ', hint: 'Backend từ chối tham số truy vấn.' },
+  blocked: { title: 'Truy vấn không được hỗ trợ', hint: 'Nội dung truy vấn vi phạm quy tắc sử dụng của hệ thống.' },
   rate_limited: { title: 'Vượt giới hạn tốc độ (429)', hint: 'Chờ rồi thử lại.' },
   unavailable: { title: 'Dịch vụ tạm không sẵn sàng (503)', hint: 'Một thành phần phụ thuộc đang lỗi — xem log backend.' },
   server: { title: 'Lỗi máy chủ', hint: 'Xem log backend để biết nguyên nhân.' },

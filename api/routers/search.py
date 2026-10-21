@@ -5,6 +5,7 @@ from dataclasses import asdict
 from fastapi import APIRouter
 
 from api.schemas import SearchRequest, SearchResponseOut
+from retrieval.query_guard import ensure_allowed
 from retrieval.search import search as run_search
 
 router = APIRouter()
@@ -16,5 +17,6 @@ def search(req: SearchRequest) -> SearchResponseOut:
 
     KHÔNG agent, KHÔNG tool-calling loop. Xem docs/retrieval.md.
     """
+    ensure_allowed(req.query)  # trước cache/embedding/LLM: truy vấn bị chặn không tốn quota
     res = run_search(req.query, top_k=req.top_k, filters=req.filters)
     return SearchResponseOut(**asdict(res))

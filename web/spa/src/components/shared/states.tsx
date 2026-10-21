@@ -45,6 +45,18 @@ export function ErrorState({ error, onRetry, context }: { error: unknown; onRetr
   const copy = api ? errorCopy[api.kind] : { title: 'Đã xảy ra lỗi', hint: error instanceof Error ? error.message : String(error) };
   const wait = useCountdown(api?.retryAfterSeconds);
   const Icon = api?.kind === 'network' ? WifiOff : AlertTriangle;
+  if (api?.kind === 'blocked') {
+    // Từ chối có chủ đích của bộ lọc nội dung, không phải sự cố: giọng trung tính, không nút "Thử lại".
+    return (
+      <div role="alert" className="flex gap-2.5 rounded-[var(--radius-card)] border border-amber-300 bg-amber-50 p-4 text-amber-950">
+        <Ban aria-hidden className="mt-0.5 size-4 shrink-0" />
+        <div className="min-w-0">
+          <p className="font-semibold">{copy.title}</p>
+          <p className="mt-0.5 text-body">{api.detail ?? copy.hint}</p>
+        </div>
+      </div>
+    );
+  }
   return (
     <div role="alert" className="flex flex-col gap-2 rounded-[var(--radius-card)] border border-red-200 bg-red-50 p-4 text-red-900">
       <div className="flex items-center gap-2 font-semibold">

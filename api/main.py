@@ -27,6 +27,7 @@ from api.routers import (
     search,
     verify,
 )
+from retrieval.query_guard import QueryBlocked
 from storage.runtime import load_env
 
 load_env()
@@ -91,6 +92,14 @@ async def api_key_and_timing(request: Request, call_next):
     elapsed_ms = int((time.perf_counter() - t0) * 1000)
     response.headers["X-Response-Time"] = str(elapsed_ms)
     return response
+
+
+@app.exception_handler(QueryBlocked)
+async def query_blocked(request: Request, exc: QueryBlocked):
+    # `code` để client phân biệt với lỗi 400 khác và hiển thị riêng; không trả lại từ khóa đã khớp.
+    return JSONResponse(
+        {"detail": exc.message, "code": "query_blocked", "category": exc.category}, status_code=400
+    )
 
 
 @app.exception_handler(RuntimeError)

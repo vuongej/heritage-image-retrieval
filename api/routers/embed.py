@@ -6,6 +6,7 @@ from fastapi import APIRouter
 
 from api.schemas import EmbedRequest, EmbedResponseOut
 from retrieval.embed import EMBED_DIM, EMBED_MODEL, embed_images, embed_text
+from retrieval.query_guard import ensure_allowed
 
 router = APIRouter()
 
@@ -13,6 +14,7 @@ router = APIRouter()
 @router.post("/embed", response_model=EmbedResponseOut)
 def embed(req: EmbedRequest) -> EmbedResponseOut:
     """CHỈ embedding. Tách riêng để auto test đo chất lượng embed độc lập với rerank."""
+    ensure_allowed(*(req.texts or []))
     t0 = time.perf_counter()
     vectors: list[list[float]] = []
     if req.texts:

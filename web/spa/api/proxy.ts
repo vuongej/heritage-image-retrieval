@@ -1,12 +1,22 @@
-// Vercel Edge Function: /api/* -> backend FastAPI (Hugging Face Space).
+// Vercel Edge Function: /api/* -> backend FastAPI.
 // X-API-Key chỉ nằm trong env của Vercel, không bao giờ vào bundle trình duyệt —
 // cùng vai trò với proxy của vite dev/preview (vite.config.ts).
 export const config = { runtime: 'edge' };
 
-const ALLOWED = /^(v1|thumbs)(\/|$)/;
+// Proxy này PUBLIC và gắn sẵn API key, nên chỉ cho qua đúng những lời gọi SPA thực sự dùng.
+// Không chuyển tiếp: POST /v1/graph (rebuild), /v1/verify/label (ghi nhãn), /v1/ingest,
+// /v1/backfill, /v1/embed, /v1/rerank — các endpoint ghi dữ liệu hoặc tốn quota.
+const ROUTES: { method: string; path: RegExp }[] = [
+  { method: 'POST', path: /^v1\/search$/ },
+  { method: 'GET', path: /^v1\/(health|stats)$/ },
+  { method: 'GET', path: /^v1\/reports(\/[\w-]+)?$/ },
+  { method: 'GET', path: /^v1\/verify\/audit$/ },
+  { method: 'GET', path: /^thumbs\/[\w.-]+$/ },
+];
 const DROP_REQUEST = ['host', 'connection', 'content-length', 'accept-encoding', 'x-api-key', 'cookie', 'authorization'];
 // fetch ở edge đã giải nén body; giữ các header này sẽ làm trình duyệt giải nén lần nữa.
 const DROP_RESPONSE = ['content-encoding', 'content-length', 'transfer-encoding', 'connection'];
+const MAX_BODY_BYTES = 8 * 1024;
 
 export default async function handler(req: Request): Promise<Response> {
   const backend = process.env.BACKEND_URL;
@@ -15,7 +25,15 @@ export default async function handler(req: Request): Promise<Response> {
   const url = new URL(req.url);
   const path = url.searchParams.get('__path') ?? '';
   url.searchParams.delete('__path');
-  if (!ALLOWED.test(path)) return Response.json({ detail: 'Not found' }, { status: 404 });
+  if (!ROUTES.some((r) => r.method === req.method && r.path.test(path))) {
+    return Response.json({ detail: 'Not found' }, { status: 404 });
+  }
+
+  let body: ArrayBuffer | undefined;
+  if (req.method !== 'GET' && req.method !== 'HEAD') {
+    body = await req.arrayBuffer();
+    if (body.byteLength > MAX_BODY_BYTES) return Response.json({ detail: 'Payload quá lớn' }, { status: 413 });
+  }
 
   const headers = new Headers(req.headers);
   for (const h of DROP_REQUEST) headers.delete(h);
@@ -31,7 +49,7 @@ export default async function handler(req: Request): Promise<Response> {
     upstream = await fetch(`${backend.replace(/\/+$/, '')}/${path}${url.search}`, {
       method: req.method,
       headers,
-      body: req.method === 'GET' || req.method === 'HEAD' ? undefined : await req.arrayBuffer(),
+      body,
       redirect: 'manual',
     });
   } catch {

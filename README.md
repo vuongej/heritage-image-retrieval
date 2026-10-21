@@ -4,6 +4,7 @@
 > Các tài liệu này đối chiếu mã hiện tại với dữ liệu master, phân biệt kết quả đo, giả định thiết kế và phần còn là stub. Nội dung skeleton bên dưới là hướng dẫn từ giai đoạn đầu của dự án.
 
 > **Deploy + CI/CD** (Vercel cho web, Hugging Face Space (PRO) cho API, GitHub Actions): [docs/deploy.md](docs/deploy.md).
+> **Chặn truy vấn khiếm nhã / nhạy cảm** (backend + giao diện + proxy): [docs/query-guard.md](docs/query-guard.md).
 > Chạy local với dữ liệu approved và DeepSeek: xem [hướng dẫn](docs/local-approved-run.md).
 > Bản ghi lần chạy full pipeline cho `username = pham_van_vuong`: [docs/pipeline-run-pham_van_vuong.md](docs/pipeline-run-pham_van_vuong.md).
 > Giao diện local (http://127.0.0.1:8000/) + 18 test case: [docs/ui-testcases.md](docs/ui-testcases.md).
