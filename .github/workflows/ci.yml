@@ -20,7 +20,7 @@ concurrency:
 
 env:
   VERCEL_CLI: vercel@63.1.2
-  SLO_P95_MS: "3000"
+  GATE_SLO_MS: "3000" # ngưỡng chặn deploy theo đề (< 3 s); khác SLO_P95_MS của app
 
 jobs:
   backend:
@@ -205,7 +205,7 @@ jobs:
             ms=$(awk "BEGIN{printf \"%d\", $secs*1000}")
             hits=$(jq '.hits | length' resp.json 2>/dev/null || echo "?")
             echo "| $type | $query | $code | $hits | $ms ms |" | tee -a "$GITHUB_STEP_SUMMARY"
-            [ "$code" = 200 ] && [ "$ms" -lt "$SLO_P95_MS" ] || fail=1
+            [ "$code" = 200 ] && [ "$ms" -lt "$GATE_SLO_MS" ] || fail=1
           done <<'EOF'
           single|bãi biển Nha Trang
           multi_intent|hồ bơi và công viên nước ở Phú Quốc
@@ -229,11 +229,11 @@ jobs:
         run: |
           mkdir -p reports
           k6 run loadtest/loadtest.js -e PROFILE="$PROFILE" -e API_BASE="$APP_URL/api" \
-            -e SLO_P95_MS="$SLO_P95_MS" -e SUMMARY_PATH=reports/raw.json
+            -e SLO_P95_MS="$GATE_SLO_MS" -e SUMMARY_PATH=reports/raw.json
       - name: Sinh report HTML/JSON
         if: always()
         run: |
-          python -m loadtest.make_report reports/raw.json -o reports/report.html --slo-ms "$SLO_P95_MS"
+          python -m loadtest.make_report reports/raw.json -o reports/report.html --slo-ms "$GATE_SLO_MS"
           python - <<'EOF' >> "$GITHUB_STEP_SUMMARY"
           import json
           s = json.load(open("reports/report.json"))
