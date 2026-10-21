@@ -4,7 +4,7 @@
 export const config = { runtime: 'edge' };
 
 const ALLOWED = /^(v1|thumbs)(\/|$)/;
-const DROP_REQUEST = ['host', 'connection', 'content-length', 'accept-encoding', 'x-api-key', 'cookie'];
+const DROP_REQUEST = ['host', 'connection', 'content-length', 'accept-encoding', 'x-api-key', 'cookie', 'authorization'];
 // fetch ở edge đã giải nén body; giữ các header này sẽ làm trình duyệt giải nén lần nữa.
 const DROP_RESPONSE = ['content-encoding', 'content-length', 'transfer-encoding', 'connection'];
 
@@ -21,6 +21,9 @@ export default async function handler(req: Request): Promise<Response> {
   for (const h of DROP_REQUEST) headers.delete(h);
   const key = process.env.TEST_API_KEY;
   if (key) headers.set('X-API-Key', key);
+  // Space private: HF chỉ cho qua request có token (quyền read) của chủ Space.
+  const hfToken = process.env.HF_SPACE_TOKEN;
+  if (hfToken) headers.set('Authorization', `Bearer ${hfToken}`);
 
   const t0 = Date.now();
   let upstream: Response;
