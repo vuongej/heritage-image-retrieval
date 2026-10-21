@@ -169,7 +169,7 @@ jobs:
           while IFS='|' read -r type query; do
             body=$(jq -nc --arg q "$query" '{query: $q, top_k: 10}')
             curl -fsS -o /dev/null -X POST "$APP_URL/api/v1/search" -H 'Content-Type: application/json' -d "$body" || true
-            read -r code secs < <(curl -sS -o resp.json -w '%{http_code} %{time_total}' \
+            read -r code secs < <(curl -sS -o resp.json -w '%{http_code} %{time_total}\n' \
               -X POST "$APP_URL/api/v1/search" -H 'Content-Type: application/json' -d "$body")
             ms=$(awk "BEGIN{printf \"%d\", $secs*1000}")
             hits=$(jq '.hits | length' resp.json 2>/dev/null || echo "?")
