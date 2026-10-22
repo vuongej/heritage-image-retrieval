@@ -233,8 +233,8 @@ jobs:
           s = json.load(open("reports/report.json"))
           print(f"### k6 ({'${{ env.PROFILE }}'}) · {s['requests']} request · {s['throughput_rps'] or 0:.2f} req/s · "
                 f"lỗi {(s['error_rate'] or 0) * 100:.2f}% · suy giảm {(s['degraded_rate'] or 0) * 100:.1f}%")
-          print("| pha | loại | n | p50 ms | p95 ms | p99 ms |
-|---|---|---|---|---|---|")
+          print("| pha | loại | n | p50 ms | p95 ms | p99 ms |")
+          print("|---|---|---|---|---|---|")
           for g in s["groups"]:
               print(f"| {g['phase']} | {g['type']} | {g['count']} | {g['p50']:.0f} | {g['p95']:.0f} | {g['p99']:.0f} |")
           EOF
