@@ -1,4 +1,4 @@
-﻿annotated-doc==0.0.5
+annotated-doc==0.0.5
 annotated-types==0.8.0
 anyio==4.15.1
 certifi==2026.10.18
@@ -19,6 +19,7 @@ ImageHash==4.3.2
 iniconfig==2.3.1
 Jinja2==3.1.6
 joblib==1.6.0
+lightgbm==4.6.0
 markdown-it-py==4.2.0
 MarkupSafe==3.0.4
 mdurl==0.1.2
@@ -37,6 +38,7 @@ pydantic_core==2.50.1
 Pygments==2.21.0
 pytest==9.1.1
 python-dotenv==1.2.4
+python-multipart==0.0.32
 PyWavelets==1.10.0
 PyYAML==6.0.3
 regex==2026.9.29

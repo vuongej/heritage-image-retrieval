@@ -10,9 +10,17 @@ export default defineConfig(({ mode }) => {
   const repoEnv = loadEnv(mode, path.resolve(__dirname, '../..'), '');
   const localEnv = loadEnv(mode, __dirname, '');
   const backend = localEnv.BACKEND_URL || repoEnv.BACKEND_URL || 'http://127.0.0.1:8000';
+  // Pipeline A chạy ở service riêng (processing/main.py); khai báo trước '/api/v1' để được ưu tiên.
+  const processing = localEnv.PROCESS_URL || repoEnv.PROCESS_URL || 'http://127.0.0.1:8100';
   const apiKey = localEnv.TEST_API_KEY || repoEnv.TEST_API_KEY || '';
 
   const proxy = {
+    '/api/v1/process': {
+      target: processing,
+      changeOrigin: true,
+      rewrite: (p: string) => p.replace(/^\/api/, ''),
+      headers: apiKey ? { 'X-API-Key': apiKey } : undefined,
+    },
     '/api/v1': {
       target: backend,
       changeOrigin: true,

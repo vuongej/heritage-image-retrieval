@@ -14,6 +14,7 @@ import os
 import threading
 import time
 from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import TimeoutError as FutureTimeout
 from dataclasses import dataclass
 from functools import lru_cache
 
@@ -213,11 +214,38 @@ def embed_text(texts: list[str]) -> list[list[float]]:
     )
 
 
+_query_pool = ThreadPoolExecutor(max_workers=4, thread_name_prefix="embed-query")
+
+
 def embed_query(texts: list[str]) -> list[list[float]]:
-    """Vector của CÂU TRUY VẤN. Model instruction-aware thêm tiền tố nhiệm vụ; MiniLM thì không."""
+    """Vector của CÂU TRUY VẤN. Model instruction-aware thêm tiền tố nhiệm vụ; MiniLM thì không.
+
+    Endpoint embedding có hạn chờ EMBED_QUERY_DEADLINE_S (mặc định 2 s; đã đo một lần 5,9 s), trong
+    hạn chờ tổng của request (retrieval/budget.py): quá hạn -> EmbeddingUnavailable, local_search bỏ nhánh dense và vẫn trả kết quả FTS + khớp tên.
+    Timeout 60 s của _http() chỉ còn áp cho dựng index (embed_text theo lô lớn).
+    """
     if EMBED_BACKEND == "api" and QUERY_INSTRUCTION:
         texts = [f"Instruct: {QUERY_INSTRUCTION}\nQuery: {t}" for t in texts]
-    return embed_text(texts)
+    if EMBED_BACKEND != "api" or not texts:
+        return embed_text(texts)
+    from retrieval import budget, ratelimit
+
+    # Phần còn lại của hạn chờ request, chừa ~0,6 s cho retrieve + rerank phía sau.
+    deadline = budget.remaining(float(os.getenv("EMBED_QUERY_DEADLINE_S", "2.0")), reserve=0.6)
+    if deadline < 0.2:
+        raise EmbeddingUnavailable("hết thời gian của request trước khi embedding truy vấn")
+
+    def run():
+        with ratelimit.deadline(deadline):  # hết hạn mức -> không xếp hàng chờ
+            return embed_text(texts)
+
+    future = _query_pool.submit(run)
+    try:
+        return future.result(timeout=deadline)
+    except FutureTimeout:
+        raise EmbeddingUnavailable(f"embedding truy vấn quá hạn {deadline:g} s") from None
+    except ratelimit.QuotaExhausted as exc:
+        raise EmbeddingUnavailable(str(exc)) from None
 
 
 def embed_text_visual(texts: list[str]) -> list[list[float]]:

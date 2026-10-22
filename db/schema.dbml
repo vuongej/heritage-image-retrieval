@@ -1,148 +1,140 @@
 // =====================================================================
-//  Heritage Image Retrieval — schema
-//  Nguồn: file bo_sung_anh_cho_entities_nhom_1_Vuong_ent1-500.csv (25 cột)
+//  Heritage Image Retrieval — schema đang chạy (22/10/2026)
+//  Pipeline B: SQLite data/local/catalog.sqlite3 (storage/local.py) + vectors.npy
+//  Pipeline A: file trong PROCESS_DIR (processing/), không dùng DB
+//  Thiết kế Postgres/S3 ban đầu xem lịch sử git của file này.
 // =====================================================================
 
-Table entities {
-  entity_id       uuid      [pk]
-  entity_stt      int
-  entity_name     text
-  entity_slug     text      [unique]
-  branch          varchar   [note: 'A | D | F']
-  priority        varchar   [note: 'P0 | P1']
-  score           numeric
-  leaf_label      text
-  description     text
-  parent_class    text      [note: 'dùng cho set query: "động vật rừng"']
-  province        text
-  so_anh_pass     int       [note: 'so_anh_pass_master trong CSV']
-  duoi_5          boolean   [note: 'entity_duoi_5_master']
-  assigned_member text
-  created_at      timestamp [default: `now()`]
+Project heritage {
+  database_type: 'SQLite'
+  Note: 'Một file SQLite chứa catalog, FTS5, cache và KG; vector nằm ở vectors.npy (float32, rownum - 1)'
+}
 
-  indexes {
-    branch
-    priority
-    parent_class
-  }
+// ---------------------------------------------------------------- Pipeline B: catalog
+
+Table entities {
+  entity_id    text [pk]
+  entity_name  text
+  entity_slug  text
+  parent_class text [note: 'nhóm category; dùng cho set query và filter']
 }
 
 Table images {
-  image_id     uuid      [pk]
-  image_url    text
-  sha256       varchar   [unique]
-  phash64      bigint    [note: 'dedup Hamming <= 6']
-  width        int
-  height       int
-  s3_key       text
-  page_url     text
-  page_title   text
-  image_source text      [note: 'domain nguồn, vd laodong.vn']
-  query_type   varchar
-  nguon        varchar
-  crawled_at   timestamp
-  created_at   timestamp [default: `now()`]
-
-  indexes {
-    width
-    query_type
-    image_source
-  }
+  rownum        integer [pk, note: 'hàng thứ rownum-1 của vectors.npy, point id Qdrant']
+  image_id      text    [unique, note: 'UUID5 từ image_url']
+  entity_id     text    [ref: > entities.entity_id]
+  image_url     text
+  page_url      text
+  description   text
+  metadata_text text    [note: 'tên + category + mô tả: đầu vào embedding và FTS5']
+  record_json   text    [note: 'dòng CSV gốc']
+  verify        text    [note: 'yes | no | NULL (unknown)']
+  verify_source text    [note: 'human | model']
+  width         integer
+  height        integer
+  has_watermark integer
+  fetch_status  text
+  caption       text
+  caption_source text
 }
 
-Table image_entity {
-  image_id    uuid
-  entity_id   uuid
-  image_order int
-  score       numeric
-
-  indexes {
-    (image_id, entity_id) [pk]
-    entity_id
-  }
+Table image_fts {
+  rowid integer [ref: - images.rownum]
+  text  text [note: 'FTS5 trên metadata_text đã bỏ dấu (BM25)']
 }
 
-Table verdicts {
-  image_id    uuid
-  stage       smallint  [note: '1 | 2 | 3']
-  relevance   numeric
-  watermark   numeric
-  nsfw        numeric
-  violence    numeric
-  politics    numeric
-  decision    varchar   [note: 'accept | reject | uncertain']
-  vlm_reason  text
-  model_version text
-  decided_at  timestamp
-
-  indexes {
-    (image_id, stage) [pk]
-    decision
-  }
+Table metadata {
+  key   text [pk, note: 'csv_sha256, dimensions_known, ...']
+  value text
 }
 
-Table embeddings {
-  image_id uuid
-  model    text    [note: 'siglip2-base-patch16-384']
-  dim      int
-  vector   vector(1152)
-
-  indexes {
-    image_id [pk]
-  }
+Table llm_cache {
+  key   text [pk, note: 'search:v7:* (kết quả /v1/search), deepseek:*, parse LLM']
+  value text
 }
 
 Table graph_edges {
-  src_id   text
-  relation text    [note: 'HAS_TYPE | IN_CLASS | IN_REGION | NEAR | CHAIRMAN_OF | PARENT_OF']
-  dst_id   text
-  weight   numeric
-
-  indexes {
-    (src_id, relation, dst_id) [pk]
-    dst_id
-  }
+  src_id   text [pk]
+  relation text [pk, note: 'IN_CLASS']
+  dst_id   text [pk]
 }
 
-Table api_keys {
-  key_hash       varchar [pk]
-  label          text
-  scope          varchar [note: 'test | prod | admin']
-  rate_limit_rpm int
-  active         boolean [default: true]
-  created_at     timestamp [default: `now()`]
+// ---------------------------------------------------------------- Pipeline B: KG cho multi-hop
+
+Table kg_node {
+  node_id    text [pk, note: 'person:gia-long, place:...']
+  kind       text [note: 'person | place']
+  label      text
+  gender     text
+  created_by text [note: 'seed | gemini_doc | online']
+  created_at text
 }
 
-Table query_logs {
-  request_id   uuid   [pk]
-  api_key_hash varchar
-  raw_query    text
-  intent_type  varchar
-  sub_queries  jsonb
-  hop_chain    jsonb
-  llm_provider varchar
-  cache_hit    boolean
-  latency_ms   int
-  n_candidates int
-  result_ids   uuid[]
-  created_at   timestamp [default: `now()`]
-
-  indexes {
-    intent_type
-    created_at
-  }
+Table kg_alias {
+  alias_norm text [pk]
+  node_id    text [pk, ref: > kg_node.node_id]
 }
 
-Table backfill_queue {
-  entity_id  uuid   [pk]
-  reason     varchar [note: 'zero_images | under_5_images']
-  n_current  int
-  priority   varchar
-  queued_at  timestamp [default: `now()`]
+Table kg_edge {
+  subject     text [pk, ref: > kg_node.node_id]
+  predicate   text [pk, note: 'PARENT_OF | SPOUSE_OF | BURIED_AT | WORSHIPPED_AT | MEMORIAL_AT']
+  object      text [pk, ref: > kg_node.node_id]
+  source_url  text [pk, note: 'nguồn bằng chứng']
+  source_type text
+  evidence    text [note: 'câu trích nguyên văn']
+  verified    integer
+  reviewed    integer
+  verifier    text
+  confidence  real
+  created_at  text
 }
 
-Ref: image_entity.image_id > images.image_id
-Ref: image_entity.entity_id > entities.entity_id
-Ref: verdicts.image_id > images.image_id
-Ref: embeddings.image_id > images.image_id
-Ref: backfill_queue.entity_id > entities.entity_id
+Table kg_link {
+  node_id   text [pk, ref: > kg_node.node_id]
+  entity_id text [pk, ref: > entities.entity_id]
+  method    text [note: 'nối node nơi chốn với entity có ảnh']
+}
+
+Table kg_lookup {
+  lookup_key text [pk, note: 'tra cứu online đã chạy (cache âm có TTL)']
+  status     text
+  detail     text
+  created_at text
+}
+
+// ---------------------------------------------------------------- Pipeline A: artifact (file)
+
+Table process_job {
+  id         text [pk, note: 'PROCESS_DIR/jobs/<id>/status.json']
+  filename   text
+  status     text [note: 'queued | running | done | failed | cancelled | interrupted']
+  options    json [note: 'use_vlm, vlm_budget, threshold']
+  input      json [note: 'rows, columns, mapping, entities, labelled']
+  stages     json [note: 'parse, gate, fetch, embed, classify, route, vlm, finalize: done/total/seconds']
+  summary    json [note: 'duyệt/loại, lý do, chi phí, throughput, metric theo nhãn người']
+}
+
+Table process_result {
+  job_id      text [ref: > process_job.id, note: 'jobs/<id>/results.jsonl + results.csv']
+  line        integer
+  key         text [note: 'sha256(image_url): khoá cache ảnh / embedding dùng chung giữa các job']
+  entity_id   text
+  image_url   text
+  label       text [note: 'nhãn người từ CSV nếu có']
+  decision    text [note: 'yes | no']
+  stage       text [note: 'rule | classifier | vlm']
+  reason      text [note: 'dead, too_small, dup_sha256, classifier_yes, vlm_sai, ...']
+  p_yes       real
+  routed      boolean
+  vlm         json [note: 'subject, watermark, unsafe, evidence']
+}
+
+Table process_fetch_cache {
+  key    text [pk, note: 'PROCESS_DIR/fetch.jsonl + thumbs/<xx>/<key>.jpg']
+  status text [note: 'ok | too_small | dead']
+  sha256 text
+  w      integer
+  h      integer
+  bytes  integer
+  ms     integer
+}

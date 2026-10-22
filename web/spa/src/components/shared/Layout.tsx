@@ -6,11 +6,10 @@ import { useHealth } from '@/hooks/queries';
 import { fmtInt } from '@/lib/format';
 import { cn, Tip } from './ui';
 
+// Hai chức năng, hai pipeline độc lập.
 const NAV = [
   { to: '/', label: 'Tìm kiếm', end: true },
-  { to: '/moderation', label: 'Kiểm duyệt' },
-  { to: '/benchmark', label: 'Benchmark' },
-  { to: '/docs', label: 'Tài liệu' },
+  { to: '/process', label: 'Xử lý dữ liệu' },
 ];
 
 function HealthPill() {
@@ -69,8 +68,8 @@ export function Layout() {
                 end={n.end}
                 className={({ isActive }) =>
                   cn(
-                    'whitespace-nowrap rounded-md px-2.5 py-1.5 text-[13.5px] font-medium transition-colors duration-[120ms]',
-                    isActive ? 'bg-brand-50 text-brand-700' : 'text-muted hover:bg-slate-100 hover:text-text',
+                    'whitespace-nowrap rounded-md px-2.5 py-1.5 text-[14px] font-medium transition-colors duration-[120ms]',
+                    isActive ? 'bg-brand-50 text-brand-700' : 'text-text hover:bg-slate-100',
                   )
                 }
               >

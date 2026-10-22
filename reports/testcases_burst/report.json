@@ -1,0 +1,107 @@
+{
+  "cases": 82,
+  "pipeline_version": "b5-relevance-floor",
+  "pace_s": 0.0,
+  "environment": {
+    "when": "2026-10-22 08:36",
+    "machine": "Windows-11-10.0.26300-SP0",
+    "config": "VECTOR_BACKEND=numpy, RERANK_BACKEND=api, EMBED_MODEL=qwen3-embedding-4b, LLM_PARSE_MODE=-"
+  },
+  "summary": {
+    "single_entity": {
+      "cases": 30,
+      "errors": 0,
+      "degraded": 0.0,
+      "latency_ms": {
+        "p50": 417,
+        "p95": 522,
+        "max": 540,
+        "under_3000": 1.0
+      },
+      "hit10": 1.0,
+      "precision": 0.8767,
+      "ndcg10": 1.0,
+      "mrr": 1.0,
+      "scored_cases": 30
+    },
+    "single": {
+      "cases": 16,
+      "errors": 0,
+      "degraded": 0.0,
+      "latency_ms": {
+        "p50": 402,
+        "p95": 574,
+        "max": 574,
+        "under_3000": 1.0
+      },
+      "hit10": 1.0,
+      "precision": 1.0,
+      "ndcg10": 1.0,
+      "mrr": 1.0,
+      "scored_cases": 16
+    },
+    "multi_intent": {
+      "cases": 15,
+      "errors": 0,
+      "degraded": 1.0,
+      "latency_ms": {
+        "p50": 45,
+        "p95": 286,
+        "max": 286,
+        "under_3000": 1.0
+      },
+      "hit10": 1.0,
+      "precision": 0.9467,
+      "ndcg10": 0.9478,
+      "mrr": 0.9667,
+      "scored_cases": 15,
+      "coverage": 0.9667,
+      "all_covered": 0.9333,
+      "parsed_multi": 0.8
+    },
+    "multi_hop": {
+      "cases": 16,
+      "errors": 0,
+      "degraded": 0.0,
+      "latency_ms": {
+        "p50": 26,
+        "p95": 41,
+        "max": 41,
+        "under_3000": 1.0
+      },
+      "hit10": 0.8571,
+      "precision": 0.8214,
+      "ndcg10": 0.8283,
+      "mrr": 0.8571,
+      "scored_cases": 14,
+      "parsed_multi_hop": 1.0,
+      "resolved_ok": 0.9286,
+      "abstain_cases": 2,
+      "abstain_ok": 1.0,
+      "false_positives_mean": 0
+    },
+    "out_of_catalog": {
+      "cases": 5,
+      "errors": 0,
+      "degraded": 1.0,
+      "latency_ms": {
+        "p50": 46,
+        "p95": 284,
+        "max": 284,
+        "under_3000": 1.0
+      },
+      "abstain_cases": 5,
+      "abstain_ok": 0.0,
+      "false_positives_mean": 10
+    },
+    "all": {
+      "cases": 82,
+      "latency_ms": {
+        "p50": 345,
+        "p95": 518,
+        "max": 574
+      },
+      "under_3000": 1.0
+    }
+  }
+}

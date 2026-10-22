@@ -1,0 +1,16 @@
+# Processing service (Pipeline A). torch CPU cài riêng trong deploy/processor.Dockerfile.
+# Version lấy từ môi trường đã chạy benchmark (.venv-gpu).
+fastapi==0.146.0
+uvicorn==0.54.0
+python-multipart==0.0.32
+httpx==0.28.1
+pydantic==2.14.1
+numpy==1.26.4
+pillow==11.3.0
+PyYAML==6.0.3
+transformers==5.20.1
+tokenizers==0.23.3
+safetensors==0.8.0
+protobuf==7.36.2
+huggingface_hub==1.33.0
+lightgbm==4.6.0

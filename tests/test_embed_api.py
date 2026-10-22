@@ -121,7 +121,7 @@ class FakeRerank:
     def __init__(self, scores=None, status=200):
         self.scores, self.status, self.bodies = scores, status, []
 
-    def post(self, url, json=None, headers=None):
+    def post(self, url, json=None, headers=None, timeout=None):
         self.bodies.append(json)
         if self.status != 200:
             return httpx.Response(self.status, json={})

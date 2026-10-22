@@ -1,0 +1,29 @@
+# Web demo trong docker compose: phục vụ SPA + reverse proxy tới hai service độc lập.
+#   /api/v1/process/*  -> processor:8100  (Pipeline A: upload CSV, xử lý ảnh)
+#   /api/*             -> api:8000        (Pipeline B: tìm kiếm)
+# X-API-Key gắn ở đây (phía server), không bao giờ nằm trong bundle trình duyệt.
+:80 {
+	encode zstd gzip
+	request_body {
+		max_size 60MB
+	}
+	handle_path /api/* {
+		handle /v1/process/* {
+			reverse_proxy processor:8100 {
+				header_up X-API-Key {$TEST_API_KEY}
+			}
+		}
+		handle {
+			reverse_proxy api:8000 {
+				header_up X-API-Key {$TEST_API_KEY}
+			}
+		}
+	}
+	handle {
+		root * /srv
+		@assets path /assets/*
+		header @assets Cache-Control "public, max-age=31536000, immutable"
+		try_files {path} /index.html
+		file_server
+	}
+}

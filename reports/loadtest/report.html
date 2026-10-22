@@ -1,0 +1,25 @@
+<!doctype html><html lang="vi"><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Load test /v1/search</title>
+<style>
+ body{font:14px/1.5 system-ui,sans-serif;margin:32px auto;max-width:960px;padding:0 16px;color:#1a1a1a}
+ table{border-collapse:collapse;width:100%;margin-top:12px}
+ th,td{border-bottom:1px solid #e5e7eb;padding:7px 10px;text-align:right}
+ th:nth-child(-n+2),td:nth-child(-n+2){text-align:left}
+ .pass{color:#047857;font-weight:600} .fail{color:#b91c1c;font-weight:600}
+ .kpi{display:flex;gap:24px;flex-wrap:wrap} .kpi div{min-width:150px}
+ .kpi b{display:block;font-size:22px}
+</style>
+<h1>Load test /v1/search</h1>
+<div class="kpi">
+ <div><b>1,282</b>request trong 361 s</div>
+ <div><b>3.55</b>request/s trung bình</div>
+ <div><b>0.00%</b>lỗi</div>
+ <div><b>0.00%</b>request suy giảm (hết hạn mức endpoint)</div>
+ <div><b>372 ms</b>p95 phía server (X-Response-Time)</div>
+</div>
+<table><thead><tr><th>Pha</th><th>Loại</th><th>Request</th><th>p50 ms</th><th>p95 ms</th><th>p99 ms</th>
+<th>max ms</th><th>SLO p95 &lt; 3,000 ms</th></tr></thead><tbody><tr><td>lạnh (không cache, trong hạn mức)</td><td>multi_hop</td><td>16</td><td>34</td><td>46</td><td>50</td><td>51</td><td class='pass'>ĐẠT</td></tr><tr><td>lạnh (không cache, trong hạn mức)</td><td>multi_intent</td><td>15</td><td>649</td><td>1,231</td><td>1,245</td><td>1,248</td><td class='pass'>ĐẠT</td></tr><tr><td>lạnh (không cache, trong hạn mức)</td><td>single</td><td>51</td><td>554</td><td>943</td><td>1,061</td><td>1,168</td><td class='pass'>ĐẠT</td></tr><tr><td>tải cao (có cache)</td><td>multi_hop</td><td>261</td><td>9</td><td>15</td><td>17</td><td>18</td><td class='pass'>ĐẠT</td></tr><tr><td>tải cao (có cache)</td><td>multi_intent</td><td>202</td><td>8</td><td>11</td><td>12</td><td>13</td><td class='pass'>ĐẠT</td></tr><tr><td>tải cao (có cache)</td><td>single</td><td>737</td><td>8</td><td>11</td><td>12</td><td>12</td><td class='pass'>ĐẠT</td></tr></tbody></table>
+<p style="color:#6b7280;margin-top:20px">Sinh tự động bởi <code>loadtest/make_report.py</code> từ summary k6
+(<code>loadtest/loadtest.js</code>). Latency đo phía client k6, gồm proxy web.</p>
+</html>

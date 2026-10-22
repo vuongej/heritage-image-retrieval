@@ -53,10 +53,12 @@ def ann_search(vec: list[float], top_k: int = ANN_TOP_K, filters: dict | None = 
     return search_vector(vec, top_k)
 
 
-def search(query: str, top_k: int = 10, filters: dict | None = None) -> SearchResponse:
+def search(
+    query: str, top_k: int = 10, filters: dict | None = None, use_cache: bool = True
+) -> SearchResponse:
     from retrieval.local_search import run
 
-    return run(query, top_k, filters)
+    return run(query, top_k, filters, use_cache=use_cache)
 
 
 def build_facets(hits: list[SearchHit]) -> dict:

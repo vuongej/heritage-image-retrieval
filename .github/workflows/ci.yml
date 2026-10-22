@@ -11,7 +11,7 @@ on:
       loadtest_profile:
         description: "Kịch bản k6 sau deploy"
         type: choice
-        options: [smoke, full]
+        options: [smoke, standard, stress]
         default: smoke
 
 concurrency:
@@ -36,7 +36,7 @@ jobs:
       - run: pip install --extra-index-url https://download.pytorch.org/whl/cpu -r requirements-local.lock.txt
       - run: ruff check .
       - name: Compile mọi module (bắt lỗi ruff không thấy, vd. byte NUL)
-        run: python -m compileall -q api retrieval storage pipeline deploy scripts evals loadtest
+        run: python -m compileall -q api retrieval storage pipeline processing deploy scripts evals loadtest
       - run: pytest -q --junitxml=test-results/junit.xml
       - if: always()
         uses: actions/upload-artifact@v4
@@ -58,7 +58,7 @@ jobs:
       - run: npm run build # gồm tsc
 
   image:
-    name: Docker · build + boot image backend
+    name: Docker · build + boot 3 image (api, processor, web)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -81,6 +81,31 @@ jobs:
             sleep 1
           done
           docker logs api; exit 1
+      - uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: deploy/processor.Dockerfile
+          load: true
+          tags: heritage-processor:ci
+          cache-from: type=gha,scope=processor-amd64
+          cache-to: type=gha,mode=max,scope=processor-amd64
+      - name: Boot processor + /v1/process/health
+        run: |
+          docker image inspect heritage-processor:ci --format 'processor image: {{.Size}} bytes' | tee -a "$GITHUB_STEP_SUMMARY"
+          docker run -d --name proc -p 8100:8100 -e PRELOAD_MODELS=false heritage-processor:ci
+          for i in $(seq 1 60); do
+            curl -fsS http://127.0.0.1:8100/v1/process/health > /dev/null && { echo "health OK sau ${i}s"; exit 0; }
+            sleep 1
+          done
+          docker logs proc; exit 1
+      - uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: deploy/web.Dockerfile
+          load: true
+          tags: heritage-web:ci
+          cache-from: type=gha,scope=web
+          cache-to: type=gha,mode=max,scope=web
 
   deploy-backend:
     name: Deploy · backend → Hugging Face Space
@@ -206,10 +231,12 @@ jobs:
           python - <<'EOF' >> "$GITHUB_STEP_SUMMARY"
           import json
           s = json.load(open("reports/report.json"))
-          print(f"### k6 ({'${{ env.PROFILE }}'}) · {s['throughput_rps'] or 0:.2f} req/s · lỗi {(s['error_rate'] or 0) * 100:.2f}%")
-          print("| loại | p50 ms | p95 ms | p99 ms |\n|---|---|---|---|")
-          for t, v in s["by_type"].items():
-              print(f"| {t} | {v['p50']:.0f} | {v['p95']:.0f} | {v['p99']:.0f} |")
+          print(f"### k6 ({'${{ env.PROFILE }}'}) · {s['requests']} request · {s['throughput_rps'] or 0:.2f} req/s · "
+                f"lỗi {(s['error_rate'] or 0) * 100:.2f}% · suy giảm {(s['degraded_rate'] or 0) * 100:.1f}%")
+          print("| pha | loại | n | p50 ms | p95 ms | p99 ms |
+|---|---|---|---|---|---|")
+          for g in s["groups"]:
+              print(f"| {g['phase']} | {g['type']} | {g['count']} | {g['p50']:.0f} | {g['p95']:.0f} | {g['p99']:.0f} |")
           EOF
       - if: always()
         uses: actions/upload-artifact@v4

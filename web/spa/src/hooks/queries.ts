@@ -1,16 +1,16 @@
-import { keepPreviousData, useQuery } from '@tanstack/react-query';
+import { keepPreviousData, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { ApiError } from '@/api/backendClient';
+import { getHealth, getStats } from '@/api/metricsAdapter';
 import {
-  getAuditQueue,
-  getHealth,
-  getIndexCounts,
-  getLatency,
-  getQuality,
-  getRerankAb,
-  getStats,
-  getVerify,
-  listReports,
-} from '@/api/metricsAdapter';
+  cancelJob,
+  getItems,
+  getJob,
+  getProcessHealth,
+  listJobs,
+  uploadCsv,
+  type ItemFilter,
+  type UploadOptions,
+} from '@/api/processAdapter';
 import { searchImages } from '@/api/searchAdapter';
 import { DATA_MODE } from '@/config';
 import type { SearchParams } from '@/types/search';
@@ -52,13 +52,53 @@ export function useSearch(params: SearchParams | null) {
   });
 }
 
-const report = <T,>(key: string, fn: (s?: AbortSignal) => Promise<T>) =>
-  ({ queryKey: ['report', key], queryFn: ({ signal }: { signal: AbortSignal }) => fn(signal), enabled: live, staleTime: 300_000, retry });
+// ---- Pipeline A: processing service (/api/v1/process/*) ----
+const RUNNING = new Set(['queued', 'running']);
 
-export const useReportList = () => useQuery(report('list', listReports));
-export const useLatency = () => useQuery(report('latency', getLatency));
-export const useQuality = () => useQuery(report('quality', getQuality));
-export const useIndexCounts = () => useQuery(report('index_counts', getIndexCounts));
-export const useRerankAb = () => useQuery(report('rerank_ab', getRerankAb));
-export const useVerify = () => useQuery(report('verify', getVerify));
-export const useAuditQueue = () => useQuery(report('audit', getAuditQueue));
+export function useProcessHealth() {
+  return useQuery({ queryKey: ['process', 'health'], queryFn: ({ signal }) => getProcessHealth(signal), enabled: live, staleTime: 10_000, refetchInterval: 15_000, retry });
+}
+
+export function useJobs() {
+  return useQuery({
+    queryKey: ['process', 'jobs'],
+    queryFn: ({ signal }) => listJobs(signal),
+    enabled: live,
+    refetchInterval: (q) => (q.state.data?.items.some((j) => RUNNING.has(j.status)) ? 3_000 : false),
+    retry,
+  });
+}
+
+export function useJob(id: string | undefined) {
+  return useQuery({
+    queryKey: ['process', 'job', id],
+    queryFn: ({ signal }) => getJob(id as string, signal),
+    enabled: live && Boolean(id),
+    // Tiến độ từng tầng: hỏi lại mỗi 1,5 s cho tới khi job kết thúc.
+    refetchInterval: (q) => (!q.state.data || RUNNING.has(q.state.data.status) ? 1_500 : false),
+    retry,
+  });
+}
+
+export function useJobItems(id: string, filter: ItemFilter) {
+  return useQuery({
+    queryKey: ['process', 'items', id, filter],
+    queryFn: ({ signal }) => getItems(id, filter, signal),
+    enabled: live,
+    placeholderData: keepPreviousData,
+    retry,
+  });
+}
+
+export function useUpload() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: ({ file, ...opts }: UploadOptions & { file: File }) => uploadCsv(file, opts),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ['process'] }),
+  });
+}
+
+export function useCancelJob() {
+  const qc = useQueryClient();
+  return useMutation({ mutationFn: cancelJob, onSuccess: () => qc.invalidateQueries({ queryKey: ['process'] }) });
+}

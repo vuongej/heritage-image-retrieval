@@ -122,6 +122,18 @@ gh workflow run ci -R $R
 `deploy/vm/` (compose + Caddy + `bootstrap.sh`) chạy cùng image trên một VM Ubuntu bất kỳ (Azure, VPS...):
 `docker compose up -d` với `.env` sinh bởi `python -m deploy.env --out .env --domain <tên-miền>`. CI hiện chỉ tự deploy lên Space.
 
+## Pipeline A (processing service) trên cloud
+
+Bản cloud mặc định chỉ chạy Pipeline B. Trang *Xử lý dữ liệu* gọi `/api/v1/process/*`; khi chưa có service này, proxy Vercel trả 503 kèm hướng dẫn. Để bật:
+
+1. **Chạy image `deploy/processor.Dockerfile`** ở nơi có ổ đĩa bền cho `/home/user/work` (VM, hoặc HF Space có persistent storage). Service cần torch; nếu không có GPU thì SigLIP2 chạy khoảng 8 ảnh/s trên CPU.
+2. **Đặt biến cho service:** `TEST_API_KEY` trùng với `TEST_API_KEY` của Vercel, và `DEEPSEEK_API_KEY` nếu dùng VLM.
+3. **Trên Vercel:** `vercel env add PROCESS_URL production` = URL của service.
+
+   Proxy chỉ chuyển đúng các route của Pipeline A (upload ≤ 4 MB do giới hạn payload của Vercel Function), và **không** gửi `HF_SPACE_TOKEN` sang `PROCESS_URL`.
+
+CSV lớn hơn 4 MB thì gửi thẳng tới service, hoặc dùng bản `docker compose` (giới hạn 50 MB).
+
 ## Hạn chế đã biết
 
 - **Space cpu-basic ngủ** sau một thời gian không có truy cập (khoảng 48 giờ). Request đầu tiên sau đó phải chờ Space khởi động và tải lại index (vài phút), proxy trả 502 trong lúc này. Nên mở web trước buổi demo.

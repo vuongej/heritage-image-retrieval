@@ -1,0 +1,40 @@
+{
+  "t5_judge_batch": {
+    "batches_called": 2893,
+    "images_called": 14441,
+    "errors": 2,
+    "error_samples": [
+      "ValueError: VLM batch: not every image judged exactly once",
+      "JSONDecodeError: Expecting ',' delimiter: line 1 column 140 (char 139)"
+    ],
+    "wall_seconds": 783.5,
+    "images_per_second": 18.43,
+    "workers": 8,
+    "usage": {
+      "requests": 2851,
+      "prompt_tokens": 4505296,
+      "cache_hit_tokens": 626560,
+      "completion_tokens": 663372,
+      "usd": 1.9634,
+      "latency_ms_p50": 2203,
+      "latency_ms_p95": 3005
+    }
+  },
+  "s3_bootstrap": {
+    "picked": 4000,
+    "called": 3803,
+    "errors": 0,
+    "error_samples": [],
+    "wall_seconds": 651.5,
+    "images_per_second": 5.84,
+    "usage": {
+      "requests": 3802,
+      "prompt_tokens": 2989581,
+      "cache_hit_tokens": 1149568,
+      "completion_tokens": 317644,
+      "usd": 0.9401,
+      "latency_ms_p50": 1335,
+      "latency_ms_p95": 1657
+    }
+  }
+}

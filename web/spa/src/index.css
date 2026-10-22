@@ -93,8 +93,3 @@
   animation: shimmer 1.4s infinite linear;
 }
 
-/* Mermaid SVGs scale to their container. */
-.mermaid-host svg {
-  max-width: 100%;
-  height: auto;
-}

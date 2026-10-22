@@ -3,6 +3,7 @@ dense metadata (img_text), dense ảnh SigLIP2 (img_visual), FTS5 BM25, khớp t
 
 from __future__ import annotations
 
+import contextvars
 import hashlib
 import json
 import os
@@ -12,7 +13,7 @@ from concurrent.futures import ThreadPoolExecutor
 from dataclasses import asdict
 from itertools import zip_longest
 
-from retrieval import llm_router, speculative, vector_store
+from retrieval import budget, llm_router, speculative, vector_store
 from retrieval import rerank as reranking
 from retrieval.catalog import for_index
 from retrieval.embed import EmbeddingUnavailable, embed_query, embed_text_visual
@@ -185,8 +186,13 @@ def _rerank(text: str, pool: list[dict], mode: str, warnings: list[str]):
         ranked = reranking.rerank(text, pool, keep=len(pool), mode=mode)
     except (RuntimeError, ValueError) as exc:
         prefix = "llm_rerank_failed" if mode == "llm" else "rerank_failed"
-        warnings.append(f"{prefix}: {exc}; used embedding similarity")
+        # Rerank qua endpoint lỗi / quá hạn: dự phòng cosine cũng gọi chính endpoint đó (embed
+        # ứng viên, chung hạn mức) nên giữ thẳng thứ tự RRF để không vượt SLO.
+        fallback = "fusion order" if mode == "api" else "embedding similarity"
+        warnings.append(f"{prefix}: {exc}; used {fallback}")
         try:
+            if mode == "api":
+                raise RuntimeError("skip embedding fallback")
             ranked = reranking.rerank(text, pool, keep=len(pool), mode="embedding")
         except (RuntimeError, ValueError):
             # Cả embedding cũng lỗi (vd endpoint 429): giữ thứ tự RRF, điểm giảm dần.
@@ -222,7 +228,13 @@ def allocate_fair(queues: list[list[str]], top_k: int) -> list[str]:
     return result
 
 
-def run(query: str, top_k: int = 10, filters: dict | None = None):
+def run(query: str, top_k: int = 10, filters: dict | None = None, use_cache: bool = True):
+    """Một request /v1/search, trong hạn chờ tổng SEARCH_DEADLINE_S (retrieval/budget.py)."""
+    with budget.request():
+        return _run(query, top_k, filters, use_cache)
+
+
+def _run(query: str, top_k: int = 10, filters: dict | None = None, use_cache: bool = True):
     from retrieval.search import PIPELINE_VERSION, SearchHit, SearchResponse, build_facets
 
     if not query.strip() or not 1 <= top_k <= 100:
@@ -277,7 +289,7 @@ def run(query: str, top_k: int = 10, filters: dict | None = None):
             ).encode()
         ).hexdigest()
     )
-    cached = cache_get(cache_id)
+    cached = cache_get(cache_id) if use_cache else None
     if cached:
         cached["hits"] = [SearchHit(**h) for h in cached["hits"]]
         cached["request_id"] = str(uuid.uuid4())
@@ -515,7 +527,8 @@ def run(query: str, top_k: int = 10, filters: dict | None = None):
         # Multi-intent: rerank RIÊNG từng sub-query bằng chính text của nó (song song), chỉ giữ
         # ảnh có bằng chứng thuộc sub-query (thực thể khớp tên, nếu sub-query có tên), rồi chia slot.
         jobs = [
-            _pool.submit(_rerank, text, pool, rerank_mode, warnings)
+            # copy_context: thread rerank thấy hạn chờ tổng của request (retrieval/budget.py)
+            _pool.submit(contextvars.copy_context().run, _rerank, text, pool, rerank_mode, warnings)
             for text, pool in zip(subs, pools, strict=True)
         ]
         per_sub = [job.result() for job in jobs]

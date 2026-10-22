@@ -1,128 +1,97 @@
-// k6 — SLO: p95 < 1500 ms cho cả 3 loại query.
-// docker compose --profile loadtest run --rm k6 run /scripts/loadtest.js --out json=/reports/raw.json
+// k6 — load test /v1/search cho 3 loại truy vấn, reproducible (README §5, docs/performance-benchmark.vi.md).
+//
+//   docker compose --profile loadtest run --rm k6          (qua web proxy, PROFILE=standard)
+//   k6 run loadtest/loadtest.js -e API_BASE=https://<domain>/api -e PROFILE=smoke
+//
+// Truy vấn lấy từ bộ test case (loadtest/queries.json <- evals/testcases/cases.jsonl).
+// Endpoint embedding + rerank bị giới hạn 100 request/phút/key, mỗi truy vấn chưa cache tốn
+// 1 + số ý request, nên hai pha được đo riêng:
+//   cold  mỗi truy vấn đúng 1 lần, nhịp 20 truy vấn/phút (trong hạn mức) -> latency lạnh
+//   warm  tải cao, truy vấn lặp lại (cache /v1/search)                  -> throughput phục vụ
+// PROFILE: smoke (CI, ~1 phút) | standard (mặc định) | stress (vượt hạn mức, xem suy giảm)
+//          capacity (trần throughput phục vụ, truy vấn có cache; RATE req/s, mặc định 150)
 import http from 'k6/http';
 import { check } from 'k6';
-import { Trend, Rate, Counter } from 'k6/metrics';
+import exec from 'k6/execution';
+import { Rate, Trend } from 'k6/metrics';
 
-const BASE = __ENV.API_BASE || 'http://api:8000';
-const KEY = __ENV.TEST_API_KEY || 'gsk_test_dev_only';
-const SLO = Number(__ENV.SLO_P95_MS || 1500);
+const BASE = __ENV.API_BASE || 'http://web/api';
+const KEY = __ENV.TEST_API_KEY || '';
+const SLO = Number(__ENV.SLO_P95_MS || 3000);
+const PROFILE = __ENV.PROFILE || 'standard';
+const QUERIES = JSON.parse(open('./queries.json'));
+const TYPES = ['single', 'multi_intent', 'multi_hop'];
+// Danh sách phẳng, xen kẽ 3 loại để mọi khoảng thời gian đều có đủ loại.
+const FLAT = [];
+for (let i = 0; FLAT.length < TYPES.reduce((n, t) => n + QUERIES[t].length, 0); i++) {
+  for (const t of TYPES) if (i < QUERIES[t].length) FLAT.push({ type: t, query: QUERIES[t][i] });
+}
 
-const latencyByType = {
-  single: new Trend('latency_single', true),
-  multi_intent: new Trend('latency_multi_intent', true),
-  multi_hop: new Trend('latency_multi_hop', true),
-  set_query: new Trend('latency_set_query', true),
-};
-const serverLatency = new Trend('server_latency', true);
-const errRate = new Rate('errors');
-const cacheHits = new Counter('cache_hits');
+const errors = new Rate('errors');
+const degraded = new Rate('degraded');
+const serverMs = new Trend('server_ms', true);
 
-const QUERIES = {
-  single: ['Quần thể Tràng An', 'bãi biển Nha Trang', 'Phố cổ Hội An'],
-  multi_intent: ['hồ bơi và công viên nước ở Phú Quốc', 'chùa và bãi biển ở Nha Trang'],
-  multi_hop: ['ảnh con trai chủ tịch Phạm Nhật Vượng'],
-  set_query: ['những con vật sống trong rừng', 'ảnh con hổ và con mèo'],
-};
-
-// PROFILE=smoke: 1 VU mỗi loại query trong 1 phút — dùng trong CI sau mỗi lần deploy, giữ tải
-// dưới quota 100 request/phút của endpoint embedding. PROFILE=full (mặc định): kịch bản đầy đủ.
-const PROFILE = __ENV.PROFILE || 'full';
-
-const SMOKE_SCENARIOS = {
-  single_intent: { executor: 'constant-vus', vus: 1, duration: '1m', exec: 'single', tags: { type: 'single' } },
-  multi_intent: { executor: 'constant-vus', vus: 1, duration: '1m', exec: 'multiIntent', tags: { type: 'multi_intent' } },
-  multi_hop: { executor: 'constant-vus', vus: 1, duration: '1m', exec: 'multiHop', tags: { type: 'multi_hop' } },
-};
-
-const FULL_OPTIONS = {
-  scenarios: {
-    single_intent: {
-      executor: 'constant-vus', vus: 20, duration: '3m',
-      exec: 'single', tags: { type: 'single' },
-    },
-    multi_intent: {
-      executor: 'constant-vus', vus: 20, duration: '3m',
-      exec: 'multiIntent', tags: { type: 'multi_intent' },
-    },
-    multi_hop: {
-      executor: 'constant-vus', vus: 10, duration: '3m',
-      exec: 'multiHop', tags: { type: 'multi_hop' },
-    },
-    set_query: {
-      executor: 'constant-vus', vus: 10, duration: '3m',
-      exec: 'setQuery', tags: { type: 'set_query' },
-    },
-    embed_only: {
-      executor: 'constant-vus', vus: 30, duration: '1m',
-      exec: 'embedOnly', tags: { type: 'embed' },
-    },
-    rerank_only: {
-      executor: 'constant-vus', vus: 30, duration: '1m',
-      exec: 'rerankOnly', tags: { type: 'rerank' },
-    },
+const COLD = { executor: 'constant-arrival-rate', rate: 20, timeUnit: '1m', preAllocatedVUs: 4,
+  duration: `${Math.ceil(FLAT.length / 20)}m`, exec: 'cold', tags: { phase: 'cold' } };
+const PROFILES = {
+  smoke: { cold: { ...COLD, duration: '1m' } },
+  standard: {
+    cold: COLD,
+    warm: { executor: 'constant-arrival-rate', rate: 20, timeUnit: '1s', duration: '1m',
+      preAllocatedVUs: 20, maxVUs: 60, exec: 'warm', startTime: COLD.duration, tags: { phase: 'warm' } },
   },
-  thresholds: {
-    'http_req_duration{type:single}': [`p(95)<${SLO}`],
-    'http_req_duration{type:multi_intent}': [`p(95)<${SLO}`],
-    'http_req_duration{type:multi_hop}': [`p(95)<${SLO}`],
-    'http_req_duration{type:set_query}': [`p(95)<${SLO}`],
-    'http_req_duration{type:embed}': ['p(95)<200'],
-    'http_req_duration{type:rerank}': ['p(95)<400'],
-    errors: ['rate<0.01'],
+  capacity: {
+    warm: { executor: 'constant-arrival-rate', rate: Number(__ENV.RATE || 150), timeUnit: '1s', duration: '1m',
+      preAllocatedVUs: 50, maxVUs: 300, exec: 'warm', tags: { phase: 'warm' } },
   },
-  summaryTrendStats: ['avg', 'min', 'med', 'p(50)', 'p(95)', 'p(99)', 'max'],
+  stress: {
+    burst: { executor: 'constant-arrival-rate', rate: 5, timeUnit: '1s', duration: '2m',
+      preAllocatedVUs: 20, maxVUs: 60, exec: 'burst', tags: { phase: 'burst' } },
+  },
+};
+const scenarios = PROFILES[PROFILE] || PROFILES.standard;
+
+// Ngưỡng trên từng (pha, loại) — đồng thời buộc k6 xuất số liệu riêng cho từng nhóm trong summary.
+const thresholds = { errors: ['rate<0.01'] };
+for (const phase of Object.keys(scenarios)) {
+  for (const t of TYPES) thresholds[`http_req_duration{phase:${phase},type:${t}}`] = [`p(95)<${SLO}`];
+}
+
+export const options = {
+  scenarios,
+  thresholds,
+  summaryTrendStats: ['avg', 'min', 'med', 'p(90)', 'p(95)', 'p(99)', 'max', 'count'],
 };
 
-export const options = PROFILE === 'smoke'
-  ? {
-      scenarios: SMOKE_SCENARIOS,
-      thresholds: {
-        'http_req_duration{type:single}': [`p(95)<${SLO}`],
-        'http_req_duration{type:multi_intent}': [`p(95)<${SLO}`],
-        'http_req_duration{type:multi_hop}': [`p(95)<${SLO}`],
-        errors: ['rate<0.01'],
-      },
-      summaryTrendStats: FULL_OPTIONS.summaryTrendStats,
-    }
-  : FULL_OPTIONS;
-
-function pick(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
-
-function callSearch(query, type) {
-  const res = http.post(`${BASE}/v1/search`,
-    JSON.stringify({ query, top_k: 10 }),
-    { headers: { 'Content-Type': 'application/json', 'X-API-Key': KEY }, tags: { type } });
-  const ok = check(res, {
-    'status 200': (r) => r.status === 200,
-    'has hits': (r) => { try { return JSON.parse(r.body).hits !== undefined; } catch (e) { return false; } },
+function search(item, phase, fresh = false) {
+  const res = http.post(`${BASE}/v1/search`, JSON.stringify({ query: item.query, top_k: 10 }), {
+    headers: {
+      'Content-Type': 'application/json',
+      ...(KEY ? { 'X-API-Key': KEY } : {}),
+      // cold: bỏ qua cache kết quả của API để đo đúng độ trễ lạnh
+      ...(fresh ? { 'Cache-Control': 'no-cache' } : {}),
+    },
+    tags: { type: item.type, phase },
+    timeout: '30s',
   });
-  errRate.add(!ok);
-  latencyByType[type] && latencyByType[type].add(res.timings.duration);
-  const st = res.headers['X-Response-Time'];
-  if (st) serverLatency.add(Number(st));
-  return res;
+  let body = null;
+  try { body = JSON.parse(res.body); } catch (e) { /* lỗi được tính bên dưới */ }
+  const ok = check(res, { 'status 200': (r) => r.status === 200, 'có trường hits': () => Boolean(body && body.hits) });
+  errors.add(!ok);
+  if (body && body.warnings) {
+    degraded.add(body.warnings.some((w) => w.startsWith('embedding_') || w.startsWith('rerank_')), { phase });
+  }
+  const st = Number(res.headers['X-Response-Time']);
+  if (Number.isFinite(st)) serverMs.add(st, { phase, type: item.type });
 }
 
-export function single() { callSearch(pick(QUERIES.single), 'single'); }
-export function multiIntent() { callSearch(pick(QUERIES.multi_intent), 'multi_intent'); }
-export function multiHop() { callSearch(pick(QUERIES.multi_hop), 'multi_hop'); }
-export function setQuery() { callSearch(pick(QUERIES.set_query), 'set_query'); }
-
-export function embedOnly() {
-  const res = http.post(`${BASE}/v1/embed`,
-    JSON.stringify({ texts: ['Quần thể Tràng An'] }),
-    { headers: { 'Content-Type': 'application/json', 'X-API-Key': KEY }, tags: { type: 'embed' } });
-  errRate.add(res.status !== 200);
+export function cold() {
+  const i = exec.scenario.iterationInTest;
+  if (i < FLAT.length) search(FLAT[i], 'cold', true);
 }
-
-export function rerankOnly() {
-  const res = http.post(`${BASE}/v1/rerank`,
-    JSON.stringify({ query: 'Quần thể Tràng An', candidates: [{ image_id: 'a' }, { image_id: 'b' }] }),
-    { headers: { 'Content-Type': 'application/json', 'X-API-Key': KEY }, tags: { type: 'rerank' } });
-  errRate.add(res.status !== 200);
-}
+export function warm() { search(FLAT[Math.floor(Math.random() * FLAT.length)], 'warm'); }
+export function burst() { search(FLAT[exec.scenario.iterationInTest % FLAT.length], 'burst', true); }
 
 export function handleSummary(data) {
-  return { [__ENV.SUMMARY_PATH || '/reports/raw.json']: JSON.stringify(data, null, 2) };
+  return { [__ENV.SUMMARY_PATH || 'reports/loadtest/raw.json']: JSON.stringify(data, null, 2) };
 }

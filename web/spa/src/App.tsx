@@ -1,13 +1,11 @@
 import { lazy } from 'react';
-import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Link, Navigate, Route, Routes } from 'react-router-dom';
 import { Layout } from './components/shared/Layout';
 import { EmptyState } from './components/shared/states';
 import { SearchPage } from './pages/Search';
 
-// Charts (Recharts) and diagrams (Mermaid) only load with the pages that need them.
-const ModerationPage = lazy(() => import('./pages/Moderation'));
-const BenchmarkPage = lazy(() => import('./pages/Benchmark'));
-const DocsPage = lazy(() => import('./pages/Docs'));
+// Trang Xử lý dữ liệu chỉ tải khi mở.
+const ProcessPage = lazy(() => import('./pages/Process'));
 
 function NotFound() {
   return (
@@ -25,9 +23,8 @@ export function App() {
       <Routes>
         <Route element={<Layout />}>
           <Route index element={<SearchPage />} />
-          <Route path="moderation" element={<ModerationPage />} />
-          <Route path="benchmark" element={<BenchmarkPage />} />
-          <Route path="docs" element={<DocsPage />} />
+          <Route path="process" element={<ProcessPage />} />
+          <Route path="moderation" element={<Navigate to="/process" replace />} />
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>

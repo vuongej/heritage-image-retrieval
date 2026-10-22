@@ -1,0 +1,228 @@
+{
+ "id": "20261022-015033-12196b",
+ "filename": "sample.csv",
+ "status": "done",
+ "created_at": 1792633833.3545887,
+ "started_at": 1792633833.3573787,
+ "finished_at": 1792633889.5072873,
+ "elapsed_seconds": 56.1,
+ "options": {
+  "use_vlm": true,
+  "vlm_budget": null,
+  "threshold": null
+ },
+ "input": {
+  "rows": 307,
+  "columns": [
+   "entity_id",
+   "entity_name",
+   "leaf_label",
+   "description",
+   "image_url",
+   "image_source",
+   "verify"
+  ],
+  "mapping": {
+   "image_url": "image_url",
+   "canonical_name": "entity_name",
+   "category": "leaf_label",
+   "entity_id": "entity_id",
+   "description": "description",
+   "label": "verify"
+  },
+  "entities": 30,
+  "labelled": 307,
+  "delimiter": ","
+ },
+ "stages": [
+  {
+   "key": "parse",
+   "label": "Đọc CSV",
+   "status": "done",
+   "done": 307,
+   "total": 307,
+   "started_at": 1792633833.3661442,
+   "seconds": 0.003
+  },
+  {
+   "key": "gate",
+   "label": "Gate URL",
+   "status": "done",
+   "done": 307,
+   "total": 307,
+   "started_at": 1792633833.3693643,
+   "seconds": 0.0
+  },
+  {
+   "key": "fetch",
+   "label": "Tải ảnh",
+   "status": "done",
+   "done": 307,
+   "total": 307,
+   "started_at": 1792633833.3696544,
+   "seconds": 13.737
+  },
+  {
+   "key": "embed",
+   "label": "SigLIP2",
+   "status": "done",
+   "done": 355,
+   "total": 355,
+   "started_at": 1792633847.106261,
+   "seconds": 38.681
+  },
+  {
+   "key": "classify",
+   "label": "Classifier",
+   "status": "done",
+   "done": 295,
+   "total": 295,
+   "started_at": 1792633885.7874248,
+   "seconds": 0.001
+  },
+  {
+   "key": "route",
+   "label": "Router",
+   "status": "done",
+   "done": 295,
+   "total": 295,
+   "started_at": 1792633885.7886238,
+   "seconds": 0.0
+  },
+  {
+   "key": "vlm",
+   "label": "VLM",
+   "status": "done",
+   "done": 44,
+   "total": 44,
+   "started_at": 1792633885.7887847,
+   "seconds": 3.718
+  },
+  {
+   "key": "finalize",
+   "label": "Tổng hợp",
+   "status": "done",
+   "done": 1,
+   "total": 1,
+   "started_at": 1792633889.5070732,
+   "seconds": 0.0
+  }
+ ],
+ "summary": {
+  "rows": 307,
+  "approved": 225,
+  "rejected": 82,
+  "approved_share": 0.7329,
+  "entities": 30,
+  "entities_with_approved": 30,
+  "by_stage": {
+   "classifier": 251,
+   "rule": 12,
+   "vlm": 44
+  },
+  "by_reason": {
+   "classifier_yes": 202,
+   "classifier_no": 49,
+   "vlm_dung": 23,
+   "vlm_partial": 14,
+   "dead": 12,
+   "vlm_sai": 7
+  },
+  "routed": 44,
+  "decision": {
+   "threshold": 0.55,
+   "budget": 0.15,
+   "use_vlm": true,
+   "vlm_rule": "bo_watermark"
+  },
+  "router": {
+   "alpha": 0.15,
+   "budget_images": 44,
+   "chosen": 44,
+   "defer_rate_actual": 0.1492,
+   "decision_layer_defers": 0,
+   "excluded_small_entity_rows": 0,
+   "excluded_entity_already_enough_yes": 0,
+   "entities_needing_more_images": 0
+  },
+  "embedding": {
+   "encoded_images": 295,
+   "cached_images": 0,
+   "device": "cpu",
+   "image_seconds": 36.66,
+   "images_per_second": 8.0
+  },
+  "vlm": {
+   "images": 44,
+   "judged": 44,
+   "batches": 12,
+   "requests": 12,
+   "errors": 0,
+   "error_samples": [],
+   "stopped": null,
+   "prompt_tokens": 15849,
+   "completion_tokens": 1981,
+   "usd": 0.0034,
+   "seconds": 3.7,
+   "images_per_second": 11.9,
+   "latency_ms_p95": 2672
+  },
+  "cost_usd": 0.0034,
+  "cost_usd_per_1000": 0.0111,
+  "throughput": {
+   "rows_per_second": 5.47,
+   "fetch_images_per_second": 21.48
+  },
+  "metrics": {
+   "n": 307,
+   "accuracy": 0.6319,
+   "recall_no": 0.3817,
+   "precision_no": 0.6098,
+   "f1_no": 0.4695,
+   "precision_yes": 0.64,
+   "recall_yes": 0.8182,
+   "balanced_accuracy": 0.5999,
+   "entity_retention": 0.9333,
+   "confusion": {
+    "no→no": 50,
+    "yes→no": 32,
+    "no→yes": 81,
+    "yes→yes": 144
+   }
+  },
+  "model": {
+   "name": "M1b",
+   "description": "LightGBM trên embedding ảnh SigLIP2 + 14 feature, nhãn người, isotonic trên VAL",
+   "encoder": "google/siglip2-base-patch16-256",
+   "created": "2026-10-22T07:58:22",
+   "threshold_t": 0.55,
+   "router_alpha": 0.15,
+   "vlm_rule": "bo_watermark",
+   "test_auc": 0.7349,
+   "test_head_only": {
+    "recall_no": 0.4321,
+    "precision_yes": 0.7507,
+    "recall_yes": 0.8545,
+    "entity_retention": 0.9515
+   },
+   "test_with_router_vlm": {
+    "recall_no": 0.448,
+    "precision_yes": 0.7555,
+    "recall_yes": 0.8524,
+    "entity_retention": 0.942,
+    "routed_share": 0.1459
+   }
+  },
+  "timings": {
+   "gate": 0.003,
+   "fetch": 13.736,
+   "embed": 38.603,
+   "classify": 0.08,
+   "route": 0.001,
+   "vlm": 3.709,
+   "finalize": 0.01
+  }
+ },
+ "error": null,
+ "queued_ahead": 0
+}

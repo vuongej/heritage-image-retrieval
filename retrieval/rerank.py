@@ -212,14 +212,28 @@ def api_scores(query: str, pool: list[dict]) -> list[float]:
         _api_client = httpx.Client(timeout=httpx.Timeout(10, connect=5))
     import time
 
+    # Hạn chờ tổng cho cả các lần thử: endpoint chậm bất thường (đã đo 30 s = 3 × timeout 10 s)
+    # không được kéo request vượt SLO 3 s; quá hạn -> RuntimeError -> local_search giữ thứ tự RRF.
+    from retrieval import budget
+
+    total = budget.remaining(float(os.getenv("RERANK_API_DEADLINE_S", "2.0")), reserve=0.1)
+    deadline = time.perf_counter() + total
     body = {"model": api_model(), "query": query, "documents": [candidate_text(c) for c in pool]}
+    last = "rerank endpoint chưa được gọi"
+    response = None
     for attempt in range(int(os.getenv("RERANK_API_RETRIES", "3"))):
+        remaining = deadline - time.perf_counter()
+        if remaining < 0.25:
+            last = f"{last}; hết hạn chờ {total:.1f} s"
+            break
         try:
             from retrieval import ratelimit
 
-            ratelimit.acquire()  # dùng chung hạn mức với embedding
+            with ratelimit.deadline(remaining - 0.25):  # chung hạn mức với embedding, không chờ quá hạn
+                ratelimit.acquire()
             response = _api_client.post(
-                base + "/rerank", json=body, headers={"Authorization": "Bearer " + key}
+                base + "/rerank", json=body, headers={"Authorization": "Bearer " + key},
+                timeout=httpx.Timeout(remaining, connect=min(remaining, 5)),
             )
         except httpx.HTTPError as exc:
             last = f"rerank endpoint {type(exc).__name__}"
@@ -229,11 +243,14 @@ def api_scores(query: str, pool: list[dict]) -> list[float]:
             last = f"rerank endpoint HTTP {response.status_code}"
             if response.status_code < 500 and response.status_code != 429:
                 raise RuntimeError(last)  # lỗi phía request: thử lại vô ích
-            if response.status_code == 429:  # giới hạn tốc độ: chờ theo Retry-After (≤ 2 s)
-                time.sleep(min(float(response.headers.get("retry-after") or 0.5 * 2**attempt), 2))
+            if response.status_code == 429:  # giới hạn tốc độ: chờ theo Retry-After, trong hạn chờ
+                wait = min(float(response.headers.get("retry-after") or 0.5 * 2**attempt), 2)
+                time.sleep(max(0.0, min(wait, deadline - time.perf_counter() - 0.25)))
                 continue
-        time.sleep(0.2 * 2**attempt)
+        time.sleep(max(0.0, min(0.2 * 2**attempt, deadline - time.perf_counter() - 0.25)))
     else:
+        raise RuntimeError(last)
+    if not response or not response.is_success:
         raise RuntimeError(last)
     results = response.json().get("results") or []
     by_index = {r["index"]: float(r["relevance_score"]) for r in results}

@@ -1,0 +1,82 @@
+{"id": "SE01", "type": "single_entity", "query": "Bia tiến sĩ Văn Miếu Thăng Long", "source": "auto: tên entity, phân tầng parent_class, seed 7", "relevant_entity_ids": ["d0279924-14e2-445c-aaed-6d38a3d9825f"]}
+{"id": "SE02", "type": "single_entity", "query": "Sung muối", "source": "auto: tên entity, phân tầng parent_class, seed 7", "relevant_entity_ids": ["dde81ef9-743e-47d2-b416-453231858a12"]}
+{"id": "SE03", "type": "single_entity", "query": "Xuồng năm lá", "source": "auto: tên entity, phân tầng parent_class, seed 7", "relevant_entity_ids": ["c56915ab-6a6a-4a6a-90aa-b0e5715e8682"]}
+{"id": "SE04", "type": "single_entity", "query": "Đê sông Cà Lồ (Vĩnh Phúc – Hà Nội)", "source": "auto: tên entity, phân tầng parent_class, seed 7", "relevant_entity_ids": ["bfd5b541-33d4-410f-9c53-fba2e566285b"]}
+{"id": "SE05", "type": "single_entity", "query": "Con kê (con chống) trong lò gốm", "source": "auto: tên entity, phân tầng parent_class, seed 7", "relevant_entity_ids": ["de32ea50-7093-4598-804c-b6004feba6d3"]}
+{"id": "SE06", "type": "single_entity", "query": "Tem CHXHCN bộ Lăng Chủ tịch Hồ Chí Minh", "source": "auto: tên entity, phân tầng parent_class, seed 7", "relevant_entity_ids": ["9988e870-c523-48de-99f8-c7d40c687e55"]}
+{"id": "SE07", "type": "single_entity", "query": "Trống đồng minh khí Đông Sơn", "source": "auto: tên entity, phân tầng parent_class, seed 7", "relevant_entity_ids": ["38139195-3a31-4885-b7b5-8ee56fe286df"]}
+{"id": "SE08", "type": "single_entity", "query": "Ớt A Riêu", "source": "auto: tên entity, phân tầng parent_class, seed 7", "relevant_entity_ids": ["12049b01-881d-43c8-8c58-800f29d23648"]}
+{"id": "SE09", "type": "single_entity", "query": "Chăn thổ cẩm Thái", "source": "auto: tên entity, phân tầng parent_class, seed 7", "relevant_entity_ids": ["36053922-eb46-4e32-94f8-e68d8865a9f9"]}
+{"id": "SE10", "type": "single_entity", "query": "Hoa hồng thủy tinh thổi", "source": "auto: tên entity, phân tầng parent_class, seed 7", "relevant_entity_ids": ["159facc7-89ea-4eda-b798-1cc6687545e0"]}
+{"id": "SE11", "type": "single_entity", "query": "Tháp Nhạn nhìn xuống đồng lúa Tuy Hòa", "source": "auto: tên entity, phân tầng parent_class, seed 7", "relevant_entity_ids": ["d5975ae5-b455-401e-abe5-b2d36ea4b5cc"]}
+{"id": "SE12", "type": "single_entity", "query": "Đỉnh trầm men rạn", "source": "auto: tên entity, phân tầng parent_class, seed 7", "relevant_entity_ids": ["f352a228-50d8-4ec1-960d-232c8236cbb5"]}
+{"id": "SE13", "type": "single_entity", "query": "Rèn Phúc Sen (làng rèn dao Cao Bằng)", "source": "auto: tên entity, phân tầng parent_class, seed 7", "relevant_entity_ids": ["049ee992-4689-4dc8-9531-4c3be77c710c"]}
+{"id": "SE14", "type": "single_entity", "query": "Trụ sở UBND TP HCM", "source": "auto: tên entity, phân tầng parent_class, seed 7", "relevant_entity_ids": ["c3fa9df0-6532-49a2-8839-04599a4a21a7"]}
+{"id": "SE15", "type": "single_entity", "query": "Đèn con cá (đèn cá chép Trung thu)", "source": "auto: tên entity, phân tầng parent_class, seed 7", "relevant_entity_ids": ["2746e1b5-4753-4bcd-8926-9618c4b85bfd"]}
+{"id": "SE16", "type": "single_entity", "query": "Thảm cói Phú Tân", "source": "auto: tên entity, phân tầng parent_class, seed 7", "relevant_entity_ids": ["84116709-997d-496a-9b74-284495b49df3"]}
+{"id": "SE17", "type": "single_entity", "query": "Trường Đại học Khoa học Huế (Morin Frères cũ, Huế)", "source": "auto: tên entity, phân tầng parent_class, seed 7", "relevant_entity_ids": ["3376b2ca-735c-4b0f-8faf-ee7a7d4fea32"]}
+{"id": "SE18", "type": "single_entity", "query": "Hàng nông sản tại Chợ phiên Cán Cấu (Si Ma Cai)", "source": "auto: tên entity, phân tầng parent_class, seed 7", "relevant_entity_ids": ["631729fc-25b9-47b3-8ff6-0aa8fcb546a2"]}
+{"id": "SE19", "type": "single_entity", "query": "Tượng Vishnu Khương Mỹ", "source": "auto: tên entity, phân tầng parent_class, seed 7", "relevant_entity_ids": ["e70ad9ad-858f-4ac1-91c8-d25c936b6783"]}
+{"id": "SE20", "type": "single_entity", "query": "Biệt phủ giấy (dinh thự hàng mã)", "source": "auto: tên entity, phân tầng parent_class, seed 7", "relevant_entity_ids": ["6594b00e-3ff3-4dd0-aae6-b8d522ba297b"]}
+{"id": "SE21", "type": "single_entity", "query": "Tòa Thánh Tây Ninh", "source": "auto: tên entity, phân tầng parent_class, seed 7", "relevant_entity_ids": ["76747e36-5999-4db8-9d4e-cc51391f28dc"]}
+{"id": "SE22", "type": "single_entity", "query": "Làng Đường Lâm (Sơn Tây - Hà Nội)", "source": "auto: tên entity, phân tầng parent_class, seed 7", "relevant_entity_ids": ["d80bb067-2f4c-4510-96fe-b0ec145bdf83"]}
+{"id": "SE23", "type": "single_entity", "query": "Thành Cổ Loa", "source": "auto: tên entity, phân tầng parent_class, seed 7", "relevant_entity_ids": ["c9703138-d7a0-4d0e-9ed2-c054cd5ddadf"]}
+{"id": "SE24", "type": "single_entity", "query": "Vòng tay bạc Thái", "source": "auto: tên entity, phân tầng parent_class, seed 7", "relevant_entity_ids": ["7d7af865-f049-44b7-aefb-b97d7480f57e"]}
+{"id": "SE25", "type": "single_entity", "query": "Bộ tem Lăng Tự Đức - Huế VNCH", "source": "auto: tên entity, phân tầng parent_class, seed 7", "relevant_entity_ids": ["41dbcaa3-57e4-4a9a-87e7-1586188475fa"]}
+{"id": "SE26", "type": "single_entity", "query": "Tượng Bồ Tát Địa Tạng thếp vàng", "source": "auto: tên entity, phân tầng parent_class, seed 7", "relevant_entity_ids": ["a471c168-8f69-4c95-afe2-c37a86b5bef0"]}
+{"id": "SE27", "type": "single_entity", "query": "Cối đá giã thuốc nam (cối thuốc bắc)", "source": "auto: tên entity, phân tầng parent_class, seed 7", "relevant_entity_ids": ["7e749123-fc41-456c-93e2-9c7f84762393"]}
+{"id": "SE28", "type": "single_entity", "query": "Cầu Đà Rằng", "source": "auto: tên entity, phân tầng parent_class, seed 7", "relevant_entity_ids": ["f0cb29fa-e4a5-4dc9-9bbb-b7272e986b93"]}
+{"id": "SE29", "type": "single_entity", "query": "Gương sơn mài Bình Dương", "source": "auto: tên entity, phân tầng parent_class, seed 7", "relevant_entity_ids": ["5c080268-71ff-4432-96dc-e7c3d88248cc"]}
+{"id": "SE30", "type": "single_entity", "query": "Cá chép đỏ (chép cúng ông Công ông Táo)", "source": "auto: tên entity, phân tầng parent_class, seed 7", "relevant_entity_ids": ["058a9e4e-3530-4939-93dd-4176d43bdee6"]}
+{"id": "S01", "type": "single", "query": "chợ Bến Thành", "source": "manual: regex tên entity, soát trên catalog", "relevant": ["^cho ben thanh"]}
+{"id": "S02", "type": "single", "query": "Nhà thờ Đức Bà Sài Gòn", "source": "manual: regex tên entity, soát trên catalog", "relevant": ["duc ba sai gon", "^nha tho duc ba( \\(|$)"]}
+{"id": "S03", "type": "single", "query": "Lăng Tự Đức", "source": "manual: regex tên entity, soát trên catalog", "relevant": ["lang tu duc", "khiem lang"]}
+{"id": "S04", "type": "single", "query": "chùa Thiên Mụ Huế", "source": "manual: regex tên entity, soát trên catalog", "relevant": ["chua thien mu(?!c)", "linh mu"]}
+{"id": "S05", "type": "single", "query": "phố cổ Hội An về đêm", "source": "manual: regex tên entity, soát trên catalog", "relevant": ["pho co hoi an", "hoi an.*(dem|den long)"]}
+{"id": "S06", "type": "single", "query": "Chùa Cầu Hội An", "source": "manual: regex tên entity, soát trên catalog", "relevant": ["chua cau"]}
+{"id": "S07", "type": "single", "query": "Thánh địa Mỹ Sơn", "source": "manual: regex tên entity, soát trên catalog", "relevant": ["thanh dia my son", "my son (nhom|[a-h]\\d)", "kalan my son", "thap.*my son"]}
+{"id": "S08", "type": "single", "query": "tháp Bà Ponagar Nha Trang", "source": "manual: regex tên entity, soát trên catalog", "relevant": ["po ?nagar", "\\bthap ba\\b"]}
+{"id": "S09", "type": "single", "query": "Hồ Gươm", "source": "manual: regex tên entity, soát trên catalog", "relevant": ["ho guom", "ho hoan kiem", "thap rua", "cau the huc"]}
+{"id": "S10", "type": "single", "query": "Đại Nội Huế", "source": "manual: regex tên entity, soát trên catalog", "relevant": ["dai noi", "ngo mon", "kinh thanh hue"]}
+{"id": "S11", "type": "single", "query": "ruộng bậc thang", "source": "manual: regex tên entity, soát trên catalog", "relevant": ["ruong bac thang"]}
+{"id": "S12", "type": "single", "query": "Dinh Độc Lập", "source": "manual: regex tên entity, soát trên catalog", "relevant": ["dinh doc lap", "hoi truong thong nhat"]}
+{"id": "S13", "type": "single", "query": "Văn Miếu Quốc Tử Giám Hà Nội", "source": "manual: regex tên entity, soát trên catalog", "relevant": ["quoc tu giam", "van mieu.*ha noi"]}
+{"id": "S14", "type": "single", "query": "Lăng Chủ tịch Hồ Chí Minh", "source": "manual: regex tên entity, soát trên catalog", "relevant": ["lang chu tich ho chi minh"]}
+{"id": "S15", "type": "single", "query": "chợ đêm Phú Quốc", "source": "manual: regex tên entity, soát trên catalog", "relevant": ["cho dem phu quoc"]}
+{"id": "S16", "type": "single", "query": "tượng Phật nằm chùa Long Sơn Nha Trang", "source": "manual: regex tên entity, soát trên catalog", "relevant": ["long son.*nha trang", "phat nam.*long son"]}
+{"id": "M01", "type": "multi_intent", "query": "Lăng Minh Mạng và lăng Khải Định", "source": "manual: regex riêng cho từng ý", "sub": [["lang minh mang", "hieu lang"], ["lang khai dinh", "ung lang"]]}
+{"id": "M02", "type": "multi_intent", "query": "chợ Bến Thành và nhà thờ Đức Bà Sài Gòn", "source": "manual: regex riêng cho từng ý", "sub": [["^cho ben thanh"], ["duc ba sai gon", "^nha tho duc ba( \\(|$)"]]}
+{"id": "M03", "type": "multi_intent", "query": "Chùa Cầu và phố cổ Hội An", "source": "manual: regex riêng cho từng ý", "sub": [["chua cau"], ["pho co hoi an"]]}
+{"id": "M04", "type": "multi_intent", "query": "chợ đêm và Dinh Cậu ở Phú Quốc", "source": "manual: regex riêng cho từng ý", "sub": [["cho dem phu quoc"], ["dinh cau"]]}
+{"id": "M05", "type": "multi_intent", "query": "Hồ Gươm và Văn Miếu Quốc Tử Giám", "source": "manual: regex riêng cho từng ý", "sub": [["ho guom", "ho hoan kiem", "cau the huc"], ["quoc tu giam", "van mieu.*ha noi"]]}
+{"id": "M06", "type": "multi_intent", "query": "Đại Nội Huế và chùa Thiên Mụ", "source": "manual: regex riêng cho từng ý", "sub": [["dai noi", "ngo mon"], ["chua thien mu(?!c)"]]}
+{"id": "M07", "type": "multi_intent", "query": "Thánh địa Mỹ Sơn và tháp Po Nagar", "source": "manual: regex riêng cho từng ý", "sub": [["thanh dia my son", "my son (nhom|[a-h]\\d)", "kalan my son"], ["po ?nagar"]]}
+{"id": "M08", "type": "multi_intent", "query": "Dinh Độc Lập và chợ Bến Thành", "source": "manual: regex riêng cho từng ý", "sub": [["dinh doc lap", "hoi truong thong nhat"], ["^cho ben thanh"]]}
+{"id": "M09", "type": "multi_intent", "query": "Lăng Tự Đức, lăng Minh Mạng và lăng Khải Định", "source": "manual: regex riêng cho từng ý", "sub": [["lang tu duc", "khiem lang"], ["lang minh mang", "hieu lang"], ["lang khai dinh", "ung lang"]]}
+{"id": "M10", "type": "multi_intent", "query": "ruộng bậc thang Tú Lệ và ruộng bậc thang Pù Luông", "source": "manual: regex riêng cho từng ý", "sub": [["ruong bac thang tu le"], ["pu luong"]]}
+{"id": "M11", "type": "multi_intent", "query": "chùa Một Cột và Lăng Chủ tịch Hồ Chí Minh", "source": "manual: regex riêng cho từng ý", "sub": [["chua mot cot"], ["lang chu tich ho chi minh"]]}
+{"id": "M12", "type": "multi_intent", "query": "Hoàng thành Thăng Long và Văn Miếu", "source": "manual: regex riêng cho từng ý", "sub": [["hoang thanh thang long"], ["quoc tu giam", "van mieu.*ha noi"]]}
+{"id": "M13", "type": "multi_intent", "query": "chợ đêm Đông Ba và Đại Nội Huế", "source": "manual: regex riêng cho từng ý", "sub": [["(cho|cho dem|pho|cau|cua) dong ba\\b"], ["dai noi"]]}
+{"id": "M14", "type": "multi_intent", "query": "biệt thự Nam Phương Hoàng hậu và dinh Bảo Đại", "source": "manual: regex riêng cho từng ý", "sub": [["biet thu nam phuong"], ["dinh bao dai"]]}
+{"id": "M15", "type": "multi_intent", "query": "tháp Po Nagar, chùa Long Sơn và nhà thờ chính tòa Nha Trang", "source": "manual: regex riêng cho từng ý", "sub": [["po ?nagar"], ["long son.*nha trang", "phat nam.*long son"], ["nha tho chinh toa nha trang"]]}
+{"id": "H01", "type": "multi_hop", "query": "lăng của con trai vua Gia Long", "source": "manual: đích theo sử liệu, regex tên công trình đích", "relevant": ["lang minh mang", "hieu lang"], "expect": "resolved"}
+{"id": "H02", "type": "multi_hop", "query": "lăng của cha vua Thiệu Trị", "source": "manual: đích theo sử liệu, regex tên công trình đích", "relevant": ["lang minh mang", "hieu lang"], "expect": "resolved"}
+{"id": "H03", "type": "multi_hop", "query": "lăng của con trai vua Minh Mạng", "source": "manual: đích theo sử liệu, regex tên công trình đích", "relevant": ["lang thieu tri", "xuong lang"], "expect": "resolved"}
+{"id": "H04", "type": "multi_hop", "query": "lăng của cha vua Tự Đức", "source": "manual: đích theo sử liệu, regex tên công trình đích", "relevant": ["lang thieu tri", "xuong lang"], "expect": "resolved"}
+{"id": "H05", "type": "multi_hop", "query": "lăng của con trai vua Thiệu Trị", "source": "manual: đích theo sử liệu, regex tên công trình đích", "relevant": ["lang tu duc", "khiem lang"], "expect": "resolved"}
+{"id": "H06", "type": "multi_hop", "query": "lăng của con trai vua Đồng Khánh", "source": "manual: đích theo sử liệu, regex tên công trình đích", "relevant": ["lang khai dinh", "ung lang"], "expect": "resolved"}
+{"id": "H07", "type": "multi_hop", "query": "lăng của cha vua Khải Định", "source": "manual: đích theo sử liệu, regex tên công trình đích", "relevant": ["lang (mo )?dong khanh", "tu lang"], "expect": "resolved"}
+{"id": "H08", "type": "multi_hop", "query": "lăng của cha vua Bảo Đại", "source": "manual: đích theo sử liệu, regex tên công trình đích", "relevant": ["lang khai dinh", "ung lang"], "expect": "resolved"}
+{"id": "H09", "type": "multi_hop", "query": "lăng của mẹ vua Tự Đức", "source": "manual: đích theo sử liệu, regex tên công trình đích", "relevant": ["xuong tho lang"], "expect": "resolved"}
+{"id": "H10", "type": "multi_hop", "query": "lăng của vợ vua Bảo Đại", "source": "manual: đích theo sử liệu, regex tên công trình đích", "relevant": ["lang (hoang hau )?nam phuong"], "expect": "resolved"}
+{"id": "H11", "type": "multi_hop", "query": "mộ của cha Chủ tịch Hồ Chí Minh", "source": "manual: đích theo sử liệu, regex tên công trình đích", "relevant": ["\\bmo\\b.*nguyen sinh sac"], "expect": "resolved"}
+{"id": "H12", "type": "multi_hop", "query": "mộ của mẹ Chủ tịch Hồ Chí Minh", "source": "manual: đích theo sử liệu, regex tên công trình đích", "relevant": ["hoang thi loan"], "expect": "resolved"}
+{"id": "H13", "type": "multi_hop", "query": "lăng của cha vua Thành Thái", "source": "manual: đích theo sử liệu, regex tên công trình đích", "relevant": ["lang duc duc", "thanh thai an lang", "chua an lang"], "expect": "resolved"}
+{"id": "H14", "type": "multi_hop", "query": "lăng của vợ vua Tự Đức", "source": "manual: đích theo sử liệu, regex tên công trình đích", "relevant": ["khiem tho lang"], "expect": "resolved"}
+{"id": "H15", "type": "multi_hop", "query": "lăng của con trai vua Khải Định", "source": "manual: đích theo sử liệu, regex tên công trình đích", "relevant": [], "expect": "abstain"}
+{"id": "H16", "type": "multi_hop", "query": "ảnh con trai chủ tịch Phạm Nhật Vượng", "source": "manual: đích theo sử liệu, regex tên công trình đích", "relevant": [], "expect": "abstain"}
+{"id": "O01", "type": "out_of_catalog", "query": "bãi biển Nha Trang", "source": "manual: không có ảnh đúng trong catalog", "relevant": [], "expect": "abstain"}
+{"id": "O02", "type": "out_of_catalog", "query": "hồ bơi và công viên nước ở Phú Quốc", "source": "manual: không có ảnh đúng trong catalog", "relevant": [], "expect": "abstain"}
+{"id": "O03", "type": "out_of_catalog", "query": "tháp Eiffel Paris", "source": "manual: không có ảnh đúng trong catalog", "relevant": [], "expect": "abstain"}
+{"id": "O04", "type": "out_of_catalog", "query": "ảnh con hổ và con mèo", "source": "manual: không có ảnh đúng trong catalog", "relevant": [], "expect": "abstain"}
+{"id": "O05", "type": "out_of_catalog", "query": "những con vật sống trong rừng", "source": "manual: không có ảnh đúng trong catalog", "relevant": [], "expect": "abstain"}

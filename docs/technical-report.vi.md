@@ -1,328 +1,237 @@
 # Tài liệu kỹ thuật — Heritage Image Retrieval
 
-Ngày rà soát: **21/10/2026**, múi giờ Asia/Saigon. Phiên bản pipeline truy xuất: `b3-guarded-parse-fair-multi`; định dạng index: `1`.
+Cập nhật: **22/10/2026**. Tài liệu mô tả mã nguồn và dữ liệu đang có trong repo. Mọi con số dẫn từ một lượt đo có file kết quả kèm theo:
+- [Báo cáo performance và benchmark](performance-benchmark.vi.md): metric, cách đo, lệnh tái lập.
+- [Test case](test-cases.vi.md): phương pháp dựng test case và kết quả từng ca.
 
-Tài liệu mô tả mã nguồn và dữ liệu có trong workspace tại thời điểm rà soát. Kết quả đo, điều kiện benchmark và các điểm chưa được kiểm chứng được trình bày ở [báo cáo performance](performance-benchmark.vi.md). Các bài kiểm thử và quy trình nghiệm thu ở [test case](test-cases.vi.md).
+## 1. Bài toán và cách chia hệ thống
 
-## 1. Mục tiêu và phạm vi thực hiện
+| Pain point | Cách giải | Thành phần |
+|---|---|---|
+| **A.** Lọc / kiểm duyệt ảnh crawl thủ công thì chậm, cần domain knowledge; dùng LLM chấm từng ảnh thì không scale tới 10–100 triệu ảnh | Cascade chi phí tăng dần: rule → SigLIP2 + LightGBM (gần như miễn phí) → router chỉ gửi phần ảnh bất định nhất cho VLM theo ngân sách | **Processing service** (`processing/`), trang *Xử lý dữ liệu* |
+| **B.** Truy xuất ảnh cho 3 loại truy vấn: single intent, multi-intent, multi-hop, < 3 s trên ≥ 80.000 ảnh | Hybrid retrieval (dense + BM25 + khớp tên) + rerank cross-encoder; tách ý cho multi-intent; KG có bằng chứng cho multi-hop; hạn chờ tổng 2,7 s cho mỗi request | **API truy xuất** (`api/`, `retrieval/`), trang *Tìm kiếm* |
 
-Hệ thống phục vụ tìm ảnh di sản, địa danh, văn hóa và các thực thể trong catalog bằng câu truy vấn tiếng Việt. Có hai phần:
-
-- **Phần A:** kiểm tra, gán nhãn và đánh giá ảnh bằng encoder, bộ phân loại nhẹ, lớp quyết định Jev và VLM theo ngân sách.
-- **Phần B:** truy xuất ảnh từ catalog đã được chấp thuận, kết hợp tìm kiếm vector, tìm theo từ khóa và khớp tên thực thể; hỗ trợ nhiều ý định và quan hệ nhiều bước trong phạm vi KG.
-
-Đường triển khai thực tế là **FastAPI + SQLite/FTS5 + file NumPy + Qdrant tùy cấu hình**. Các thành phần Redis, Postgres, S3/MinIO và worker trong Docker Compose thuộc thiết kế mở rộng; một số thao tác vẫn là stub. Không dùng sự hiện diện của container hoặc cấu hình YAML để kết luận các tính năng đó đã hoạt động đầy đủ.
-
-### 1.1. Snapshot dữ liệu
-
-| Thuộc tính | Giá trị và cách xác định |
-|---|---|
-| Nguồn đang chọn | `data/data_anh_pass_master.csv`, qua `SOURCE_CSV` |
-| Dòng CSV theo báo cáo đếm | 130.429 |
-| Ảnh trong SQLite, manifest và số hàng `vectors.npy` | **130.428**, đã đối chiếu lại bằng đọc file và truy vấn SQLite |
-| Thực thể / nhóm `parent_class` | **11.749 / 670**, đọc trực tiếp SQLite |
-| Vector metadata | `float32`, kích thước **130.428 × 2.560** |
-| Metadata khác nhau đã encode | 106.093 theo manifest |
-| Ảnh có cả chiều rộng và chiều cao | 42.665, tương đương khoảng **32,71%** |
-| Ảnh mang `verify=yes`, `verify_source=human` | 130.428; đây là trạng thái được migrate từ nguồn đã duyệt |
-| Ảnh có nhãn watermark | 3.150, khoảng **2,42%** |
-| Nhánh vector ảnh của Phần B | Chưa có `data/local/visual_index.json` |
-
-Một dòng có URL `x-raw-image://` bị loại; `reports/master/index_counts.json` vẫn ghi `ok=false` vì yêu cầu đủ **130.429** ảnh. Parity giữa các kho không đồng nghĩa đạt đủ số dòng nguồn. Số điểm Qdrant là số trong báo cáo đã lưu; lần rà soát này không gọi Qdrant trực tiếp.
-
-Nguồn: [manifest](../data/local/index.json), [báo cáo đếm](../reports/master/index_counts.json), [migration](../reports/master/migrate_v2.json), [bằng chứng rà soát](../reports/project_review/evidence.json).
+Hai pipeline là **hai service và hai image Docker độc lập**: lỗi hoặc tắt service xử lý không ảnh hưởng tìm kiếm.
+- API truy xuất không cần torch: image 395 MB, khởi động trong vài giây.
+- Service xử lý mang torch + SigLIP2 + LightGBM.
 
 ## 2. Kiến trúc tổng thể
 
 ```mermaid
-flowchart TB
-    CSV[CSV nguồn] --> IMPORT[Import approved và kiểm tra URL]
-    IMPORT --> DB[(SQLite: metadata, FTS5, cache, graph, KG)]
-    DB --> BUILD[Encode metadata và checkpoint]
-    BUILD --> NPY[vectors.npy và index.json]
-    NPY --> QD[(Qdrant img_text)]
-    CSV --> VERIFY[Phần A: verify và đánh giá ảnh]
-    VERIFY --> VA[Report, nhãn, hàng đợi audit]
-    VA --> MIGRATE[Migration chất lượng có chủ đích]
-    MIGRATE --> DB
-    UI[Web local / React SPA / Next.js] --> API[FastAPI]
-    API --> SEARCH[Phần B: parse, retrieve, filter, rerank]
-    SEARCH --> DB
-    SEARCH --> QD
-    SEARCH --> EMB[Endpoint embedding metadata]
-    SEARCH --> CE[BGE reranker local]
-    SEARCH -. parse khi mơ hồ .-> LLM[LLM qua OpenRouter]
-    SEARCH --> HOP[Resolver multi-hop]
-    HOP --> DB
-    HOP -. thiếu bằng chứng .-> ONLINE[Tra cứu nguồn online có ngân sách]
+flowchart LR
+    U[Trình duyệt] --> W["web · Caddy + SPA React<br/>/api/* gắn X-API-Key phía server"]
+    W -->|/api/v1/process/*| P["processor :8100<br/>Pipeline A"]
+    W -->|/api/v1/*| A["api :8000<br/>Pipeline B"]
+    P --> PD[("PROCESS_DIR<br/>jobs · thumbs · cache embedding")]
+    P --> M[["models/verify<br/>LightGBM M1b ×5 + isotonic"]]
+    P -. ảnh khó, ≤ α .-> V["VLM DeepSeek<br/>lô ≤ 8 ảnh/entity"]
+    A --> C[("catalog.sqlite3<br/>images · FTS5 · KG · cache")]
+    A --> N[("vectors.npy<br/>130.428 × 2.560")]
+    A --> E["Endpoint embedding + rerank<br/>qwen3-embedding-4b · jina-reranker-v2"]
+    A -. câu mơ hồ · thiếu cạnh KG .-> L["LLM OpenRouter / DeepSeek"]
 ```
 
-Luồng nhập catalog đã duyệt và luồng verify được chạy qua CLI riêng. `--mode approved` không tự chạy toàn bộ pipeline kiểm duyệt pixel. Việc chuyển nhãn verify sang catalog có script migration; không có bằng chứng worker tự động đồng bộ hai phần.
+| Môi trường | Web | Pipeline B | Pipeline A |
+|---|---|---|---|
+| `docker compose up` (bàn giao) | `web` :8080 | `api` :8000, index ở `./data/local` | `processor` :8100, CPU |
+| Cloud | Vercel (SPA + Edge proxy) | HF Space Docker (private), index kéo từ HF dataset | Bật khi đặt `PROCESS_URL`; mặc định chưa triển khai (cần torch, GPU nếu muốn nhanh) |
+| Dev local | Vite :5173 | `uvicorn api.main:app` | `uvicorn processing.main:app --port 8100` (GPU qua `.venv-gpu`) |
 
-### 2.1. Các module chính
+Sơ đồ CI/CD và quy trình deploy: [deploy.md](deploy.md).
 
-| Module | Vai trò thực tế |
-|---|---|
-| `api/main.py`, `api/schemas.py` | HTTP, kiểm API key, validation, timing, khai báo response, mount UI local |
-| `storage/local.py` | Import theo scope, schema SQLite, FTS5, đọc ảnh, cache |
-| `retrieval/local_index.py` | Manifest, encode metadata có checkpoint, tìm cosine chính xác bằng NumPy |
-| `retrieval/vector_store.py` | Tìm HNSW qua Qdrant hoặc backend NumPy; collection text và visual |
-| `retrieval/catalog.py`, `rule_parser.py` | Catalog tên trong RAM, nhận diện thực thể, chia ý định và modifier |
-| `retrieval/speculative.py`, `llm_router.py` | Parse LLM chạy nền có timeout, cache và guard |
-| `retrieval/local_search.py` | Điều phối search, gộp nguồn, filter, chia slot và response |
-| `retrieval/rerank.py` | BGE/Qwen local, API reranker, LLM hoặc cosine; penalty chất lượng |
-| `retrieval/hop.py`, `kg_online.py`, `kg_sources.py` | KG có bằng chứng, phân giải quan hệ, tra cứu và kiểm câu trích |
-| `pipeline/verify/` | Gate, tải ảnh, encoder, feature, split, head, Jev, router và báo cáo |
-| `scripts/eval_*.py`, `evals/harness.py`, `loadtest/` | Đánh giá chất lượng, latency, A/B và hạ tầng load test |
+### 2.1. Schema dữ liệu
 
-Mã nguồn dẫn chiếu trong các phần sau dùng đường dẫn tương đối từ repo; không phải toàn bộ module trong cùng thư mục đều nằm trên đường xử lý request.
+Schema đầy đủ ở dạng DBML: [db/schema.dbml](../db/schema.dbml).
 
-### 2.2. Các giao diện web
+```mermaid
+erDiagram
+    entities ||--o{ images : "entity_id"
+    images ||--|| image_fts : "rownum (FTS5 BM25)"
+    images ||--|| vectors_npy : "rownum - 1"
+    kg_node ||--o{ kg_edge : "subject / object"
+    kg_node ||--o{ kg_alias : "alias"
+    kg_node ||--o{ kg_link : "node nơi chốn"
+    kg_link }o--|| entities : "entity có ảnh"
+    process_job ||--o{ process_result : "jobs/<id>/results.jsonl"
+    process_result }o--|| process_fetch_cache : "key = sha256(url)"
+```
 
-`api/main.py` chuyển `/` sang `/ui/`, phục vụ `web/local/` trực tiếp. `web/spa/` là giao diện React/Vite riêng, có trang Search, Moderation, Benchmark và Docs. `web/app/` là ứng dụng Next.js được Dockerfile web sử dụng. Cần xác định đúng giao diện khi kiểm thử hoặc triển khai; kết quả unit test SPA không xác nhận cả ba giao diện.
+## 3. Pipeline A — xử lý và kiểm duyệt ảnh
 
-## 3. Pipeline dữ liệu của Phần B
-
-### 3.1. Import và chuẩn hóa
-
-1. Đọc CSV UTF-8, có hỗ trợ BOM. Các cột bắt buộc gồm `entity_id`, `canonical_name`, `slug`, `category`, `image_url`, `flag`.
-2. Nếu truyền `--username`, chỉ nhập các dòng thuộc scope đó. Fingerprint catalog phụ thuộc nguồn và scope.
-3. Chỉ nhận dòng `flag=approved` và URL HTTP(S). CLI ghi các dòng không đạt vào quarantine.
-4. Khử URL trùng trên toàn bộ phần dữ liệu được nhập. Cùng URL có thể chỉ gắn với bản ghi được gặp trước.
-5. Tạo `image_id` bằng UUID5 từ URL; `rownum` là thứ tự để ánh xạ hàng vector với điểm Qdrant.
-6. Tạo `metadata_text` bằng cách nối **tên + category + description**. Nạp bản không dấu vào FTS5; giữ nguyên metadata để encode.
-7. Ghi vào SQLite trong transaction; import lại cùng fingerprint có thể tái sử dụng catalog.
-
-Đổi CSV có thể thay catalog và làm index cũ mất hiệu lực. Chất lượng URL HTTP(S) chưa chứng minh ảnh tải được; import metadata không tải toàn bộ pixel.
-
-Nguồn: [storage/local.py](../storage/local.py), [pipeline/local_run.py](../pipeline/local_run.py).
-
-### 3.2. Embedding và index
-
-- Snapshot hiện tại dùng `qwen3-embedding-4b`, **2.560 chiều**, backend API tương thích OpenAI. Document gửi metadata nguyên văn; query được thêm tiền tố `Instruct: ...` và `Query: ...`.
-- Vector được chuẩn hóa L2. Với vector đã chuẩn hóa, tích vô hướng tương đương cosine.
-- Các ảnh có metadata giống nhau được dùng chung kết quả encode, nhưng vẫn có hàng vector và danh tính ảnh riêng.
-- Build ghi theo chunk, kiểm shape và giá trị hữu hạn, flush vector trước khi cập nhật checkpoint manifest qua file tạm.
-- Việc tái sử dụng index phụ thuộc count, fingerprint, model, dimension, backend, độ dài input và phiên bản index. Backend NumPy còn đối chiếu catalog/model khi nạp.
-- Qdrant `img_text` dùng point ID bằng `rownum`, cosine, HNSW **m=16, ef_construct=128**; khi tìm dùng `ef >= max(QDRANT_SEARCH_EF, top_k)`, mặc định `QDRANT_SEARCH_EF=128`.
-- Nhánh NumPy tìm chính xác trên toàn bộ ma trận; nhánh Qdrant tìm xấp xỉ để giảm chi phí tìm kiếm.
-
-`config/models.yaml` vẫn ghi một cấu hình SigLIP/HNSW khác. Tham số ở trên lấy từ mã đang được gọi và manifest, thay vì lấy YAML làm cấu hình runtime mặc định.
-
-Nguồn: [local_index.py](../retrieval/local_index.py), [embed.py](../retrieval/embed.py), [vector_store.py](../retrieval/vector_store.py).
-
-### 3.3. Metadata chất lượng và graph
-
-`scripts/migrate_images_v2.py` ghép kết quả tải ảnh, nhãn verify và watermark vào catalog. Khi cung cấp CSV đã được duyệt tay, nhãn người được ưu tiên. Đây là nguồn gốc của trạng thái `verify_source=human`; lần rà soát này không gán lại nhãn ảnh.
-
-`retrieval/graph.py` có graph phân loại `IN_CLASS` trong SQLite. KG quan hệ dùng bộ bảng riêng: `kg_node`, `kg_alias`, `kg_edge`, `kg_link`, `kg_lookup`. Graph phân loại không cung cấp quan hệ cha/con hoặc vợ/chồng; các quan hệ đó đi qua `retrieval/hop.py`.
-
-## 4. Pipeline Phần A: verify ảnh
+### 3.1. Luồng xử lý
 
 ```mermaid
 flowchart LR
-    A[CSV] --> B[Gate URL và trùng URL theo entity]
-    B --> S[Chia train, val, test theo nhóm tên]
-    S --> C[Tải, decode, SHA256, kiểm trùng nội dung]
-    C --> D[SigLIP2 ảnh, tên và mô tả]
-    D --> E[Vector ảnh cùng 14 feature]
-    E --> F[Head tuyến tính và hiệu chỉnh]
-    F --> G[Jev nhận trạng thái văn bản]
-    G --> H[Router theo bất định và ngân sách]
-    H --> I[VLM cho tập được chọn]
-    I --> J[Báo cáo proxy và hàng đợi nhãn người]
+    CSV[CSV upload] --> R0{"Gate URL<br/>sai / bị chặn / trùng"}
+    R0 -- loại --> NO[no · rule]
+    R0 --> F{"Tải + thumbnail 512 px<br/>chết / < 300×200 / trùng sha256"}
+    F -- loại --> NO
+    F --> S["SigLIP2<br/>ảnh · tên · mô tả"]
+    S --> X["14 feature<br/>giống ảnh cùng entity, tên, mô tả,<br/>kích thước, host…"]
+    X --> G["LightGBM M1b ×5<br/>+ isotonic → p(yes)"]
+    G --> RT{"Router<br/>α ảnh bất định nhất,<br/>theo entity"}
+    RT -- còn lại --> H[yes/no theo ngưỡng t]
+    RT -- chọn --> V["VLM batch ≤ 8 ảnh<br/>đúng chủ thể / partial / sai,<br/>watermark, unsafe"]
+    V --> D[yes/no + lý do]
 ```
 
-### 4.1. Gate, split và tải ảnh
+| Tầng | Code | Chi phí | Vai trò |
+|---|---|---|---|
+| Gate | [gate.py](../pipeline/verify/gate.py) | ~0 (1,4 s / 80k dòng) | Loại URL không hợp lệ, host bị chặn, khoảng trắng, URL trùng trong entity |
+| Tải | [fetch.py](../pipeline/verify/fetch.py) | I/O | Giải mã, thumbnail, **tiêu chí độ phân giải** (< 300×200), sha256 để bắt trùng nội dung. Cache theo `sha256(url)`: xử lý lại không tải lại |
+| SigLIP2 | [encoder.py](../pipeline/verify/encoder.py) | 279 ảnh/s trên RTX 4050 | Vector ảnh, tên, mô tả trong cùng không gian |
+| Feature | [features.py](../pipeline/verify/features.py) | < 1 ms | Độ giống ảnh cùng entity (`cos_centroid`, `cos_nn`), khớp tên/mô tả, kích thước, prior host/category |
+| Classifier | [processing/model.py](../processing/model.py) | 2,4 ms / 1.000 ảnh | Ensemble 5 LightGBM trên 782 chiều (vector ảnh + 14 scalar), hiệu chỉnh isotonic |
+| Router | [router.py](../pipeline/verify/router.py) | ~0 | Chọn tối đa α·N ảnh bất định nhất, ưu tiên entity thiếu ảnh tốt; bỏ entity < 5 ảnh hoặc đã đủ ≥ 8 ảnh chắc chắn |
+| VLM | [vlm.py](../pipeline/verify/vlm.py) | $0,14 / 1.000 ảnh được gửi | Chấm theo lô ≤ 8 ảnh cùng entity: chủ thể, **watermark**, **nội dung không an toàn** (khiêu dâm, bạo lực, chính trị) |
 
-Gate loại URL sai, host bị chặn, URL chứa khoảng trắng; ảnh không có đuôi được xử lý theo `--noext`, CLI mặc định `download`. Khử URL trùng trong từng entity. Gate verify khác với điều kiện import catalog approved, nên số ảnh đi qua hai luồng có thể khác nhau.
+### 3.2. Cấu hình production và căn cứ chọn
 
-Split gom tên sau chuẩn hóa, bỏ hậu tố ngoặc ở cuối; các nhóm gần nhau tiếp tục được gộp bằng token Jaccard ≥ 0,9. Phân tầng theo category bucket, mặc định dành 30% nhóm cho TEST và 20% phần còn lại cho VAL. Tỷ lệ theo số ảnh có thể khác tỷ lệ theo nhóm. Tải ảnh và SHA256 giúp phát hiện nội dung trùng; mã hiện tại loại bản TEST của nội dung xuất hiện ở nhiều split. Việc kiểm trùng không bảo đảm loại hết trường hợp trùng giữa TRAIN và VAL hoặc ảnh biến đổi gần giống nhau.
+Cấu hình được chọn theo bốn giai đoạn trên **34.780 ảnh có nhãn người** (`data/test.csv`, 33,4% bị loại); chi tiết ở [verify-router-benchmark.md](verify-router-benchmark.md).
+- Split theo nhóm tên: TRAIN 19.349 / VAL 4.866 / TEST 10.565.
+- Mọi lựa chọn làm trên VAL; TEST chỉ dùng để báo cáo.
 
-Nguồn: [gate.py](../pipeline/verify/gate.py), [split.py](../pipeline/verify/split.py), [run.py](../pipeline/verify/run.py).
-
-### 4.2. Encoder, feature và head
-
-Encoder mặc định `google/siglip2-base-patch16-256`, dùng ảnh và text tower cùng không gian. Pilot đã lưu có vector ảnh 768 chiều và tổng input head **782 chiều**, gồm vector ảnh + 14 feature. Feature gồm độ gần với ảnh cùng nhóm, ảnh gần nhất, tên, mô tả, số ảnh cùng nhóm, prior host/category, tín hiệu mô tả, kích thước, tỷ lệ khung hình và dung lượng.
-
-Head là Logistic Regression có chuẩn hóa feature và cân bằng lớp. Chọn `C` theo log-loss VAL; dùng GroupKFold tạo dự đoán ngoài fold trên TRAIN khi đủ điều kiện; isotonic calibration trên VAL và báo ECE crossfit. TEST không được dùng để chọn `C` trong hàm huấn luyện. Nhãn bootstrap đến từ VLM, nên kết quả trên nhãn này đo đồng thuận với thầy.
-
-### 4.3. Jev và router ngân sách
-
-Jev nhận trạng thái **văn bản** được rút từ feature và xác suất head; trả `yes/no/defer` cùng tín hiệu tin cậy. Đây không phải một lần VLM nhìn trực tiếp ảnh. Khi có logprob thì dùng logprob; nếu thiếu thì dùng confidence tự khai và hiệu chỉnh. Head là lớp dự phòng khi Jev không khả dụng.
-
-Router xếp ưu tiên từ bất định, tình trạng thiếu ảnh `yes` của nhóm và quyết định `defer`; chọn tối đa ngân sách theo `alpha`. Mặc định pilot `alpha=0,15`. Nhóm có dưới 5 ảnh được ghi nhận là cần bổ sung; nhóm đã có ít nhất 8 ảnh `yes` chắc chắn được giảm tiêu tốn ngân sách theo rule. VLM chỉ xử lý phần được route, có cơ chế chấm lại một phần và xử lý bất đồng.
-
-Ngân sách 15% áp dụng cho **bước VLM sau router trên tập target**, không phải cam kết chỉ 15% tổng ảnh từng được gửi VLM: bootstrap có thể đã gán nhãn toàn bộ pilot và có thêm lượt chấm lại.
-
-Nguồn: [head.py](../pipeline/verify/head.py), [jev.py](../pipeline/verify/jev.py), [router.py](../pipeline/verify/router.py), [run.py](../pipeline/verify/run.py).
-
-### 4.4. Phạm vi đã triển khai
-
-Luồng verify ở `pipeline/verify/` chạy được theo mã và có báo cáo pilot. Luồng cascade cũ ở `pipeline/stage1_heuristics.py`, `stage2_classifier.py`, `stage3_vlm.py` không phải cùng pipeline: classifier ONNX cũ còn `NotImplementedError`, một số backend VLM cũ chưa triển khai. Worker queue ở `pipeline/worker_loop.py` cũng chưa xử lý job thực tế. Không lấy throughput giả định từ `config/cascade.yaml` làm throughput đo của verify hiện tại.
-
-## 5. Pipeline xử lý một truy vấn
-
-### 5.1. Cache và parse
-
-1. Validate query không rỗng, `top_k` trong 1–100 và tập khóa filter được hỗ trợ.
-2. Tạo cache key từ query, top-k, filter, manifest, phiên bản pipeline, vector backend, thông tin kích thước, chính sách parser và reranker.
-3. Nếu cache hit, trả kết quả đã lưu với request ID và timing mới.
-4. Nếu miss, nạp catalog tên, rule parse thực thể và tách sub-query; xác định độ tin cậy.
-5. `high`: mỗi sub-query neo vào một tên thực thể với mức phủ token ≥ 60%; `medium`: set query; còn lại `low`.
-6. Mặc định `LLM_PARSE_MODE=ambiguous_only`: chỉ khởi chạy LLM khi rule chưa chắc, song song với retrieve theo rule.
-7. Chờ LLM trong phần ngân sách còn lại, mặc định **600 ms tính từ lúc khởi chạy**. Kết quả khác rule có thể kích hoạt retrieve bổ sung.
-
-Guard mặc định chặn LLM ghi đè rule `high`, chặn `set_query → single`, bỏ parse `multi_hop` do LLM đề xuất. Timeout/lỗi giữ rule; request nền vẫn có thể hoàn tất và ghi cache parse. Cơ chế này giới hạn thời gian chờ parse; tổng thời gian request còn phụ thuộc embedding, rerank và lần retrieve bổ sung.
-
-Cache nằm trong SQLite `llm_cache`; hàm cache không có TTL. Key hiện chưa chứa toàn bộ thay đổi có thể có như nội dung KG hoặc cờ cho phép override rule. Khi đổi chính sách ngoài các thành phần đã có trong key, cần kiểm tra cách vô hiệu hóa cache.
-
-Nguồn: [local_search.py](../retrieval/local_search.py), [speculative.py](../retrieval/speculative.py), [storage/local.py](../storage/local.py).
-
-### 5.2. Tạo ứng viên và fusion
-
-Mỗi sub-query kết hợp các danh sách:
-
-| Nguồn | Cơ chế | Giới hạn / trạng thái |
+| Lựa chọn | Phương án được chọn | Căn cứ (TEST) |
 |---|---|---|
-| Dense metadata | Encode query, tìm `img_text` | Top 200 mỗi sub-query |
-| Dense visual | Encode query trong không gian SigLIP2, tìm `img_visual` | Top 200 nếu visual manifest hoàn chỉnh; chưa bật trong snapshot |
-| Từ khóa | SQLite FTS5/BM25 trên metadata không dấu | Top 100, thử AND trước rồi OR |
-| Tên thực thể | Khớp tên chuẩn hóa, ưu tiên trùng hoàn toàn, xen kẽ khớp một phần | Tối đa 30 ảnh/entity; giới hạn 20 entity khớp một phần |
+| Nhãn để train | Nhãn người | Head học từ nhãn VLM thầy: AUC 0,649. Học từ nhãn người: 0,718 |
+| Classifier | LightGBM trên 782 chiều (**M1b**) | AUC 0,735, Recall no 43,2%. Logistic: 37,9%. LightGBM chỉ 14 feature: 19,0%. MLP / stacking không hơn |
+| Ngân sách VLM α | 15% | Ở ràng buộc Recall yes ≥ 85%, VLM cộng thêm 1,6 điểm Recall no. 20% tốt hơn 2,7 điểm nhưng trên VAL hòa (±0,5) nên chọn phương án rẻ hơn |
+| Đọc câu trả lời VLM | `bo_watermark`: đúng chủ thể là duyệt | Người duyệt giữ 51% số ảnh bị VLM gắn watermark. Prompt gốc loại oan 43% ảnh tốt |
+| Ngưỡng t | 0,55 | Tối đa Recall no với ràng buộc Recall yes ≥ 85%, entity retention ≥ 95% (trên VAL) |
 
-Hư từ FTS được loại trên dạng còn dấu rồi mới bỏ dấu, để phân biệt `cho/chợ`, `đến/đền`. Fusion dùng RRF với trọng số **text/visual/lexical/exact = 1/1/1/3**. Công thức thực thi: `sum(w_i / (60 + rank_i))`, trong đó `rank_i` bắt đầu từ **0**.
+So với cấu hình cũ (head học nhãn VLM, t = 0,5, α = 15%, prompt gốc), ở **cùng** mức giữ ảnh tốt và cùng chi phí VLM, cấu hình mới:
+- bắt thêm ảnh xấu: Recall no 59,2% → 65,7%;
+- kho sạch hơn: Precision yes 76,2% → 80,1%;
+- giữ thêm ảnh tốt: 65,3% → 69,2%.
 
-Ứng viên đi qua filter trên tối đa 400 ID đầu của từng danh sách được xét; sau đó lấy pool rerank `max(top_k, RERANK_TOP_K)`. Workspace đang đặt `RERANK_TOP_K=24`. Đây là giới hạn pool ứng viên, không phải số ảnh được bảo đảm trả về.
+### 3.3. Processing service và giao diện
 
-### 5.3. Filter và chất lượng
+- **Upload:** `POST /v1/process/jobs` nhận CSV UTF-8, phân tách bằng dấu phẩy hoặc chấm phẩy.
+  - Cột bắt buộc: `image_url` và tên entity.
+  - Nhận cả định dạng master (`canonical_name`, `category`) lẫn định dạng file nhãn (`entity_name`, `leaf_label`).
+  - Có cột `verify` thì kết quả được chấm với nhãn người.
+  - Sai định dạng → HTTP 422 ngay, kèm danh sách cột hiện có.
+- **Hàng đợi:** một worker, vì GPU / SigLIP2 dùng chung. Trạng thái job ghi ra `status.json`; khởi động lại thì job đang chạy dở được đánh dấu `interrupted`.
+- **Theo dõi và kết quả:** tiến độ từng tầng (`done/total`, giây); `results.csv` (CSV gốc + `decision`, `stage`, `reason`, `p_yes`, `routed`, bằng chứng VLM); xem từng ảnh kèm thumbnail, lọc theo quyết định / tầng / lý do / ảnh lệch nhãn người.
+- **Chi phí:** tính từ token VLM thật (`deepseek_usage.jsonl`) × đơn giá trong `.env`.
 
-API nhận các khóa `entity_id`, `entity_slug`, `parent_class`, `min_width`, `orientation`. Filter API ưu tiên hơn modifier suy từ query.
+### 3.4. Mở rộng tới 10–100 triệu ảnh
 
-- Khi catalog có dữ liệu kích thước, filter kích thước truyền bằng API dùng chính sách strict: bỏ ảnh chưa biết kích thước.
-- Filter kích thước suy ra từ câu dùng chính sách permissive: giữ ảnh chưa biết và cảnh báo.
-- Nếu catalog chưa có dữ liệu kích thước, mã hiện tại bỏ qua filter kích thước và cảnh báo, kể cả filter API. Đây là ngoại lệ cần kiểm tra khi nghiệm thu.
-- `NULL` watermark/verify được xuất thành `unknown`, không tự suy ra nhãn âm.
-- Penalty dùng `verify=no`, ảnh nhỏ và `has_watermark=1`. Ảnh có nguồn duyệt `human` không bị penalty watermark theo chính sách đang cài đặt.
-
-Hit có `quality.pixel_checked=false`: search không chạy kiểm duyệt pixel theo request. Trạng thái người đã duyệt và trạng thái ảnh đã được kiểm pixel trong lần tìm kiếm là hai thông tin riêng.
-
-### 5.4. Rerank và dự phòng
-
-Backend mặc định V2 là `local_ce`, model `BAAI/bge-reranker-v2-m3`. Các văn bản ứng viên giống nhau chỉ được chấm một lần rồi ánh xạ điểm về từng ảnh. Mặc định không cắt các hit dưới ngưỡng 0,2 của LLM cũ.
-
-Nếu rerank lỗi thuộc nhóm được xử lý, search thử cosine embedding; nếu bước đó cũng lỗi, giữ thứ tự fusion và thêm warning. Nếu endpoint embedding trả lỗi được bọc bằng `EmbeddingUnavailable`, nhánh dense text được bỏ qua để tiếp tục FTS + khớp tên. Những kết quả suy giảm được nhận diện sẽ không được ghim vào search cache. Các lỗi ngoài phạm vi exception được bắt vẫn có thể làm request thất bại.
-
-Các chế độ API reranker, LLM và embedding còn tồn tại để so sánh hoặc cấu hình. A/B đã lưu cho thấy BGE nhanh hơn Qwen3-Reranker-0.6B trên cùng pool, nhưng rerank tự do làm giảm chất lượng truy vấn tên chính xác; đó là lý do có chính sách ưu tiên thực thể ở mục 6.
-
-## 6. Cách truy xuất từng loại query
-
-### 6.1. Single intent — tìm một thực thể hoặc mô tả
-
-Ví dụ: `Văn Miếu`, `Chùa Một Cột Hà Nội`, hoặc một mô tả như `chùa cổ mái ngói`.
-
-Parser ưu tiên span tên thực thể để không tách các từ quan hệ nằm trong tên. Hybrid retrieve tạo pool, filter rồi rerank. Với query có confidence `high` và anchor tên, kết quả được chia ba tầng: **entity trùng đúng tên → entity khớp một phần → còn lại**. Reranker chỉ xếp thứ tự trong mỗi tầng.
-
-Đối với mô tả không neo vào tên, hệ thống dựa nhiều vào embedding metadata và BM25. Chưa có goldset đủ để kết luận chất lượng các thuộc tính chỉ thấy qua pixel như màu sắc, góc chụp hoặc chi tiết kiến trúc.
-
-### 6.2. Multi-intent — nhiều chủ thể trong một câu
-
-Ví dụ: `Chùa Hương và Bích Động`.
-
-Tách câu thành sub-query, retrieve và rerank **riêng từng ý**. Nếu có anchor tên, chỉ giữ ảnh thuộc tập entity khớp tên của ý đó; nếu không có anchor, bằng chứng hiện tại là thứ hạng retrieve, yếu hơn đối chiếu entity. `allocate_fair` lấy round-robin, loại ID trùng và dừng ở `top_k`. Không tự thêm ảnh ngoài các queue để lấp đủ số lượng.
-
-Response trả `sub_queries`, `supported_candidates`, `coverage`, `returned`, `evidence` và `hit.matched_subqueries`. Khi `top_k` nhỏ hơn số ý hoặc thiếu ứng viên cho một ý, trả warning. `coverage=covered` phản ánh bằng chứng của pipeline; không bảo đảm đúng `entity_id` mà người đánh giá kỳ vọng. Benchmark có ví dụ 20/20 covered nhưng chỉ 19/20 đúng cả hai ID.
-
-### 6.3. Set query — tìm một tập theo loại
-
-Ví dụ: `các chùa Khmer Nam Tông`, `các nhà nổi & nhà bè trên sông/vịnh`.
-
-Parser nhận tín hiệu tập hợp; đường search hiện tại vẫn dùng hybrid retrieve và rerank theo các sub-query được parse. Khi cần ràng buộc lớp chính xác, client có thể truyền `filters.parent_class`. Mã search không thực hiện một bước duyệt toàn bộ graph phân loại để bảo đảm bao phủ mọi thành viên của tập.
-
-Vì vậy, set query là **top-k kết quả liên quan tới một lớp**, chưa phải phép liệt kê đầy đủ một tập dữ liệu. Benchmark ghi nhận 6/20 câu mong muốn set query bị parse sang loại khác; ký tự `&` trong tên lớp gây một số ca chia ý sai. Chưa có quota bảo đảm đa dạng entity cho mọi set query.
-
-### 6.4. Multi-hop — tìm qua chuỗi quan hệ
-
-Ví dụ về cú pháp được hỗ trợ: `lăng của con trai vua Gia Long`. Câu có thể có nhiều đích, vì một người có nhiều con; không được ngầm chọn một người nếu KG chưa xác định duy nhất.
-
-Resolver thực hiện:
-
-1. Nhận target nơi chốn, tách quan hệ đọc từ ngoài vào; áp dụng chuỗi từ seed ra ngoài, tối đa 4 bước quan hệ trong planner.
-2. Link seed bằng alias trong KG.
-3. Duyệt `PARENT_OF` theo chiều cha/mẹ → con hoặc ngược lại; `SPOUSE_OF` hai chiều; lọc giới tính nếu câu yêu cầu.
-4. Nếu target là nơi chốn, thêm cạnh `BURIED_AT`, `WORSHIPPED_AT` hoặc `MEMORIAL_AT`.
-5. Chỉ dùng cạnh `verified=1` hoặc `reviewed=1`. Link đích qua `kg_link` tới entity có ảnh.
-6. Lấy ảnh đúng entity đích, xen kẽ các entity ID; nhánh này dùng thứ tự đích đã xác minh, không chạy BGE như search thông thường.
-
-KG hiện đã có seed và bằng chứng: báo cáo ghi 17 người, 205 cạnh người–nơi chốn sinh từ tên catalog, 14/15 claim người–người kiểm được. Đây là trạng thái mới hơn mô tả “chưa có KG” trong tài liệu V2 cũ.
-
-Thiếu cạnh người–người có thể kích hoạt tra cứu online khi được bật, qua ngân sách mặc định 2.500 ms và tác vụ nền. Nguồn có thể được kiểm bằng trang tải về hoặc snippet tìm kiếm phù hợp; cần xem `verifier` của từng cạnh. Kiểm được câu trích không tự bảo đảm nguồn đúng hoặc quan hệ được suy ra đúng về ngữ nghĩa.
-
-| `resolution.status` | Hành vi |
-|---|---|
-| `resolved` | Có chuỗi quan hệ tin cậy và entity đích có ảnh |
-| `pending_online_lookup` | Tác vụ online đang chạy nền; client có thể thử lại sau |
-| `seed_not_linked` | Không link được seed |
-| `no_evidence` | Thiếu cạnh tin cậy; không kết luận quan hệ không tồn tại |
-| `target_not_in_catalog` | Có đích nhưng chưa có ảnh; có thể trả gợi ý nơi liên quan |
-| `unsupported_relation` | Loại quan hệ chưa hỗ trợ |
-
-Những trạng thái chưa giải được trả `hits=[]` và giải thích. Ví dụ quan hệ anh/em, cháu hoặc chức vụ tổ chức còn ngoài phạm vi resolver hiện tại. Luồng multi-hop chưa có benchmark chất lượng và latency đại diện.
-
-Nguồn: [hop.py](../retrieval/hop.py), [kg_seed.py](../scripts/kg_seed.py), [kg_online.py](../retrieval/kg_online.py), [seed report](../reports/kg/seed.json).
-
-## 7. API và vận hành
-
-| API | Vai trò / giới hạn |
-|---|---|
-| `GET /v1/health` | Trả cấu hình, catalog và manifest; không cần key; không kiểm tra sẵn sàng toàn bộ dependency |
-| `POST /v1/search` | Truy xuất, nhận query/top-k/filter; có timing, warning, coverage và resolution |
-| `POST /v1/embed` | Encode text; input ảnh hiện qua caption DeepSeek rồi encode text, khác nhánh visual SigLIP2 |
-| `POST /v1/rerank` | Chấm và xếp danh sách ứng viên |
-| `/v1/entities`, `/v1/graph` | Duyệt catalog, graph phân loại và rebuild theo endpoint tương ứng |
-| `/v1/verify/*` | Nhãn người, báo cáo và chức năng hỗ trợ verify theo router |
-| `/v1/reports/*` | Đọc các report đã được router cho phép |
-| `POST /v1/ingest` | Chưa ingest async; hiện hướng dẫn chạy CLI và phát sinh RuntimeError, được chuyển thành HTTP 503 |
-| `/v1/backfill*` | Còn số liệu mẫu và queue stub; chưa phải cơ chế bổ sung ảnh hoạt động |
-
-Schema search: query 1–2.000 ký tự; `top_k` 1–100. API key nội bộ được kiểm bằng `TEST_API_KEY` khi bật enforce; chưa có vòng đời key theo DB, scope và rate limit người dùng đầy đủ. HTTP middleware ghi `X-Response-Time`; `total_ms` của response là thời gian trong search, có phạm vi khác header.
-
-`PRELOAD_MODELS` khởi động catalog và reranker bằng thread nền. Health có thể báo `ok` trong khi model chưa nạp xong; cần warm-up và kiểm readiness riêng khi đo latency khởi động.
-
-Endpoint embedding/rerank bên ngoài dùng limiter trong **một tiến trình**, cấu hình workspace `EMBED_API_RPM=95`; limiter mặc định trong mã là 0 nếu thiếu biến. Chờ limiter mặc định tối đa 30 giây rồi vẫn gửi request; timeout HTTP embedding mặc định 60 giây và có retry. Do đó SLO 1.500 ms là mục tiêu đo theo điều kiện, chưa phải deadline cưỡng chế cho mỗi request. Nhiều worker không chia sẻ bộ đếm limiter.
-
-## 8. Lý do chọn giải pháp và đánh đổi
-
-| Lựa chọn | Căn cứ trong dự án | Đánh đổi |
+| Tầng | Thông lượng đo được | Cách scale |
 |---|---|---|
-| SQLite + FTS5 | Metadata, lexical và cache hoạt động local; test dễ dựng catalog nhỏ | Cần kiểm thử ghi đồng thời, dung lượng cache và vận hành nhiều process |
-| Dense + BM25 + tên thực thể | Bao phủ ngữ nghĩa, từ khóa hiếm và tên riêng tiếng Việt | Metadata sai hoặc thiếu vẫn truyền sang kết quả; fusion cần goldset để tối ưu trọng số |
-| Qdrant + NumPy | ANN cho phục vụ; NumPy làm phương án chính xác và hỗ trợ test | Phải quản lý parity khi rebuild; ANN self-test chưa chứng minh semantic relevance |
-| BGE local | A/B pool đóng băng: p95 150,9 ms, độ chính xác theo lớp ngang Qwen3-0.6B trong thí nghiệm | Chất lượng tên chính xác giảm nếu rerank tự do; cần phân tầng entity |
-| Rule trước, LLM có guard | Tránh phá tên entity, có kết quả khi thiếu key; giảm gọi LLM cho câu chắc chắn | Rule còn lỗi với tên lớp chứa liên từ; LLM chậm thường không kịp 600 ms |
-| Rerank riêng + round-robin | Nhiều ý cùng có cơ hội xuất hiện, có thể báo thiếu coverage | Điểm giữa các ý không hoàn toàn tương đương; anchor có thể khớp nhiều entity trùng tên |
-| KG có bằng chứng | Chuỗi quan hệ có thể truy vết, không tự tìm ảnh thay khi thiếu cạnh | Phạm vi KG nhỏ; chất lượng nguồn và mapping tên cần đánh giá độc lập |
-| Head + Jev + VLM theo ngân sách | Tận dụng feature rẻ, dành VLM cho ảnh khó | Bootstrap và calibration phụ thuộc thầy; chưa có nhãn người đủ để xác nhận chất lượng |
+| Tải ảnh | 13 ảnh/s mỗi máy, 48 luồng (host gốc chậm, p95 ~ 5 s/ảnh) | **Nút thắt.** Scale ngang theo số máy / luồng; cache theo URL |
+| SigLIP2 | 279 ảnh/s (RTX 4050 laptop) | 100M ảnh ≈ 100 GPU-giờ |
+| LightGBM | > 400.000 ảnh/s (CPU) | Không đáng kể |
+| VLM 15% | 18 ảnh/s với 8 luồng | Song song theo hạn mức API |
 
-Các lựa chọn model ở đây được lý giải từ kết quả A/B đã lưu, không phải so sánh toàn bộ model hiện có trên thị trường.
+Chi phí cấu hình production là **$0,020 / 1.000 ảnh** (VLM + GPU giả định $0,35/giờ), tức **≈ $2.020 cho 100M ảnh**, chưa gồm băng thông tải ảnh. Nếu cho VLM chấm mọi ảnh thì ≈ $13.600 / 100M; nếu dùng Claude chấm từng ảnh thì còn cao hơn nhiều bậc.
 
-## 9. Hạn chế và hướng xử lý ưu tiên
+## 4. Pipeline B — truy xuất
 
-| Ưu tiên | Hạn chế đã quan sát | Hướng xử lý và bằng chứng nghiệm thu cần có |
+### 4.1. Dựng index (offline)
+
+1. **Import:** CSV đã duyệt → SQLite ([storage/local.py](../storage/local.py)).
+   - Chỉ nhận dòng `flag=approved` có URL HTTP(S); khử URL trùng.
+   - `image_id = UUID5(url)`.
+   - `metadata_text = tên + category + mô tả`.
+   - FTS5 trên bản đã bỏ dấu.
+   - Đo được: **35 s** cho 130.428 ảnh.
+2. **Embedding:** `metadata_text` qua `qwen3-embedding-4b` (2.560 chiều, chuẩn hóa L2) → `vectors.npy`, có checkpoint ([local_index.py](../retrieval/local_index.py)).
+   - Metadata trùng chỉ encode một lần (106.093 / 130.428).
+   - Đo được: 35,6 phút, bị chặn bởi hạn mức 100 request/phút của endpoint.
+3. **KG** cho multi-hop: node người / nơi chốn, cạnh có nguồn và câu trích ([multihop-kg.md](multihop-kg.md)).
+
+Vector search mặc định là **NumPy cosine chính xác** trên 130.428 × 2.560 (~200 ms), nên không cần Qdrant; Qdrant HNSW vẫn hỗ trợ qua `VECTOR_BACKEND=qdrant`.
+
+### 4.2. Xử lý một truy vấn
+
+```mermaid
+flowchart TB
+    Q[Truy vấn] --> G0{Query guard<br/>nội dung bị chặn?}
+    G0 -- có --> X[400 query_blocked]
+    G0 --> C0{Cache kết quả}
+    C0 -- trúng --> OUT
+    C0 --> P1["Rule parser → loại + sub-query + độ tin cậy"]
+    P1 -. mơ hồ: song song .-> LLM["LLM parse (≤ 600 ms)"]
+    P1 --> R["Mỗi sub-query: dense top 200 + BM25 top 100 + khớp tên<br/>→ RRF 1/1/1/3"]
+    LLM --> GD{"Guard: LLM khác rule<br/>và được phép ghi đè?"}
+    R --> GD
+    GD -- có --> R2[Retrieve lại theo LLM]
+    GD --> T{Loại}
+    R2 --> T
+    T -- multi_hop --> H["Resolver KG → entity đích có ảnh"]
+    T -- single / set --> RR["Filter → rerank 24 ứng viên<br/>→ entity-first 3 tầng"]
+    T -- multi_intent --> MR["Rerank riêng từng ý (song song)<br/>→ round-robin công bằng"]
+    H --> OUT[Response + timing + warning]
+    RR --> OUT
+    MR --> OUT
+```
+
+**Hạn chờ tổng của mỗi request** là `SEARCH_DEADLINE_S` = 2,7 s ([retrieval/budget.py](../retrieval/budget.py)). Mỗi lời gọi ra ngoài lấy phần thời gian còn lại, thay vì mỗi tầng tự có một hạn riêng cộng dồn:
+
+| Tình huống | Xử lý | Hệ quả |
 |---|---|---|
-| P0 | Goldset có 5 query đều là placeholder; chưa có relevance độc lập | Gán nhãn ảnh/query, đóng băng split và báo chỉ số theo từng loại query |
-| P0 | Master concurrency 4 có p95 6.322 ms | Đo lại endpoint, queue, limiter và xử lý local; xác nhận p95 dưới tải qua HTTP |
-| P0 | Python trong môi trường ảo không khởi chạy được ở lần rà soát | Khôi phục interpreter, dựng môi trường đúng lock rồi chạy pytest và lưu JUnit |
-| P1 | Set query chỉ 14/20 đúng intent; multi-intent khác nhau giữa coverage và entity ID | Sửa nhận diện lớp/liên từ, kiểm mapping entity trùng tên, thêm relevance do người gán |
-| P1 | Kích thước chỉ biết 32,71%; watermark 2,42%; visual chưa bật | Bổ sung dữ liệu, đo tỷ lệ biết/không biết và A/B nhánh visual trên cùng bộ query |
-| P1 | Cache không TTL, key không phản ánh mọi thay đổi KG/chính sách | Thêm cơ chế version/invalidation phù hợp và test thay đổi dữ liệu |
-| P1 | Chưa có deadline tổng, limiter theo process, preload chưa là readiness | Đo cold start/tail latency, ngân sách dependency và nhiều worker |
-| P2 | Worker, backfill, một số backend và phép dedup gần còn stub | Hoàn thiện từng luồng rồi bổ sung integration test có dữ liệu thật |
+| Embedding truy vấn chậm hoặc hết hạn mức | Bỏ nhánh dense | Vẫn trả kết quả từ FTS5 + khớp tên |
+| Rerank chậm hoặc hết hạn mức | Giữ thứ tự RRF | Không gọi thêm endpoint |
+| Limiter hết slot trong hạn | Báo lỗi ngay, không xếp hàng chờ | Request không bị kéo dài |
+| LLM parse chậm | Chờ tối đa 600 ms, giữ rule | LLM vẫn chạy nền để ghi cache |
+| Tra KG online | Ngân sách 1,8 s | Quá hạn trả `pending_online_lookup` |
 
-Không có dữ liệu để khẳng định chi phí trên một triệu ảnh, throughput kiểm duyệt GPU hoặc SLO mọi chế độ LLM. Đơn giá/throughput trong tài liệu thiết kế cũ chỉ là giả định cho tới khi có lượt đo tương ứng.
+Mọi kết quả suy giảm đều mang warning và **không được cache**.
 
-## 10. Tài liệu liên quan và thứ tự đọc
+### 4.3. Cách truy xuất từng loại
 
-1. [Performance và benchmark](performance-benchmark.vi.md): toàn bộ metric có bằng chứng, công thức và giới hạn phép đo.
-2. [Test case và tái lập](test-cases.vi.md): ma trận hành vi, test hiện có, cách nghiệm thu và lệnh chạy.
-3. [244 ca benchmark dạng CSV](../reports/project_review/benchmark-cases.csv): truy vấn, loại intent, số hit và metric từng ca từ snapshot master.
-4. [Evidence JSON](../reports/project_review/evidence.json): hash nguồn, kiểm tra SQLite/NPY, tóm tắt metric và trạng thái các lần chạy kiểm tra.
+- **Single intent** (`Lăng Tự Đức`, `phố cổ Hội An về đêm`):
+  - Retrieve hybrid, filter, rồi rerank.
+  - Khi rule neo chắc vào tên entity (confidence `high`), kết quả chia 3 tầng: entity trùng đúng tên → khớp một phần → còn lại; reranker chỉ xếp trong từng tầng. Lý do: A/B cho thấy để rerank tự do thì nDCG tên giảm từ 1,00 xuống 0,95.
+  - Ứng viên không khớp tên cần điểm cross-encoder ≥ 0,2.
+- **Multi-intent** (`chợ Bến Thành và nhà thờ Đức Bà Sài Gòn`):
+  - Rule (và LLM khi câu mơ hồ) tách sub-query; địa danh dùng chung được gắn cho mọi ý.
+  - Mỗi ý được retrieve và rerank riêng, song song.
+  - Ý có tên entity thì chỉ giữ ảnh thuộc entity khớp tên; ý không có tên thì phải đạt ngưỡng liên quan.
+  - `allocate_fair` lấy xen kẽ (round-robin) để mọi ý đều có mặt; response báo `coverage` từng ý.
+- **Set query** (`các chùa Khmer Nam Tông`): retrieve theo lớp; client có thể ép `filters.parent_class`. Trả **top-k liên quan tới lớp**, không liệt kê đầy đủ tập.
+- **Multi-hop** (`lăng của con trai vua Gia Long`) — [hop.py](../retrieval/hop.py):
+  1. Tách đích (lăng / mộ / đền…) và chuỗi quan hệ.
+  2. Link người gốc qua alias.
+  3. Duyệt `PARENT_OF` / `SPOUSE_OF` có lọc giới tính.
+  4. Thêm cạnh `BURIED_AT` / `WORSHIPPED_AT` / `MEMORIAL_AT`.
+  5. Ánh xạ sang entity có ảnh.
+
+  Chỉ dùng cạnh `verified` hoặc `reviewed`. Không tìm được chuỗi thì trả **0 ảnh kèm `resolution.status`** (`seed_not_linked`, `no_evidence`, `target_not_in_catalog`…), không đoán.
+
+### 4.4. API
+
+| Endpoint | Service | Ghi chú |
+|---|---|---|
+| `POST /v1/search` | api | `query`, `top_k` 1–100, `filters`. Header `Cache-Control: no-cache` để bỏ qua cache (đo lạnh) |
+| `GET /v1/health`, `/v1/stats` | api | Không cần key / cấu hình, catalog, index |
+| `GET /v1/reports/*` | api | Đọc file report benchmark đã lưu (JSON) |
+| `POST /v1/process/jobs`, `GET /v1/process/jobs[/{id}[/items\|/result.csv]]` | processor | Upload CSV, tiến độ, kết quả |
+| `GET /v1/process/health`, `/v1/process/sample.csv` | processor | Model đang dùng, CSV mẫu 307 ảnh có nhãn |
+
+Ngoài `health` và `thumbs`, mọi endpoint cần `X-API-Key`; proxy web gắn key phía server nên trình duyệt không thấy key.
+
+## 5. Lý do chọn giải pháp
+
+| Lựa chọn | Căn cứ | Đánh đổi |
+|---|---|---|
+| Cascade rẻ → đắt cho Phần A | Tầng rẻ xử lý 85% ảnh gần như miễn phí; VLM chỉ cho 15% | Tầng rẻ chỉ đạt AUC 0,735: hơn nửa ảnh xấu vẫn lọt (mục 6) |
+| LightGBM thay logistic | +5,3 điểm Recall no ở cùng ràng buộc; train 25 s, suy luận 2,4 ms / 1.000 ảnh | Ensemble 5 model, 5,8 MB |
+| Hai service riêng | API truy xuất không cần torch (image 395 MB, khởi động vài giây); Pipeline A cần GPU / torch | Hai image để build |
+| Dense + BM25 + khớp tên + RRF | Bao phủ ngữ nghĩa, từ hiếm và tên riêng tiếng Việt; khớp tên đúng có trọng số 3 | Metadata sai thì kết quả sai theo |
+| NumPy exact thay ANN | 130k × 2.560: ~200 ms, không cần dựng / đồng bộ Qdrant | Tăng tuyến tính; > 1M ảnh nên dùng HNSW (đã có `VECTOR_BACKEND=qdrant`) |
+| Rerank qua endpoint (jina-reranker-v2) | BGE local trên 2 vCPU mất 26 s / truy vấn; endpoint 150–420 ms | Phụ thuộc hạn mức API ngoài |
+| Rule trước, LLM có guard | Có kết quả khi thiếu key / LLM chậm; LLM không phá tên entity | Rule còn sót cách diễn đạt lạ |
+| KG có bằng chứng cho multi-hop | Truy vết được, từ chối thay vì bịa | Phạm vi KG nhỏ (người hoàng tộc Nguyễn, gia đình Hồ Chí Minh…) |
+| Hạn chờ tổng 2,7 s | 100% truy vấn < 3 s kể cả khi vượt hạn mức endpoint | Kết quả khi suy giảm kém hơn (không có dense / rerank) |
+
+## 6. Hạn chế
+
+1. **Tầng rẻ của Pipeline A chưa thay được người.** Ở cấu hình production chỉ bắt được 44,8% ảnh xấu; kho sau lọc còn khoảng 24,5% ảnh người sẽ loại. Phần lớn ảnh bị loại vì "không tiêu biểu / không đúng địa danh", không vì lỗi kỹ thuật: các tín hiệu zero-shot watermark / nsfw / chính trị có AUC chỉ 0,50–0,56 với nhãn này.
+2. **Nhãn Pipeline A do một người gán, chưa có lý do loại** (cột `note` trống) nên chưa đo được recall theo từng tiêu chí (độ phân giải, watermark, phản động, khiêu dâm, chính trị). Tập nhãn cũng không có ca nội dung không an toàn (VLM gắn `unsafe` cho 0/15.023 ảnh), nên **chưa kiểm chứng được tiêu chí an toàn**.
+3. **Catalog không có ảnh đúng cho hai ví dụ của đề** ("bãi biển Nha Trang", "hồ bơi và công viên nước ở Phú Quốc"). Với các truy vấn ngoài catalog, hệ thống vẫn trả 3–10 ảnh gần nhất thay vì báo không có kết quả. Ngưỡng liên quan hiện chỉ áp cho ảnh không khớp tên.
+4. **Multi-hop giới hạn trong KG:** quan hệ cha / mẹ / con / vợ / chồng và nơi an táng / thờ. Thiếu cạnh thì trả 0 ảnh (ví dụ vợ vua Tự Đức). Câu hỏi về "con trai chủ tịch Phạm Nhật Vượng" được từ chối đúng vì người này không có trong KG / catalog.
+5. **Hạn mức endpoint embedding + rerank là 100 request/phút** dùng chung. Throughput truy vấn chưa cache bị chặn khoảng 30–45 truy vấn/phút; vượt mức thì tự suy giảm (vẫn < 3 s). Nút thắt thông lượng là hạn mức này, không phải CPU.
+6. **Pipeline A và B chưa nối tự động.** Ảnh được duyệt ở Pipeline A chưa tự vào index tìm kiếm; import mới thay toàn bộ catalog và phải embed lại (~42 phút cho 130k ảnh).
+7. **Processor trong Docker chạy CPU.** SigLIP2 chậm hơn GPU nhiều lần; có GPU thì chạy service bằng `.venv-gpu` (README §4).
