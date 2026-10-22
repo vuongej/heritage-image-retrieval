@@ -42,7 +42,9 @@ export function useSearch(params: SearchParams | null) {
       return searchImages(params, signal);
     },
     enabled: Boolean(params?.query),
-    placeholderData: keepPreviousData,
+    // Only retain results when loading more/filtering the same query, never across search terms.
+    placeholderData: (previousData, previousQuery) =>
+      previousQuery?.queryKey[1] === params?.query ? previousData : undefined,
     staleTime: 60_000,
     // Multi-hop online lookup keeps running in the background after the request budget: poll a few
     // times (backend does not cache pending answers) until the edge lands or the lookup gives up.

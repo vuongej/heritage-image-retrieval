@@ -335,8 +335,10 @@ export function SearchPage() {
     }
     setParams(next, { replace });
   };
-  const runQuery = (query: string, extra: Record<string, string | undefined> = {}) =>
+  const runQuery = (query: string, extra: Record<string, string | undefined> = {}) => {
+    setOpen(null);
     update({ q: query, k: undefined, cls: undefined, view: undefined, fallback: undefined, ...extra });
+  };
 
   const data = search.data;
   const intentText = useMemo(() => new Map(data?.intents.map((it) => [it.id, sentenceCase(it.text)]) ?? []), [data]);
@@ -365,7 +367,14 @@ export function SearchPage() {
         </CapabilityNotice>
       )}
 
-      {search.isPending && <SkeletonGrid />}
+      {search.isPending && (
+        <div className="space-y-4" aria-busy="true">
+          <div role="status" className="flex items-center justify-center gap-2 py-8 text-lead font-medium text-muted">
+            <Loader2 aria-hidden className="size-5 animate-spin" /> Searching...
+          </div>
+          <SkeletonGrid />
+        </div>
+      )}
       {search.isError && <ErrorState error={search.error} onRetry={() => search.refetch()} context={`Truy vấn: “${q}”`} />}
 
       {data && !search.isError && (
