@@ -1,8 +1,8 @@
 name: ci
 
 # PR:        backend test + web test + build image  -> preview Vercel (comment link vào PR)
-# push main: như trên -> deploy backend (HF Space) -> deploy web (Vercel prod)
-#            -> smoke 3 loại query -> k6 + report
+# push main: như trên -> deploy backend + processor (HF Spaces) -> deploy web (Vercel prod)
+#            -> smoke tìm kiếm + xử lý CSV -> k6 + report
 on:
   push: { branches: [main] }
   pull_request:
@@ -129,9 +129,30 @@ jobs:
       - name: Chờ Space build, tải index và trả /v1/health
         run: python -m deploy.hf_space wait --timeout 2400
 
+  deploy-processor:
+    name: Deploy · processor → Hugging Face Space
+    needs: [backend, web, image]
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request' && vars.HF_SPACE != ''
+    runs-on: ubuntu-latest
+    environment:
+      name: backend
+      url: https://huggingface.co/spaces/${{ vars.HF_PROCESS_SPACE }}
+    env:
+      HF_TOKEN: ${{ secrets.HF_TOKEN }}
+      HF_PROCESS_SPACE: ${{ vars.HF_PROCESS_SPACE }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Require processor deployment configuration
+        run: test -n "$HF_PROCESS_SPACE" || { echo "Missing repository variable HF_PROCESS_SPACE"; exit 1; }
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: pip install huggingface_hub==1.33.0
+      - run: python -m deploy.hf_processor push
+      - run: python -m deploy.hf_processor wait --timeout 2400
+
   deploy-web:
     name: Deploy · web → Vercel production
-    needs: deploy-backend
+    needs: [deploy-backend, deploy-processor]
     runs-on: ubuntu-latest
     environment:
       name: production
@@ -175,12 +196,15 @@ jobs:
           gh pr comment ${{ github.event.pull_request.number }} --body "Preview: $url (gọi chung backend production)"
 
   smoke:
-    name: Smoke · 3 loại query qua domain production
+    name: Smoke · tìm kiếm + xử lý CSV qua production
     needs: deploy-web
     runs-on: ubuntu-latest
     env:
       APP_URL: ${{ vars.APP_URL }}
     steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
       - name: Health
         run: |
           for i in $(seq 1 30); do
@@ -206,6 +230,8 @@ jobs:
           multi_hop|lăng của con trai vua Gia Long
           EOF
           exit $fail
+      - name: Pipeline A · upload, SigLIP2, classifier, download CSV
+        run: python -m deploy.smoke_processing
 
   loadtest:
     name: Load test · k6 + report

@@ -59,9 +59,10 @@ flowchart LR
     PR --> I[image: build + boot /v1/health]
     W --> PV[preview Vercel + comment link]
     M[push main] --> B & W & I
-    B & W & I --> DB[deploy-backend: đồng bộ code lên Space<br/>chờ build + /v1/health]
-    DB --> DW[deploy-web: vercel build + deploy --prod]
-    DW --> SM[smoke: 3 loại query, mỗi câu < 3 s]
+    B & W & I --> DB[deploy-backend: Space tìm kiếm]
+    B & W & I --> DP[deploy-processor: Space xử lý ảnh]
+    DB & DP --> DW[deploy-web: vercel build + deploy --prod]
+    DW --> SM[smoke: 3 loại query + upload và xử lý CSV thật]
     SM --> K6[k6 PROFILE=smoke + report HTML/JSON + job summary]
 ```
 
@@ -124,15 +125,36 @@ gh workflow run ci -R $R
 
 ## Pipeline A (processing service) trên cloud
 
-Bản cloud mặc định chỉ chạy Pipeline B. Trang *Xử lý dữ liệu* gọi `/api/v1/process/*`; khi chưa có service này, proxy Vercel trả 503 kèm hướng dẫn. Để bật:
+Pipeline A chạy ở Space private `vuongej/heritage-processor`, dùng `deploy/processor.Dockerfile`
+(CPU Basic). Bucket private `vuongej/heritage-processor-data` gắn tại `/home/user/work` giữ job,
+CSV kết quả, ảnh và cache model qua lần rebuild/restart. Không đưa CSV người dùng vào Git.
 
-1. **Chạy image `deploy/processor.Dockerfile`** ở nơi có ổ đĩa bền cho `/home/user/work` (VM, hoặc HF Space có persistent storage). Service cần torch; nếu không có GPU thì SigLIP2 chạy khoảng 8 ảnh/s trên CPU.
-2. **Đặt biến cho service:** `TEST_API_KEY` trùng với `TEST_API_KEY` của Vercel, và `DEEPSEEK_API_KEY` nếu dùng VLM.
-3. **Trên Vercel:** `vercel env add PROCESS_URL production` = URL của service.
+Thiết lập lần đầu từ máy local có `.env` production:
 
-   Proxy chỉ chuyển đúng các route của Pipeline A (upload ≤ 4 MB do giới hạn payload của Vercel Function), và **không** gửi `HF_SPACE_TOKEN` sang `PROCESS_URL`.
+```bash
+python -m deploy.hf_processor secrets  # cùng PROD_API_KEY; DeepSeek; bucket private + mount
+python -m deploy.hf_processor push
+python -m deploy.hf_processor wait
+gh variable set HF_PROCESS_SPACE -R VSF-AR-ES-V-Lookup/PhamVanVuong_search_image --body vuongej/heritage-processor
+```
 
-CSV lớn hơn 4 MB thì gửi thẳng tới service, hoặc dùng bản `docker compose` (giới hạn 50 MB).
+Trên Vercel, đặt cho cả production và preview rồi redeploy:
+
+- `PROCESS_URL=https://vuongej-heritage-processor.hf.space`
+- `HF_PROCESS_SPACE=vuongej/heritage-processor`
+
+Proxy tái dùng `HF_SPACE_TOKEN` sẵn có **chỉ khi** URL đích khớp chính xác origin HTTPS của
+`HF_PROCESS_SPACE`. VM/host khác không nhận token này. Có thể đặt `PROCESS_HF_TOKEN` riêng
+để thay thế; token chỉ nằm ở server. `TEST_API_KEY` của processor phải trùng với key Vercel.
+
+CI triển khai cả hai Space trước frontend. Khi đã bật deploy bằng `HF_SPACE`, thiếu
+`HF_PROCESS_SPACE` sẽ làm CI fail. Smoke production chạy `python -m deploy.smoke_processing`:
+kiểm tra health, danh sách job, tải mẫu, upload 3 ảnh, chờ SigLIP2/classifier thật và tải CSV
+kết quả; tắt VLM trong smoke để không tiêu quota. Vì thế CI không thể xanh chỉ nhờ test tìm kiếm
+khi proxy xử lý ảnh còn trả 503.
+
+Cloud giới hạn CSV **4 MB** (khớp proxy Vercel); bản `docker compose` mặc định 50 MB.
+CPU Basic có thể ngủ khi không hoạt động; lần mở đầu sau đó cần chờ service nạp lại model.
 
 ## Hạn chế đã biết
 

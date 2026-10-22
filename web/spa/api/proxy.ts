@@ -56,9 +56,16 @@ export default async function handler(req: Request): Promise<Response> {
   const key = process.env.TEST_API_KEY;
   if (key) headers.set('X-API-Key', key);
   // Space private: HF chỉ cho qua request có token (quyền read) của chủ Space.
-  // Chỉ gửi token này tới Space backend, không bao giờ tới PROCESS_URL (host khác).
-  const hfToken = process.env.HF_SPACE_TOKEN;
-  if (hfToken && !route.process) headers.set('Authorization', `Bearer ${hfToken}`);
+  // Có thể dùng token riêng. Chỉ tái dùng token HF sẵn có khi đích khớp đúng
+  // Space được quản trị viên khai báo; PROCESS_URL tới VM/host khác không nhận token này.
+  const processSpace = process.env.HF_PROCESS_SPACE ?? '';
+  const processSpaceOrigin = /^[\w.-]+\/[\w.-]+$/.test(processSpace)
+    ? `https://${processSpace.replace(/[\/_.]/g, '-').toLowerCase()}.hf.space` : '';
+  const trustedProcessSpace = processSpaceOrigin !== '' && target.replace(/\/+$/, '') === processSpaceOrigin;
+  const hfToken = route.process
+    ? process.env.PROCESS_HF_TOKEN || (trustedProcessSpace ? process.env.HF_SPACE_TOKEN : undefined)
+    : process.env.HF_SPACE_TOKEN;
+  if (hfToken) headers.set('Authorization', `Bearer ${hfToken}`);
 
   const t0 = Date.now();
   let upstream: Response;

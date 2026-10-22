@@ -126,8 +126,13 @@ def set_secrets(_args) -> None:
 def wait(args) -> None:
     api = _api()
     space = _space(api)
+    wait_for_space(api, space, "/v1/health", args.timeout)
+
+
+def wait_for_space(api, space: str, health_path: str, timeout: int) -> None:
+    """Chờ đúng revision và endpoint health của từng service."""
     head = api.space_info(space).sha
-    deadline = time.time() + args.timeout
+    deadline = time.time() + timeout
     last = None
     while time.time() < deadline:
         rt = api.get_space_runtime(space)
@@ -141,9 +146,9 @@ def wait(args) -> None:
             break
         time.sleep(15)
     else:
-        sys.exit(f"Quá {args.timeout} s mà Space chưa RUNNING")
+        sys.exit(f"Quá {timeout} s mà Space chưa RUNNING")
 
-    url = f"{space_url(space)}/v1/health"
+    url = f"{space_url(space)}{health_path}"
     req = urllib.request.Request(url, headers={"Authorization": f"Bearer {_token()}"})
     while time.time() < deadline:
         try:
