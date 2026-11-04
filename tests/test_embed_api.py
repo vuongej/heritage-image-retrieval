@@ -142,6 +142,7 @@ def rerank_api(monkeypatch):
 
 
 def test_api_rerank_orders_by_cross_encoder_score(rerank_api, monkeypatch):
+    monkeypatch.delenv("RERANK_API_MODEL", raising=False)  # kiểm tra model mặc định, không lấy từ .env
     fake = FakeRerank([0.1, 0.9, 0.5])
     monkeypatch.setattr(rerank_api, "_api_client", fake)
     pool = [

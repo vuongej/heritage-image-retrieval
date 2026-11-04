@@ -3,7 +3,7 @@
 Backend (`EMBED_BACKEND`):
 - `torch` / `onnx_int8` — MiniLM chạy local (384d);
 - `api` — endpoint tương thích OpenAI `/v1/embeddings` (EMBED_API_BASE, EMBED_API_KEY), hiện là
-  `qwen3-embedding-4b` (2560d, vLLM sau LiteLLM). Model instruction-aware: câu truy vấn có tiền tố
+  `qwen3-embedding-4b` (2560d, qua OpenRouter; tên phía API đặt bằng EMBED_API_MODEL). Model instruction-aware: câu truy vấn có tiền tố
   `Instruct: ... / Query: ...` (2 dòng), metadata ảnh (document) gửi nguyên văn.
 """
 
@@ -27,6 +27,9 @@ EMBED_MODEL = os.getenv(
     "EMBED_MODEL", "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
 )
 EMBED_BACKEND = os.getenv("EMBED_BACKEND", "torch")
+# Tên model gửi lên endpoint, khi nhà cung cấp đặt tên khác (OpenRouter: `qwen/qwen3-embedding-4b`).
+# EMBED_MODEL vẫn là định danh của index: cùng model ở nhà cung cấp khác không phải dựng lại index.
+EMBED_API_MODEL = os.getenv("EMBED_API_MODEL") or EMBED_MODEL
 # Độ dài input tối đa đưa vào manifest index: đổi -> index cũ không được dùng lại.
 EMBED_MAX_SEQ = 128 if EMBED_BACKEND != "api" else int(os.getenv("EMBED_API_MAX_TOKENS", "8192"))
 QUERY_INSTRUCTION = os.getenv(
@@ -154,7 +157,7 @@ def _api_batch(texts: list[str]) -> list[list[float]]:
             ratelimit.acquire()  # dùng chung hạn mức 100 request/phút/key với rerank
             response = _http().post(
                 base + "/embeddings",
-                json={"model": EMBED_MODEL, "input": texts},
+                json={"model": EMBED_API_MODEL, "input": texts},
                 headers={"Authorization": "Bearer " + key},
             )
         except httpx.HTTPError as exc:
